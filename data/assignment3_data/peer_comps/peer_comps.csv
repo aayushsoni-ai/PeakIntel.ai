@@ -1,0 +1,6 @@
+company_name,ticker,industry,revenue,gross_margin,ebitda_margin,revenue_growth
+Salesforce,CRM,SaaS,31352000000,0.76,0.31,0.11
+ServiceNow,NOW,SaaS,7243000000,0.79,0.26,0.26
+Workday,WDAY,SaaS,5139000000,0.73,0.19,0.17
+Generic Manufacturing Peer,MFGP,Manufacturing,2500000000,0.32,0.18,0.08
+Generic Retail Peer,RTLX,Retail,4200000000,0.29,0.1,0.06

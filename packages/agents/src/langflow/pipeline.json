@@ -1,0 +1,137 @@
+{
+  "name": "Pinnacle AI Full Pipeline",
+  "description": "Langflow representation of the 4-phase, 10-agent orchestration pipeline",
+  "data": {
+    "nodes": [
+      {
+        "id": "Phase1_Normalization",
+        "type": "CustomComponent",
+        "data": {
+          "node": {
+            "name": "PLNormalizationAgent",
+            "description": "Normalizes P&L data",
+            "category": "agents"
+          }
+        },
+        "position": { "x": 100, "y": 200 }
+      },
+      {
+        "id": "Phase2_Margin",
+        "type": "CustomComponent",
+        "data": {
+          "node": {
+            "name": "MarginAnalysisAgent",
+            "description": "Calculates margin metrics",
+            "category": "agents"
+          }
+        },
+        "position": { "x": 400, "y": 50 }
+      },
+      {
+        "id": "Phase2_Cost",
+        "type": "CustomComponent",
+        "data": {
+          "node": {
+            "name": "CostStructureAgent",
+            "description": "Analyzes cost ratios",
+            "category": "agents"
+          }
+        },
+        "position": { "x": 400, "y": 150 }
+      },
+      {
+        "id": "Phase2_Revenue",
+        "type": "CustomComponent",
+        "data": {
+          "node": {
+            "name": "RevenueQualityAgent",
+            "description": "Analyzes revenue composition",
+            "category": "agents"
+          }
+        },
+        "position": { "x": 400, "y": 250 }
+      },
+      {
+        "id": "Phase2_Trend",
+        "type": "CustomComponent",
+        "data": {
+          "node": {
+            "name": "TrendDetectionAgent",
+            "description": "Detects statistical trends",
+            "category": "agents"
+          }
+        },
+        "position": { "x": 400, "y": 350 }
+      },
+      {
+        "id": "Phase3_Benchmark",
+        "type": "CustomComponent",
+        "data": {
+          "node": {
+            "name": "BenchmarkPeerAnalysisAgent",
+            "description": "Compares peers",
+            "category": "agents"
+          }
+        },
+        "position": { "x": 700, "y": 100 }
+      },
+      {
+        "id": "Phase3_Anomaly",
+        "type": "CustomComponent",
+        "data": {
+          "node": {
+            "name": "AnomalyDetectionAgent",
+            "description": "Detects statistical anomalies",
+            "category": "agents"
+          }
+        },
+        "position": { "x": 700, "y": 200 }
+      },
+      {
+        "id": "Phase3_BestPractice",
+        "type": "CustomComponent",
+        "data": {
+          "node": {
+            "name": "BestPracticeIdentificationAgent",
+            "description": "Identifies best practices",
+            "category": "agents"
+          }
+        },
+        "position": { "x": 700, "y": 300 }
+      },
+      {
+        "id": "Phase4_Synthesis",
+        "type": "CustomComponent",
+        "data": {
+          "node": {
+            "name": "InsightGenerationAgent",
+            "description": "Synthesizes final insights",
+            "category": "agents"
+          }
+        },
+        "position": { "x": 1000, "y": 200 }
+      }
+    ],
+    "edges": [
+      { "source": "Phase1_Normalization", "target": "Phase2_Margin" },
+      { "source": "Phase1_Normalization", "target": "Phase2_Cost" },
+      { "source": "Phase1_Normalization", "target": "Phase2_Revenue" },
+      { "source": "Phase1_Normalization", "target": "Phase2_Trend" },
+      { "source": "Phase2_Margin", "target": "Phase3_Benchmark" },
+      { "source": "Phase2_Cost", "target": "Phase3_Benchmark" },
+      { "source": "Phase2_Revenue", "target": "Phase3_Benchmark" },
+      { "source": "Phase2_Trend", "target": "Phase3_Benchmark" },
+      { "source": "Phase2_Margin", "target": "Phase3_Anomaly" },
+      { "source": "Phase2_Cost", "target": "Phase3_Anomaly" },
+      { "source": "Phase2_Revenue", "target": "Phase3_Anomaly" },
+      { "source": "Phase2_Trend", "target": "Phase3_Anomaly" },
+      { "source": "Phase2_Margin", "target": "Phase3_BestPractice" },
+      { "source": "Phase2_Cost", "target": "Phase3_BestPractice" },
+      { "source": "Phase2_Revenue", "target": "Phase3_BestPractice" },
+      { "source": "Phase2_Trend", "target": "Phase3_BestPractice" },
+      { "source": "Phase3_Benchmark", "target": "Phase4_Synthesis" },
+      { "source": "Phase3_Anomaly", "target": "Phase4_Synthesis" },
+      { "source": "Phase3_BestPractice", "target": "Phase4_Synthesis" }
+    ]
+  }
+}

@@ -1,0 +1,401 @@
+company,original_account_code,original_account_name,standard_category,standard_subcategory
+alphatech_saas,4100,Subscription Revenue - SMB,Revenue,Recurring Revenue
+alphatech_saas,4110,Subscription Revenue - Mid-Market,Revenue,Recurring Revenue
+alphatech_saas,4120,Subscription Revenue - Enterprise,Revenue,Recurring Revenue
+alphatech_saas,4130,Implementation Services,Revenue,Services Revenue
+alphatech_saas,4140,Training & Certification,Revenue,Services Revenue
+alphatech_saas,4150,Professional Services - Time & Materials,Revenue,Services Revenue
+alphatech_saas,4160,Marketplace Revenue,Revenue,Other Revenue
+alphatech_saas,4170,Usage-based Overage Revenue,Revenue,Usage Revenue
+alphatech_saas,4180,Usage-based Overage Revenue - Other,Revenue,Usage Revenue
+alphatech_saas,4190,Usage-based Overage Revenue - Other - Other,Revenue,Usage Revenue
+alphatech_saas,4200,Usage-based Overage Revenue - Other - Other - Other,Revenue,Usage Revenue
+alphatech_saas,4210,Usage-based Overage Revenue - Other - Other - Other - Other,Revenue,Usage Revenue
+alphatech_saas,5100,Cloud Infrastructure,COGS,Infrastructure
+alphatech_saas,5110,Customer Support Payroll,COGS,Support
+alphatech_saas,5120,Third-Party Support Tools,COGS,Support
+alphatech_saas,5130,Payment Processing Fees,COGS,Transaction Fees
+alphatech_saas,5140,Customer Onboarding Services,COGS,Services Delivery
+alphatech_saas,5150,Implementation Contractors,COGS,Services Delivery
+alphatech_saas,5160,Implementation Contractors - Other,COGS,Services Delivery
+alphatech_saas,5170,Implementation Contractors - Other - Other,COGS,Services Delivery
+alphatech_saas,5180,Implementation Contractors - Other - Other - Other,COGS,Services Delivery
+alphatech_saas,5190,Implementation Contractors - Other - Other - Other - Other,COGS,Services Delivery
+alphatech_saas,5200,Implementation Contractors - Other - Other - Other - Other - Other,COGS,Services Delivery
+alphatech_saas,5210,Implementation Contractors - Other - Other - Other - Other - Other - Other,COGS,Services Delivery
+alphatech_saas,5220,Implementation Contractors - Other - Other - Other - Other - Other - Other - Other,COGS,Services Delivery
+alphatech_saas,6100,Sales Salaries,Operating Expense,Sales & Marketing
+alphatech_saas,6110,Sales Commissions,Operating Expense,Sales & Marketing
+alphatech_saas,6120,Marketing Programs,Operating Expense,Sales & Marketing
+alphatech_saas,6130,Digital Advertising,Operating Expense,Sales & Marketing
+alphatech_saas,6140,Partner Marketing Funds,Operating Expense,Sales & Marketing
+alphatech_saas,6200,Engineering Salaries,Operating Expense,R&D
+alphatech_saas,6210,Product Management,Operating Expense,R&D
+alphatech_saas,6220,QA & Testing,Operating Expense,R&D
+alphatech_saas,6230,Developer Tools & Licenses,Operating Expense,R&D
+alphatech_saas,6300,General & Administrative Salaries,Operating Expense,G&A
+alphatech_saas,6310,Rent & Facilities,Operating Expense,G&A
+alphatech_saas,6320,IT & Corporate Systems,Operating Expense,G&A
+alphatech_saas,6330,Professional Fees,Operating Expense,G&A
+alphatech_saas,6340,Travel & Entertainment,Operating Expense,G&A
+alphatech_saas,6350,Recruiting & HR,Operating Expense,G&A
+betamfg_inc,4000,Product Sales - Domestic,Revenue,Product Revenue
+betamfg_inc,4010,Product Sales - International,Revenue,Product Revenue
+betamfg_inc,4020,Service & Maintenance,Revenue,Service Revenue
+betamfg_inc,4030,Spare Parts,Revenue,Product Revenue
+betamfg_inc,4040,Spare Parts - Other,Revenue,Product Revenue
+betamfg_inc,4050,Spare Parts - Other - Other,Revenue,Product Revenue
+betamfg_inc,4060,Spare Parts - Other - Other - Other,Revenue,Product Revenue
+betamfg_inc,4070,Spare Parts - Other - Other - Other - Other,Revenue,Product Revenue
+betamfg_inc,4080,Spare Parts - Other - Other - Other - Other - Other,Revenue,Product Revenue
+betamfg_inc,4090,Spare Parts - Other - Other - Other - Other - Other - Other,Revenue,Product Revenue
+betamfg_inc,4100,Spare Parts - Other - Other - Other - Other - Other - Other - Other,Revenue,Product Revenue
+betamfg_inc,4110,Spare Parts - Other - Other - Other - Other - Other - Other - Other - Other,Revenue,Product Revenue
+betamfg_inc,4120,Spare Parts - Other - Other - Other - Other - Other - Other - Other - Other - Other,Revenue,Product Revenue
+betamfg_inc,5000,Direct Materials,COGS,Materials
+betamfg_inc,5010,Direct Labor,COGS,Labor
+betamfg_inc,5020,Manufacturing Overhead,COGS,Overhead
+betamfg_inc,5030,Inbound Freight,COGS,Logistics
+betamfg_inc,5040,Packaging Supplies,COGS,Supplies
+betamfg_inc,5050,Warranty Costs,COGS,Warranty
+betamfg_inc,5060,Inventory Adjustments,COGS,Adjustments
+betamfg_inc,5070,Inventory Adjustments - Other,COGS,Adjustments
+betamfg_inc,5080,Inventory Adjustments - Other - Other,COGS,Adjustments
+betamfg_inc,5090,Inventory Adjustments - Other - Other - Other,COGS,Adjustments
+betamfg_inc,5100,Inventory Adjustments - Other - Other - Other - Other,COGS,Adjustments
+betamfg_inc,5110,Inventory Adjustments - Other - Other - Other - Other - Other,COGS,Adjustments
+betamfg_inc,5120,Inventory Adjustments - Other - Other - Other - Other - Other - Other,COGS,Adjustments
+betamfg_inc,6100,Sales & Marketing,Operating Expense,Sales & Marketing
+betamfg_inc,6200,R&D,Operating Expense,R&D
+betamfg_inc,6300,G&A Salaries,Operating Expense,G&A
+betamfg_inc,6310,Rent & Utilities,Operating Expense,G&A
+betamfg_inc,6320,Corporate Insurance,Operating Expense,G&A
+betamfg_inc,6330,Logistics & Distribution,Operating Expense,Operations
+betamfg_inc,6340,IT & Systems,Operating Expense,G&A
+betamfg_inc,6350,Travel & Entertainment,Operating Expense,G&A
+betamfg_inc,6360,Depreciation & Amortization,Operating Expense,Non-cash
+betamfg_inc,6370,Depreciation & Amortization - Other,Operating Expense,Non-cash
+betamfg_inc,6380,Depreciation & Amortization - Other - Other,Operating Expense,Non-cash
+betamfg_inc,6390,Depreciation & Amortization - Other - Other - Other,Operating Expense,Non-cash
+betamfg_inc,6400,Depreciation & Amortization - Other - Other - Other - Other,Operating Expense,Non-cash
+betamfg_inc,6410,Depreciation & Amortization - Other - Other - Other - Other - Other,Operating Expense,Non-cash
+gammacare_health,4300,Professional Services Fees,Revenue,Services Revenue
+gammacare_health,4310,Retainer Revenue,Revenue,Recurring Revenue
+gammacare_health,4320,Success Fees,Revenue,Other Revenue
+gammacare_health,4330,Other Service Revenue,Revenue,Services Revenue
+gammacare_health,4340,Other Service Revenue - Other,Revenue,Services Revenue
+gammacare_health,4350,Other Service Revenue - Other - Other,Revenue,Services Revenue
+gammacare_health,4360,Other Service Revenue - Other - Other - Other,Revenue,Services Revenue
+gammacare_health,4370,Other Service Revenue - Other - Other - Other - Other,Revenue,Services Revenue
+gammacare_health,4380,Other Service Revenue - Other - Other - Other - Other - Other,Revenue,Services Revenue
+gammacare_health,4390,Other Service Revenue - Other - Other - Other - Other - Other - Other,Revenue,Services Revenue
+gammacare_health,4400,Other Service Revenue - Other - Other - Other - Other - Other - Other - Other,Revenue,Services Revenue
+gammacare_health,4410,Other Service Revenue - Other - Other - Other - Other - Other - Other - Other - Other,Revenue,Services Revenue
+gammacare_health,4420,Other Service Revenue - Other - Other - Other - Other - Other - Other - Other - Other - Other,Revenue,Services Revenue
+gammacare_health,5400,Billable Staff Salaries,COGS,Labor
+gammacare_health,5410,Billable Contractors,COGS,Labor
+gammacare_health,5420,Project Travel,COGS,Travel
+gammacare_health,5430,Other Project Costs,COGS,Other
+gammacare_health,5440,Other Project Costs - Other,COGS,Other
+gammacare_health,5450,Other Project Costs - Other - Other,COGS,Other
+gammacare_health,5460,Other Project Costs - Other - Other - Other,COGS,Other
+gammacare_health,5470,Other Project Costs - Other - Other - Other - Other,COGS,Other
+gammacare_health,5480,Other Project Costs - Other - Other - Other - Other - Other,COGS,Other
+gammacare_health,5490,Other Project Costs - Other - Other - Other - Other - Other - Other,COGS,Other
+gammacare_health,5500,Other Project Costs - Other - Other - Other - Other - Other - Other - Other,COGS,Other
+gammacare_health,5510,Other Project Costs - Other - Other - Other - Other - Other - Other - Other - Other,COGS,Other
+gammacare_health,5520,Other Project Costs - Other - Other - Other - Other - Other - Other - Other - Other - Other,COGS,Other
+gammacare_health,6100,Sales & Marketing,Operating Expense,Sales & Marketing
+gammacare_health,6200,Non-billable Staff Salaries,Operating Expense,G&A
+gammacare_health,6210,Office Rent,Operating Expense,G&A
+gammacare_health,6220,IT & Software,Operating Expense,G&A
+gammacare_health,6230,Professional Fees,Operating Expense,G&A
+gammacare_health,6240,Travel & Entertainment,Operating Expense,G&A
+gammacare_health,6250,Other G&A,Operating Expense,G&A
+gammacare_health,6260,Other G&A - Other,Operating Expense,G&A
+gammacare_health,6270,Other G&A - Other - Other,Operating Expense,G&A
+gammacare_health,6280,Other G&A - Other - Other - Other,Operating Expense,G&A
+gammacare_health,6290,Other G&A - Other - Other - Other - Other,Operating Expense,G&A
+gammacare_health,6300,Other G&A - Other - Other - Other - Other - Other,Operating Expense,G&A
+gammacare_health,6310,Other G&A - Other - Other - Other - Other - Other - Other,Operating Expense,G&A
+gammacare_health,6320,Other G&A - Other - Other - Other - Other - Other - Other - Other,Operating Expense,G&A
+deltaretail_co,4200,Store Sales,Revenue,Product Revenue
+deltaretail_co,4210,E-commerce Sales,Revenue,Product Revenue
+deltaretail_co,4220,Advertising Revenue,Revenue,Other Revenue
+deltaretail_co,4230,Subscription & Membership,Revenue,Recurring Revenue
+deltaretail_co,4240,Other Operating Revenue,Revenue,Other Revenue
+deltaretail_co,4250,Other Operating Revenue - Other,Revenue,Other Revenue
+deltaretail_co,4260,Other Operating Revenue - Other - Other,Revenue,Other Revenue
+deltaretail_co,4270,Other Operating Revenue - Other - Other - Other,Revenue,Other Revenue
+deltaretail_co,4280,Other Operating Revenue - Other - Other - Other - Other,Revenue,Other Revenue
+deltaretail_co,4290,Other Operating Revenue - Other - Other - Other - Other - Other,Revenue,Other Revenue
+deltaretail_co,4300,Other Operating Revenue - Other - Other - Other - Other - Other - Other,Revenue,Other Revenue
+deltaretail_co,4310,Other Operating Revenue - Other - Other - Other - Other - Other - Other - Other,Revenue,Other Revenue
+deltaretail_co,4320,Other Operating Revenue - Other - Other - Other - Other - Other - Other - Other - Other,Revenue,Other Revenue
+deltaretail_co,5200,Merchandise Purchases,COGS,Materials
+deltaretail_co,5210,Freight & Duties,COGS,Logistics
+deltaretail_co,5220,Store Labor,COGS,Labor
+deltaretail_co,5230,Warehouse Labor,COGS,Labor
+deltaretail_co,5240,Inventory Shrink,COGS,Adjustments
+deltaretail_co,5250,Inventory Shrink - Other,COGS,Adjustments
+deltaretail_co,5260,Inventory Shrink - Other - Other,COGS,Adjustments
+deltaretail_co,5270,Inventory Shrink - Other - Other - Other,COGS,Adjustments
+deltaretail_co,5280,Inventory Shrink - Other - Other - Other - Other,COGS,Adjustments
+deltaretail_co,5290,Inventory Shrink - Other - Other - Other - Other - Other,COGS,Adjustments
+deltaretail_co,5300,Inventory Shrink - Other - Other - Other - Other - Other - Other,COGS,Adjustments
+deltaretail_co,5310,Inventory Shrink - Other - Other - Other - Other - Other - Other - Other,COGS,Adjustments
+deltaretail_co,5320,Inventory Shrink - Other - Other - Other - Other - Other - Other - Other - Other,COGS,Adjustments
+deltaretail_co,6100,Marketing & Promotions,Operating Expense,Sales & Marketing
+deltaretail_co,6110,Advertising,Operating Expense,Sales & Marketing
+deltaretail_co,6200,Store Rent & Occupancy,Operating Expense,G&A
+deltaretail_co,6210,Corporate Salaries,Operating Expense,G&A
+deltaretail_co,6220,Logistics Admin,Operating Expense,Operations
+deltaretail_co,6230,IT & Digital,Operating Expense,G&A
+deltaretail_co,6240,Bank & Card Fees,Operating Expense,G&A
+deltaretail_co,6250,Other G&A,Operating Expense,G&A
+deltaretail_co,6260,Other G&A - Other,Operating Expense,G&A
+deltaretail_co,6270,Other G&A - Other - Other,Operating Expense,G&A
+deltaretail_co,6280,Other G&A - Other - Other - Other,Operating Expense,G&A
+deltaretail_co,6290,Other G&A - Other - Other - Other - Other,Operating Expense,G&A
+deltaretail_co,6300,Other G&A - Other - Other - Other - Other - Other,Operating Expense,G&A
+deltaretail_co,6310,Other G&A - Other - Other - Other - Other - Other - Other,Operating Expense,G&A
+epsilon_logistics,4200,Store Sales,Revenue,Product Revenue
+epsilon_logistics,4210,E-commerce Sales,Revenue,Product Revenue
+epsilon_logistics,4220,Advertising Revenue,Revenue,Other Revenue
+epsilon_logistics,4230,Subscription & Membership,Revenue,Recurring Revenue
+epsilon_logistics,4240,Other Operating Revenue,Revenue,Other Revenue
+epsilon_logistics,4250,Other Operating Revenue - Other,Revenue,Other Revenue
+epsilon_logistics,4260,Other Operating Revenue - Other - Other,Revenue,Other Revenue
+epsilon_logistics,4270,Other Operating Revenue - Other - Other - Other,Revenue,Other Revenue
+epsilon_logistics,4280,Other Operating Revenue - Other - Other - Other - Other,Revenue,Other Revenue
+epsilon_logistics,4290,Other Operating Revenue - Other - Other - Other - Other - Other,Revenue,Other Revenue
+epsilon_logistics,4300,Other Operating Revenue - Other - Other - Other - Other - Other - Other,Revenue,Other Revenue
+epsilon_logistics,4310,Other Operating Revenue - Other - Other - Other - Other - Other - Other - Other,Revenue,Other Revenue
+epsilon_logistics,4320,Other Operating Revenue - Other - Other - Other - Other - Other - Other - Other - Other,Revenue,Other Revenue
+epsilon_logistics,5200,Merchandise Purchases,COGS,Materials
+epsilon_logistics,5210,Freight & Duties,COGS,Logistics
+epsilon_logistics,5220,Store Labor,COGS,Labor
+epsilon_logistics,5230,Warehouse Labor,COGS,Labor
+epsilon_logistics,5240,Inventory Shrink,COGS,Adjustments
+epsilon_logistics,5250,Inventory Shrink - Other,COGS,Adjustments
+epsilon_logistics,5260,Inventory Shrink - Other - Other,COGS,Adjustments
+epsilon_logistics,5270,Inventory Shrink - Other - Other - Other,COGS,Adjustments
+epsilon_logistics,5280,Inventory Shrink - Other - Other - Other - Other,COGS,Adjustments
+epsilon_logistics,5290,Inventory Shrink - Other - Other - Other - Other - Other,COGS,Adjustments
+epsilon_logistics,5300,Inventory Shrink - Other - Other - Other - Other - Other - Other,COGS,Adjustments
+epsilon_logistics,5310,Inventory Shrink - Other - Other - Other - Other - Other - Other - Other,COGS,Adjustments
+epsilon_logistics,5320,Inventory Shrink - Other - Other - Other - Other - Other - Other - Other - Other,COGS,Adjustments
+epsilon_logistics,6100,Marketing & Promotions,Operating Expense,Sales & Marketing
+epsilon_logistics,6110,Advertising,Operating Expense,Sales & Marketing
+epsilon_logistics,6200,Store Rent & Occupancy,Operating Expense,G&A
+epsilon_logistics,6210,Corporate Salaries,Operating Expense,G&A
+epsilon_logistics,6220,Logistics Admin,Operating Expense,Operations
+epsilon_logistics,6230,IT & Digital,Operating Expense,G&A
+epsilon_logistics,6240,Bank & Card Fees,Operating Expense,G&A
+epsilon_logistics,6250,Other G&A,Operating Expense,G&A
+epsilon_logistics,6260,Other G&A - Other,Operating Expense,G&A
+epsilon_logistics,6270,Other G&A - Other - Other,Operating Expense,G&A
+epsilon_logistics,6280,Other G&A - Other - Other - Other,Operating Expense,G&A
+epsilon_logistics,6290,Other G&A - Other - Other - Other - Other,Operating Expense,G&A
+epsilon_logistics,6300,Other G&A - Other - Other - Other - Other - Other,Operating Expense,G&A
+epsilon_logistics,6310,Other G&A - Other - Other - Other - Other - Other - Other,Operating Expense,G&A
+zetasoftware,4100,Subscription Revenue - SMB,Revenue,Recurring Revenue
+zetasoftware,4110,Subscription Revenue - Mid-Market,Revenue,Recurring Revenue
+zetasoftware,4120,Subscription Revenue - Enterprise,Revenue,Recurring Revenue
+zetasoftware,4130,Implementation Services,Revenue,Services Revenue
+zetasoftware,4140,Training & Certification,Revenue,Services Revenue
+zetasoftware,4150,Professional Services - Time & Materials,Revenue,Services Revenue
+zetasoftware,4160,Marketplace Revenue,Revenue,Other Revenue
+zetasoftware,4170,Usage-based Overage Revenue,Revenue,Usage Revenue
+zetasoftware,4180,Usage-based Overage Revenue - Other,Revenue,Usage Revenue
+zetasoftware,4190,Usage-based Overage Revenue - Other - Other,Revenue,Usage Revenue
+zetasoftware,4200,Usage-based Overage Revenue - Other - Other - Other,Revenue,Usage Revenue
+zetasoftware,4210,Usage-based Overage Revenue - Other - Other - Other - Other,Revenue,Usage Revenue
+zetasoftware,5100,Cloud Infrastructure,COGS,Infrastructure
+zetasoftware,5110,Customer Support Payroll,COGS,Support
+zetasoftware,5120,Third-Party Support Tools,COGS,Support
+zetasoftware,5130,Payment Processing Fees,COGS,Transaction Fees
+zetasoftware,5140,Customer Onboarding Services,COGS,Services Delivery
+zetasoftware,5150,Implementation Contractors,COGS,Services Delivery
+zetasoftware,5160,Implementation Contractors - Other,COGS,Services Delivery
+zetasoftware,5170,Implementation Contractors - Other - Other,COGS,Services Delivery
+zetasoftware,5180,Implementation Contractors - Other - Other - Other,COGS,Services Delivery
+zetasoftware,5190,Implementation Contractors - Other - Other - Other - Other,COGS,Services Delivery
+zetasoftware,5200,Implementation Contractors - Other - Other - Other - Other - Other,COGS,Services Delivery
+zetasoftware,5210,Implementation Contractors - Other - Other - Other - Other - Other - Other,COGS,Services Delivery
+zetasoftware,5220,Implementation Contractors - Other - Other - Other - Other - Other - Other - Other,COGS,Services Delivery
+zetasoftware,6100,Sales Salaries,Operating Expense,Sales & Marketing
+zetasoftware,6110,Sales Commissions,Operating Expense,Sales & Marketing
+zetasoftware,6120,Marketing Programs,Operating Expense,Sales & Marketing
+zetasoftware,6130,Digital Advertising,Operating Expense,Sales & Marketing
+zetasoftware,6140,Partner Marketing Funds,Operating Expense,Sales & Marketing
+zetasoftware,6200,Engineering Salaries,Operating Expense,R&D
+zetasoftware,6210,Product Management,Operating Expense,R&D
+zetasoftware,6220,QA & Testing,Operating Expense,R&D
+zetasoftware,6230,Developer Tools & Licenses,Operating Expense,R&D
+zetasoftware,6300,General & Administrative Salaries,Operating Expense,G&A
+zetasoftware,6310,Rent & Facilities,Operating Expense,G&A
+zetasoftware,6320,IT & Corporate Systems,Operating Expense,G&A
+zetasoftware,6330,Professional Fees,Operating Expense,G&A
+zetasoftware,6340,Travel & Entertainment,Operating Expense,G&A
+zetasoftware,6350,Recruiting & HR,Operating Expense,G&A
+etaindustrial,4000,Product Sales - Domestic,Revenue,Product Revenue
+etaindustrial,4010,Product Sales - International,Revenue,Product Revenue
+etaindustrial,4020,Service & Maintenance,Revenue,Service Revenue
+etaindustrial,4030,Spare Parts,Revenue,Product Revenue
+etaindustrial,4040,Spare Parts - Other,Revenue,Product Revenue
+etaindustrial,4050,Spare Parts - Other - Other,Revenue,Product Revenue
+etaindustrial,4060,Spare Parts - Other - Other - Other,Revenue,Product Revenue
+etaindustrial,4070,Spare Parts - Other - Other - Other - Other,Revenue,Product Revenue
+etaindustrial,4080,Spare Parts - Other - Other - Other - Other - Other,Revenue,Product Revenue
+etaindustrial,4090,Spare Parts - Other - Other - Other - Other - Other - Other,Revenue,Product Revenue
+etaindustrial,4100,Spare Parts - Other - Other - Other - Other - Other - Other - Other,Revenue,Product Revenue
+etaindustrial,4110,Spare Parts - Other - Other - Other - Other - Other - Other - Other - Other,Revenue,Product Revenue
+etaindustrial,4120,Spare Parts - Other - Other - Other - Other - Other - Other - Other - Other - Other,Revenue,Product Revenue
+etaindustrial,5000,Direct Materials,COGS,Materials
+etaindustrial,5010,Direct Labor,COGS,Labor
+etaindustrial,5020,Manufacturing Overhead,COGS,Overhead
+etaindustrial,5030,Inbound Freight,COGS,Logistics
+etaindustrial,5040,Packaging Supplies,COGS,Supplies
+etaindustrial,5050,Warranty Costs,COGS,Warranty
+etaindustrial,5060,Inventory Adjustments,COGS,Adjustments
+etaindustrial,5070,Inventory Adjustments - Other,COGS,Adjustments
+etaindustrial,5080,Inventory Adjustments - Other - Other,COGS,Adjustments
+etaindustrial,5090,Inventory Adjustments - Other - Other - Other,COGS,Adjustments
+etaindustrial,5100,Inventory Adjustments - Other - Other - Other - Other,COGS,Adjustments
+etaindustrial,5110,Inventory Adjustments - Other - Other - Other - Other - Other,COGS,Adjustments
+etaindustrial,5120,Inventory Adjustments - Other - Other - Other - Other - Other - Other,COGS,Adjustments
+etaindustrial,6100,Sales & Marketing,Operating Expense,Sales & Marketing
+etaindustrial,6200,R&D,Operating Expense,R&D
+etaindustrial,6300,G&A Salaries,Operating Expense,G&A
+etaindustrial,6310,Rent & Utilities,Operating Expense,G&A
+etaindustrial,6320,Corporate Insurance,Operating Expense,G&A
+etaindustrial,6330,Logistics & Distribution,Operating Expense,Operations
+etaindustrial,6340,IT & Systems,Operating Expense,G&A
+etaindustrial,6350,Travel & Entertainment,Operating Expense,G&A
+etaindustrial,6360,Depreciation & Amortization,Operating Expense,Non-cash
+etaindustrial,6370,Depreciation & Amortization - Other,Operating Expense,Non-cash
+etaindustrial,6380,Depreciation & Amortization - Other - Other,Operating Expense,Non-cash
+etaindustrial,6390,Depreciation & Amortization - Other - Other - Other,Operating Expense,Non-cash
+etaindustrial,6400,Depreciation & Amortization - Other - Other - Other - Other,Operating Expense,Non-cash
+etaindustrial,6410,Depreciation & Amortization - Other - Other - Other - Other - Other,Operating Expense,Non-cash
+thetaconsulting,4300,Professional Services Fees,Revenue,Services Revenue
+thetaconsulting,4310,Retainer Revenue,Revenue,Recurring Revenue
+thetaconsulting,4320,Success Fees,Revenue,Other Revenue
+thetaconsulting,4330,Other Service Revenue,Revenue,Services Revenue
+thetaconsulting,4340,Other Service Revenue - Other,Revenue,Services Revenue
+thetaconsulting,4350,Other Service Revenue - Other - Other,Revenue,Services Revenue
+thetaconsulting,4360,Other Service Revenue - Other - Other - Other,Revenue,Services Revenue
+thetaconsulting,4370,Other Service Revenue - Other - Other - Other - Other,Revenue,Services Revenue
+thetaconsulting,4380,Other Service Revenue - Other - Other - Other - Other - Other,Revenue,Services Revenue
+thetaconsulting,4390,Other Service Revenue - Other - Other - Other - Other - Other - Other,Revenue,Services Revenue
+thetaconsulting,4400,Other Service Revenue - Other - Other - Other - Other - Other - Other - Other,Revenue,Services Revenue
+thetaconsulting,4410,Other Service Revenue - Other - Other - Other - Other - Other - Other - Other - Other,Revenue,Services Revenue
+thetaconsulting,4420,Other Service Revenue - Other - Other - Other - Other - Other - Other - Other - Other - Other,Revenue,Services Revenue
+thetaconsulting,5400,Billable Staff Salaries,COGS,Labor
+thetaconsulting,5410,Billable Contractors,COGS,Labor
+thetaconsulting,5420,Project Travel,COGS,Travel
+thetaconsulting,5430,Other Project Costs,COGS,Other
+thetaconsulting,5440,Other Project Costs - Other,COGS,Other
+thetaconsulting,5450,Other Project Costs - Other - Other,COGS,Other
+thetaconsulting,5460,Other Project Costs - Other - Other - Other,COGS,Other
+thetaconsulting,5470,Other Project Costs - Other - Other - Other - Other,COGS,Other
+thetaconsulting,5480,Other Project Costs - Other - Other - Other - Other - Other,COGS,Other
+thetaconsulting,5490,Other Project Costs - Other - Other - Other - Other - Other - Other,COGS,Other
+thetaconsulting,5500,Other Project Costs - Other - Other - Other - Other - Other - Other - Other,COGS,Other
+thetaconsulting,5510,Other Project Costs - Other - Other - Other - Other - Other - Other - Other - Other,COGS,Other
+thetaconsulting,5520,Other Project Costs - Other - Other - Other - Other - Other - Other - Other - Other - Other,COGS,Other
+thetaconsulting,6100,Sales & Marketing,Operating Expense,Sales & Marketing
+thetaconsulting,6200,Non-billable Staff Salaries,Operating Expense,G&A
+thetaconsulting,6210,Office Rent,Operating Expense,G&A
+thetaconsulting,6220,IT & Software,Operating Expense,G&A
+thetaconsulting,6230,Professional Fees,Operating Expense,G&A
+thetaconsulting,6240,Travel & Entertainment,Operating Expense,G&A
+thetaconsulting,6250,Other G&A,Operating Expense,G&A
+thetaconsulting,6260,Other G&A - Other,Operating Expense,G&A
+thetaconsulting,6270,Other G&A - Other - Other,Operating Expense,G&A
+thetaconsulting,6280,Other G&A - Other - Other - Other,Operating Expense,G&A
+thetaconsulting,6290,Other G&A - Other - Other - Other - Other,Operating Expense,G&A
+thetaconsulting,6300,Other G&A - Other - Other - Other - Other - Other,Operating Expense,G&A
+thetaconsulting,6310,Other G&A - Other - Other - Other - Other - Other - Other,Operating Expense,G&A
+thetaconsulting,6320,Other G&A - Other - Other - Other - Other - Other - Other - Other,Operating Expense,G&A
+iotadistribution,4000,Product Sales - Domestic,Revenue,Product Revenue
+iotadistribution,4010,Product Sales - International,Revenue,Product Revenue
+iotadistribution,4020,Service & Maintenance,Revenue,Service Revenue
+iotadistribution,4030,Spare Parts,Revenue,Product Revenue
+iotadistribution,4040,Spare Parts - Other,Revenue,Product Revenue
+iotadistribution,4050,Spare Parts - Other - Other,Revenue,Product Revenue
+iotadistribution,4060,Spare Parts - Other - Other - Other,Revenue,Product Revenue
+iotadistribution,4070,Spare Parts - Other - Other - Other - Other,Revenue,Product Revenue
+iotadistribution,4080,Spare Parts - Other - Other - Other - Other - Other,Revenue,Product Revenue
+iotadistribution,4090,Spare Parts - Other - Other - Other - Other - Other - Other,Revenue,Product Revenue
+iotadistribution,4100,Spare Parts - Other - Other - Other - Other - Other - Other - Other,Revenue,Product Revenue
+iotadistribution,4110,Spare Parts - Other - Other - Other - Other - Other - Other - Other - Other,Revenue,Product Revenue
+iotadistribution,4120,Spare Parts - Other - Other - Other - Other - Other - Other - Other - Other - Other,Revenue,Product Revenue
+iotadistribution,5000,Direct Materials,COGS,Materials
+iotadistribution,5010,Direct Labor,COGS,Labor
+iotadistribution,5020,Manufacturing Overhead,COGS,Overhead
+iotadistribution,5030,Inbound Freight,COGS,Logistics
+iotadistribution,5040,Packaging Supplies,COGS,Supplies
+iotadistribution,5050,Warranty Costs,COGS,Warranty
+iotadistribution,5060,Inventory Adjustments,COGS,Adjustments
+iotadistribution,5070,Inventory Adjustments - Other,COGS,Adjustments
+iotadistribution,5080,Inventory Adjustments - Other - Other,COGS,Adjustments
+iotadistribution,5090,Inventory Adjustments - Other - Other - Other,COGS,Adjustments
+iotadistribution,5100,Inventory Adjustments - Other - Other - Other - Other,COGS,Adjustments
+iotadistribution,5110,Inventory Adjustments - Other - Other - Other - Other - Other,COGS,Adjustments
+iotadistribution,5120,Inventory Adjustments - Other - Other - Other - Other - Other - Other,COGS,Adjustments
+iotadistribution,6100,Sales & Marketing,Operating Expense,Sales & Marketing
+iotadistribution,6200,R&D,Operating Expense,R&D
+iotadistribution,6300,G&A Salaries,Operating Expense,G&A
+iotadistribution,6310,Rent & Utilities,Operating Expense,G&A
+iotadistribution,6320,Corporate Insurance,Operating Expense,G&A
+iotadistribution,6330,Logistics & Distribution,Operating Expense,Operations
+iotadistribution,6340,IT & Systems,Operating Expense,G&A
+iotadistribution,6350,Travel & Entertainment,Operating Expense,G&A
+iotadistribution,6360,Depreciation & Amortization,Operating Expense,Non-cash
+iotadistribution,6370,Depreciation & Amortization - Other,Operating Expense,Non-cash
+iotadistribution,6380,Depreciation & Amortization - Other - Other,Operating Expense,Non-cash
+iotadistribution,6390,Depreciation & Amortization - Other - Other - Other,Operating Expense,Non-cash
+iotadistribution,6400,Depreciation & Amortization - Other - Other - Other - Other,Operating Expense,Non-cash
+iotadistribution,6410,Depreciation & Amortization - Other - Other - Other - Other - Other,Operating Expense,Non-cash
+kappamedia,4200,Store Sales,Revenue,Product Revenue
+kappamedia,4210,E-commerce Sales,Revenue,Product Revenue
+kappamedia,4220,Advertising Revenue,Revenue,Other Revenue
+kappamedia,4230,Subscription & Membership,Revenue,Recurring Revenue
+kappamedia,4240,Other Operating Revenue,Revenue,Other Revenue
+kappamedia,4250,Other Operating Revenue - Other,Revenue,Other Revenue
+kappamedia,4260,Other Operating Revenue - Other - Other,Revenue,Other Revenue
+kappamedia,4270,Other Operating Revenue - Other - Other - Other,Revenue,Other Revenue
+kappamedia,4280,Other Operating Revenue - Other - Other - Other - Other,Revenue,Other Revenue
+kappamedia,4290,Other Operating Revenue - Other - Other - Other - Other - Other,Revenue,Other Revenue
+kappamedia,4300,Other Operating Revenue - Other - Other - Other - Other - Other - Other,Revenue,Other Revenue
+kappamedia,4310,Other Operating Revenue - Other - Other - Other - Other - Other - Other - Other,Revenue,Other Revenue
+kappamedia,4320,Other Operating Revenue - Other - Other - Other - Other - Other - Other - Other - Other,Revenue,Other Revenue
+kappamedia,5200,Merchandise Purchases,COGS,Materials
+kappamedia,5210,Freight & Duties,COGS,Logistics
+kappamedia,5220,Store Labor,COGS,Labor
+kappamedia,5230,Warehouse Labor,COGS,Labor
+kappamedia,5240,Inventory Shrink,COGS,Adjustments
+kappamedia,5250,Inventory Shrink - Other,COGS,Adjustments
+kappamedia,5260,Inventory Shrink - Other - Other,COGS,Adjustments
+kappamedia,5270,Inventory Shrink - Other - Other - Other,COGS,Adjustments
+kappamedia,5280,Inventory Shrink - Other - Other - Other - Other,COGS,Adjustments
+kappamedia,5290,Inventory Shrink - Other - Other - Other - Other - Other,COGS,Adjustments
+kappamedia,5300,Inventory Shrink - Other - Other - Other - Other - Other - Other,COGS,Adjustments
+kappamedia,5310,Inventory Shrink - Other - Other - Other - Other - Other - Other - Other,COGS,Adjustments
+kappamedia,5320,Inventory Shrink - Other - Other - Other - Other - Other - Other - Other - Other,COGS,Adjustments
+kappamedia,6100,Marketing & Promotions,Operating Expense,Sales & Marketing
+kappamedia,6110,Advertising,Operating Expense,Sales & Marketing
+kappamedia,6200,Store Rent & Occupancy,Operating Expense,G&A
+kappamedia,6210,Corporate Salaries,Operating Expense,G&A
+kappamedia,6220,Logistics Admin,Operating Expense,Operations
+kappamedia,6230,IT & Digital,Operating Expense,G&A
+kappamedia,6240,Bank & Card Fees,Operating Expense,G&A
+kappamedia,6250,Other G&A,Operating Expense,G&A
+kappamedia,6260,Other G&A - Other,Operating Expense,G&A
+kappamedia,6270,Other G&A - Other - Other,Operating Expense,G&A
+kappamedia,6280,Other G&A - Other - Other - Other,Operating Expense,G&A
+kappamedia,6290,Other G&A - Other - Other - Other - Other,Operating Expense,G&A
+kappamedia,6300,Other G&A - Other - Other - Other - Other - Other,Operating Expense,G&A
+kappamedia,6310,Other G&A - Other - Other - Other - Other - Other - Other,Operating Expense,G&A

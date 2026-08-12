@@ -1,0 +1,197 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+model Company {
+  id              String   @id
+  name            String
+  industry        String
+  sector          String
+  annualRevenue   Float
+  employeeCount   Int
+  acquisitionDate DateTime
+  geography       String
+  entryRevenue    Float
+  marginProfile   Float
+  createdAt       DateTime @default(now())
+  updatedAt       DateTime @updatedAt
+
+  plStatements    PlStatement[]
+  insights        Insight[]
+  kpiRecords      KpiRecord[]
+  emailRecipients EmailRecipient[]
+  computedMetrics ComputedMetric[]
+
+  @@map("companies")
+}
+
+model PlStatement {
+  id                 String   @id @default(cuid())
+  companyId          String
+  period             String
+  accountCode        Int
+  accountName        String
+  standardCategory   String
+  standardSubcategory String  @default("")
+  amount             Float
+  normalizedAmount   Float    @default(0)
+  isNormalized       Boolean  @default(false)
+  createdAt          DateTime @default(now())
+
+  company Company @relation(fields: [companyId], references: [id], onDelete: Cascade)
+
+  @@index([companyId, period])
+  @@index([companyId])
+  @@map("pl_statements")
+}
+
+model AccountMapping {
+  id                  String   @id @default(cuid())
+  companyId           String
+  originalAccountCode Int
+  originalAccountName String
+  standardCategory    String
+  standardSubcategory String
+  confidence          Float    @default(1.0)
+  mappedBy            String   @default("seed")
+  createdAt           DateTime @default(now())
+
+  @@index([companyId])
+  @@map("account_mappings")
+}
+
+model ComputedMetric {
+  id             String   @id @default(cuid())
+  companyId      String
+  period         String
+  metricName     String
+  value          Float
+  target         Float?
+  benchmark      Float?
+  percentileRank Float?
+  createdAt      DateTime @default(now())
+
+  company Company @relation(fields: [companyId], references: [id], onDelete: Cascade)
+
+  @@index([companyId, period])
+  @@index([companyId, metricName])
+  @@map("computed_metrics")
+}
+
+model Insight {
+  id                String   @id @default(cuid())
+  companyId         String?
+  agentName         String
+  severity          String
+  category          String
+  title             String
+  summary           String   @db.Text
+  supportingData    Json     @default("{}")
+  recommendations   Json     @default("[]")
+  relatedInsightIds String[] @default([])
+  status            String   @default("new")
+  period            String?
+  createdAt         DateTime @default(now())
+
+  company Company? @relation(fields: [companyId], references: [id], onDelete: SetNull)
+
+  @@index([companyId])
+  @@index([severity])
+  @@index([category])
+  @@index([status])
+  @@map("insights")
+}
+
+model AgentRun {
+  id            String    @id @default(cuid())
+  agentName     String
+  status        String
+  triggerType   String
+  startedAt     DateTime  @default(now())
+  completedAt   DateTime?
+  errorMessage  String?
+  resultSummary Json?
+
+  @@index([agentName])
+  @@index([status])
+  @@map("agent_runs")
+}
+
+model EmailLog {
+  id             String    @id @default(cuid())
+  templateType   String
+  recipientEmail String
+  recipientRole  String
+  companyId      String?
+  subject        String
+  status         String    @default("pending")
+  sentAt         DateTime?
+  createdAt      DateTime  @default(now())
+
+  @@index([companyId])
+  @@index([status])
+  @@map("email_logs")
+}
+
+model EmailRecipient {
+  id        String  @id @default(cuid())
+  companyId String
+  email     String
+  name      String
+  role      String
+  isActive  Boolean @default(true)
+
+  company Company @relation(fields: [companyId], references: [id], onDelete: Cascade)
+
+  @@index([companyId])
+  @@map("email_recipients")
+}
+
+model IndustryBenchmark {
+  id         String   @id @default(cuid())
+  industry   String
+  metricName String
+  p25        Float
+  p50        Float
+  p75        Float
+  p90        Float
+  source     String   @default("internal")
+  asOfDate   DateTime @default(now())
+
+  @@index([industry, metricName])
+  @@map("industry_benchmarks")
+}
+
+model PeerComp {
+  id            String @id @default(cuid())
+  companyName   String
+  ticker        String
+  industry      String
+  revenue       Float
+  grossMargin   Float
+  ebitdaMargin  Float
+  revenueGrowth Float
+
+  @@index([industry])
+  @@map("peer_comps")
+}
+
+model KpiRecord {
+  id        String @id @default(cuid())
+  companyId String
+  period    String
+  kpiName   String
+  value     Float
+  target    Float?
+
+  company Company @relation(fields: [companyId], references: [id], onDelete: Cascade)
+
+  @@index([companyId, period])
+  @@index([companyId, kpiName])
+  @@map("kpi_records")
+}

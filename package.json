@@ -1,0 +1,22 @@
+{
+  "name": "pinnacle-intelligence",
+  "version": "1.0.0",
+  "private": true,
+  "description": "Pinnacle AI — Autonomous Agentic Intelligence Platform for Private Equity",
+  "scripts": {
+    "dev": "turbo run dev",
+    "build": "turbo run build",
+    "lint": "turbo run lint",
+    "test": "turbo run test",
+    "db:generate": "turbo run db:generate --filter=@pinnacle/database",
+    "db:push": "turbo run db:push --filter=@pinnacle/database",
+    "db:seed": "turbo run db:seed --filter=@pinnacle/database",
+    "dev:api": "turbo run dev --filter=@pinnacle/api",
+    "dev:web": "turbo run dev --filter=@pinnacle/web",
+    "dev:agents": "cd packages/agents && python run_agents.py"
+  },
+  "devDependencies": {
+    "turbo": "^2.5.0"
+  },
+  "packageManager": "pnpm@9.15.0"
+}

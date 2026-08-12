@@ -1,0 +1,53 @@
+node_modules
+.env
+.env.local
+.env.development.local
+.env.test.local
+.env.production.local
+.env*.local
+
+# Build artifacts
+dist
+build
+.next
+.turbo
+out
+
+# Caches
+.cache
+.eslintcache
+*.tsbuildinfo
+
+# Logs
+*.log
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+pnpm-debug.log*
+
+# Python
+__pycache__
+*.pyc
+*.pyo
+*.pyd
+.venv
+venv
+ENV
+env
+
+# OS
+.DS_Store
+Thumbs.db
+
+# Databases
+postgres_data
+redis_data
+*.db
+*.sqlite
+
+# Temporary files
+tmp
+temp
+*.tmp
+packages/agents/test_out.json
+test_out.json

@@ -1,0 +1,112 @@
+# PaperclipAI Orchestration Configuration
+# Defines agent graph, communication channels, and escalation rules
+
+orchestration:
+  name: "Pinnacle Portfolio Analysis Pipeline"
+  version: "1.0"
+  memory_backend: "redis"
+  redis_url: "${REDIS_URL}"
+
+agents:
+  - name: "MasterOrchestrator"
+    type: "coordinator"
+    description: "Coordinates the full 4-phase pipeline"
+    can_call:
+      - "PLNormalization"
+      - "MarginAnalysis"
+      - "CostStructure" 
+      - "RevenueQuality"
+      - "TrendDetection"
+      - "BenchmarkPeerAnalysis"
+      - "AnomalyDetection"
+      - "BestPracticeIdentification"
+      - "InsightGeneration"
+
+  - name: "PLNormalization"
+    type: "worker"
+    description: "Normalizes P&L GL accounts to standard categories"
+    can_call: []
+
+  - name: "MarginAnalysis"
+    type: "worker"
+    description: "Calculates and analyzes margin metrics"
+    can_call: []
+
+  - name: "CostStructure"
+    type: "worker"
+    description: "Analyzes cost ratios and operating leverage"
+    can_call: []
+
+  - name: "RevenueQuality"
+    type: "worker"
+    description: "Assesses revenue composition and growth quality"
+    can_call: []
+
+  - name: "TrendDetection"
+    type: "worker"
+    description: "Statistical trend analysis with projections"
+    can_call: []
+
+  - name: "BenchmarkPeerAnalysis"
+    type: "worker"
+    description: "Cross-company and industry benchmarking"
+    can_call: []
+
+  - name: "AnomalyDetection"
+    type: "worker"
+    description: "Statistical anomaly detection in P&L data"
+    can_call: []
+
+  - name: "BestPracticeIdentification"
+    type: "aggregator"
+    description: "Identifies transferable best practices from top performers"
+    can_call: []
+
+  - name: "InsightGeneration"
+    type: "synthesizer"
+    description: "Final insight synthesis and email trigger"
+    can_call: []
+
+pipeline:
+  phases:
+    - name: "Phase 1: Preparation"
+      execution: "sequential"
+      agents: ["PLNormalization"]
+      scope: "per_company"
+      
+    - name: "Phase 2: Core Analysis"
+      execution: "parallel"
+      agents: ["MarginAnalysis", "CostStructure", "RevenueQuality", "TrendDetection"]
+      scope: "per_company"
+      depends_on: ["Phase 1: Preparation"]
+      
+    - name: "Phase 3: Comparative Analysis"
+      execution: "sequential"
+      agents: ["BenchmarkPeerAnalysis", "AnomalyDetection", "BestPracticeIdentification"]
+      scope: "portfolio"
+      depends_on: ["Phase 2: Core Analysis"]
+      
+    - name: "Phase 4: Synthesis"
+      execution: "sequential"
+      agents: ["InsightGeneration"]
+      scope: "portfolio"
+      depends_on: ["Phase 3: Comparative Analysis"]
+
+escalation:
+  rules:
+    - condition: "insight.severity == 'critical'"
+      action: "notify_immediately"
+      channels: ["email", "websocket"]
+      recipients: ["pe_partner"]
+      
+    - condition: "agent.status == 'failed' && agent.retry_count >= 3"
+      action: "pause_pipeline"
+      notify: ["ops_team"]
+
+monitoring:
+  health_check_interval: 30  # seconds
+  max_agent_runtime: 300     # seconds per agent
+  retry_policy:
+    max_retries: 3
+    backoff: "exponential"
+    initial_delay: 5  # seconds

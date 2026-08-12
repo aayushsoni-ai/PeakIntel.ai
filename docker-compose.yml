@@ -1,0 +1,95 @@
+version: "3.8"
+
+services:
+  db:
+    image: postgres:16-alpine
+    container_name: pinnacle_db
+    environment:
+      POSTGRES_USER: pinnacle
+      POSTGRES_PASSWORD: password
+      POSTGRES_DB: pinnacle_db
+    ports:
+      - "5432:5432"
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U pinnacle -d pinnacle_db"]
+      interval: 5s
+      timeout: 5s
+      retries: 5
+
+  redis:
+    image: redis:7-alpine
+    container_name: pinnacle_redis
+    ports:
+      - "6379:6379"
+    volumes:
+      - redis_data:/data
+    command: redis-server --appendonly yes
+    healthcheck:
+      test: ["CMD", "redis-cli", "ping"]
+      interval: 5s
+      timeout: 5s
+      retries: 5
+
+  api:
+    build:
+      context: .
+      dockerfile: apps/api/Dockerfile
+    container_name: pinnacle_api
+    depends_on:
+      db:
+        condition: service_healthy
+      redis:
+        condition: service_healthy
+    environment:
+      - DATABASE_URL=postgresql://pinnacle:password@db:5432/pinnacle_db
+      - REDIS_URL=redis://redis:6379
+      - PORT=3001
+      - NEXT_PUBLIC_API_URL=http://localhost:3001
+    ports:
+      - "3001:3001"
+    volumes:
+      - ./packages/shared:/app/packages/shared
+      - ./packages/database:/app/packages/database
+      - ./apps/api/src:/app/apps/api/src
+
+  web:
+    build:
+      context: .
+      dockerfile: apps/web/Dockerfile
+    container_name: pinnacle_web
+    depends_on:
+      - api
+    environment:
+      - NEXT_PUBLIC_API_URL=http://localhost:3001
+      - NEXT_PUBLIC_WS_URL=ws://localhost:3001
+    ports:
+      - "3000:3000"
+    volumes:
+      - ./apps/web/app:/app/apps/web/app
+      - ./apps/web/components:/app/apps/web/components
+
+  agents:
+    build:
+      context: .
+      dockerfile: packages/agents/Dockerfile
+    container_name: pinnacle_agents
+    depends_on:
+      db:
+        condition: service_healthy
+      redis:
+        condition: service_healthy
+    environment:
+      - DATABASE_URL=postgresql://pinnacle:password@db:5432/pinnacle_db
+      - REDIS_URL=redis://redis:6379
+      - GROQ_API_KEY=${GROQ_API_KEY:-}
+    ports:
+      - "8001:8001"
+    volumes:
+      - ./packages/agents/src:/app/src
+      - ./packages/agents/run_agents.py:/app/run_agents.py
+
+volumes:
+  postgres_data:
+  redis_data:
