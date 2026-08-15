@@ -170,10 +170,10 @@ erDiagram
 
 ### 1. Environment Setup
 ```bash
-git clone <repo-url>
+git clone https://github.com/ankurraj2003/PinnacleAI.git
 cd PinnacleAI
 cp .env.example .env
-# Required keys: GROQ_API_KEY, RESEND_API_KEY (optional for test mode)
+# Required keys: GROQ_API_KEY, RESEND_API_KEY
 ```
 
 ### 2. Dependency Installation
