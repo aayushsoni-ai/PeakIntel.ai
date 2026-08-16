@@ -160,56 +160,77 @@ erDiagram
 
 ---
 
-## 🚀 Setup Instructions
+## 🚀 Exact Local Setup Guide
 
-### Prerequisites
-- **Node.js 22+** & **pnpm 9+**
-- **Python 3.12+**
-- **Docker Desktop** (for PostgreSQL & Redis)
+Follow these steps precisely to get the full Pinnacle AI platform running on your local machine.
 
-### 1. Environment Setup
+### 📋 Prerequisites
+
+| Tool | Version | Purpose |
+| :--- | :--- | :--- |
+| **Node.js** | `v22+` | Core platform runtime |
+| **pnpm** | `v9+` | Fast package management |
+| **Python** | `v3.12+` | Multi-agent logic (ML/Analytical layer) |
+| **Docker Desktop** | Latest | Infrastructure (Postgres, Redis) |
+
+### 1. Repository & Environment
 ```bash
+# Clone the repository
 git clone https://github.com/ankurraj2003/PinnacleAI.git
 cd PinnacleAI
+
+# Copy the example environment file
 cp .env.example .env
-# Required keys: GROQ_API_KEY, RESEND_API_KEY
 ```
 
-### 2. Dependency Installation
-```bash
-# Monorepo and Frontend/API
-pnpm install
+> [!IMPORTANT]
+> Update the `.env` file with your **GROQ_API_KEY** and **RESEND_API_KEY**. The default `DATABASE_URL` and `REDIS_URL` are pre-configured for the Docker local setup.
 
-# Python Agent Virtual Env
+### 2. Node.js & Workspace Installation
+```bash
+# Install root and workspace dependencies (Web & API)
+pnpm install
+```
+
+### 3. Python Multi-Agent Setup
+We use a dedicated virtual environment for the AI agentic layer.
+```bash
+# 1. Create a virtual environment
 python -m venv .venv
-source .venv/bin/activate  # macOS/Linux
-.venv\Scripts\activate     # Windows
+
+# 2. Activate the environment
+# Windows:
+.venv\Scripts\activate
+# Mac / Linux:
+source .venv/bin/activate
+
+# 3. Install agent-specific dependencies
 pip install -r packages/agents/requirements.txt
 ```
 
-### 3. Database & Infrastructure
+### 4. Infrastructure & Database Initialization
 ```bash
-# Start Postgres & Redis
+# Start Docker services (PostgreSQL & Redis)
 docker compose up -d
 
-# Push Schema & Seed 14K+ rows of financial data
+# Initialize the Database Schema (Prisma)
 pnpm db:push
+
+# Seed the portfolio (14,000+ data points for 10 companies)
 pnpm db:seed
 ```
 
-### 4. Running the Platform
-Open three terminals or use the VS Code Task "Run All":
-```bash
-# Terminal 1: NestJS API
-pnpm dev:api
+### 5. Running the Application
+To verify the full "Human-Agent" interaction, you must run all three services concurrently.
 
-# Terminal 2: Next.js Web
-pnpm dev:web
+| Service | Command | Endpoints |
+| :--- | :--- | :--- |
+| **NestJS API** | `pnpm dev:api` | `http://localhost:3001` (tRPC/WS) |
+| **Next.js Web** | `pnpm dev:web` | `http://localhost:3000` (Dashboard) |
+| **Python AgentsCLI**| `python packages/agents/run_agents.py` | `http://localhost:8001` (Internal API) |
 
-# Terminal 3: Agent Server
-pnpm dev:agents
-```
-Visit **http://localhost:3000**.
+> [!TIP]
+> You can also use the **"Run All"** task in VS Code if you have the recommended extensions installed.
 
 ---
 
