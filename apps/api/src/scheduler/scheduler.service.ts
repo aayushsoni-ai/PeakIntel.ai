@@ -1,76 +1,47 @@
 import { Injectable, Logger, OnModuleInit } from "@nestjs/common";
-import * as cron from "node-cron";
-import { RedisService } from "../redis/redis.service";
-import { PrismaService } from "../prisma/prisma.service";
+import { InjectQueue } from "@nestjs/bullmq";
+import { Queue } from "bullmq";
 
 @Injectable()
 export class SchedulerService implements OnModuleInit {
   private readonly logger = new Logger(SchedulerService.name);
 
   constructor(
-    private readonly redis: RedisService,
-    private readonly prisma: PrismaService
+    @InjectQueue("agent_jobs") private readonly agentQueue: Queue
   ) {}
 
-  onModuleInit(): void {
-    this.setupSchedules();
+  async onModuleInit(): Promise<void> {
+    await this.setupSchedules();
   }
 
-  private setupSchedules(): void {
+  private async setupSchedules(): Promise<void> {
+    // Clear existing repeatable jobs to avoid duplicates on restart
+    const repeatableJobs = await this.agentQueue.getRepeatableJobs();
+    for (const job of repeatableJobs) {
+      await this.agentQueue.removeRepeatableByKey(job.key);
+    }
+
     // Daily 7:00am — light monitoring
-    cron.schedule("0 7 * * *", () => {
-      this.logger.log("Triggering daily flash analysis");
-      void this.triggerJob("daily_flash");
-    });
+    await this.agentQueue.add(
+      "daily_flash",
+      {},
+      { repeat: { pattern: "0 7 * * *" } }
+    );
 
     // Monday 6:00am — weekly deep analysis
-    cron.schedule("0 6 * * MON", () => {
-      this.logger.log("Triggering weekly full analysis");
-      void this.triggerJob("weekly_full_analysis");
-    });
+    await this.agentQueue.add(
+      "weekly_full_analysis",
+      {},
+      { repeat: { pattern: "0 6 * * MON" } }
+    );
 
     // 1st of each month, 4:00am — monthly comprehensive review
-    cron.schedule("0 4 1 * *", () => {
-      this.logger.log("Triggering monthly board analysis");
-      void this.triggerJob("monthly_board_analysis");
-    });
+    await this.agentQueue.add(
+      "monthly_board_analysis",
+      {},
+      { repeat: { pattern: "0 4 1 * *" } }
+    );
 
-    this.logger.log("Cron schedules initialized: daily (7am), weekly (Mon 6am), monthly (1st 4am)");
-  }
-
-  private async triggerJob(type: string): Promise<void> {
-    try {
-      const run = await this.prisma.agentRun.create({
-        data: {
-          agentName: "MasterOrchestrator",
-          status: "running",
-          triggerType: "scheduled",
-        },
-      });
-
-      await this.redis.publish(
-        "agent:started",
-        JSON.stringify({
-          agentName: "MasterOrchestrator",
-          runId: run.id,
-          phase: "initialization",
-          jobType: type,
-        })
-      );
-
-      // Actually trigger the Python agent server
-      const agentUrl = process.env["AGENT_SERVER_URL"] ?? "http://localhost:8001";
-      fetch(`${agentUrl}/run/full_pipeline`, {
-        method: "POST",
-      }).catch((err) =>
-        this.logger.error(`Failed to trigger python agent for ${type}: ${err}`)
-      );
-
-      this.logger.log(`Scheduled job "${type}" queued with runId: ${run.id}`);
-    } catch (error) {
-      this.logger.error(
-        `Failed to trigger scheduled job "${type}": ${error instanceof Error ? error.message : String(error)}`
-      );
-    }
+    this.logger.log("BullMQ cron schedules initialized: daily (7am), weekly (Mon 6am), monthly (1st 4am)");
   }
 }

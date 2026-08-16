@@ -49,7 +49,8 @@ def query_pl_statements(company_id: str, period: str = "") -> str:
             )
         columns = [desc[0] for desc in cur.description]
         rows = [dict(zip(columns, row)) for row in cur.fetchall()]
-        return json.dumps(rows[:200], default=str)  # Limit to 200 rows for LLM context
+        # Reduce limit to 100 rows to fit within TPM limits (12k tokens)
+        return json.dumps(rows[:100], default=str)
     except Exception as e:
         logger.error(f"DB query failed: {e}")
         return json.dumps({"error": str(e)})
@@ -70,7 +71,7 @@ def query_account_mappings(company_id: str) -> str:
         )
         columns = [desc[0] for desc in cur.description]
         rows = [dict(zip(columns, row)) for row in cur.fetchall()]
-        return json.dumps(rows, default=str)
+        return json.dumps(rows[:100], default=str)
     except Exception as e:
         return json.dumps({"error": str(e)})
     finally:

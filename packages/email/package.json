@@ -2,7 +2,11 @@
   "name": "@pinnacle/email",
   "version": "1.0.0",
   "private": true,
-  "main": "./templates/index.ts",
+  "main": "./dist/index.js",
+  "types": "./dist/index.d.ts",
+  "scripts": {
+    "build": "tsc"
+  },
   "dependencies": {
     "@react-email/components": "^0.0.32",
     "react": "^19.0.0"

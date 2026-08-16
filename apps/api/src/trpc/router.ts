@@ -13,6 +13,14 @@ import {
 } from "@pinnacle/shared";
 import { PrismaService } from "../prisma/prisma.service";
 import { RedisService } from "../redis/redis.service";
+// @ts-ignore - Library lacks type definitions
+import { DataFrame } from "pandas-js";
+import puppeteer from "puppeteer";
+import * as fs from "fs";
+import * as path from "path";
+import { render } from "@react-email/render";
+// @ts-ignore - Assuming standard export structure for the provided library
+import { WeeklyCEOEmail, MonthlyCFOEmail, CriticalAlertEmail, AgentStatusEmail } from "@pinnacle/email";
 
 export interface TrpcContext {
   prisma: PrismaService;
@@ -84,9 +92,13 @@ const portfolioRouter = t.router({
   getSummary: publicProcedure.query(async ({ ctx }) => {
     const companies = await ctx.prisma.company.findMany();
 
-    const totalRevenue = companies.reduce((s, c) => s + c.annualRevenue, 0);
-    const avgGrossMargin =
-      companies.reduce((s, c) => s + c.marginProfile, 0) / companies.length;
+    const df = new DataFrame(companies.map(c => ({
+      annualRevenue: c.annualRevenue,
+      marginProfile: c.marginProfile,
+    })));
+
+    const totalRevenue = df.get("annualRevenue").sum();
+    const avgGrossMargin = df.get("marginProfile").mean();
 
     // Calculate EBITDA from KPI data for latest period
     const latestKpis = await ctx.prisma.kpiRecord.findMany({
@@ -102,10 +114,8 @@ const portfolioRouter = t.router({
     }
 
     const ebitdaMargins = Array.from(latestPeriodKpis.values());
-    const avgEBITDAMargin =
-      ebitdaMargins.length > 0
-        ? ebitdaMargins.reduce((s, v) => s + v, 0) / ebitdaMargins.length
-        : 0;
+    const dfEbitda = new DataFrame(ebitdaMargins.map(val => ({ margin: val })));
+    const avgEBITDAMargin = ebitdaMargins.length > 0 ? dfEbitda.get("margin").mean() : 0;
 
     const totalEBITDA = totalRevenue * avgEBITDAMargin;
 
@@ -243,10 +253,19 @@ const insightsRouter = t.router({
     .input(InsightsListInput.optional())
     .query(async ({ ctx, input }) => {
       const where: Record<string, unknown> = {};
+      
       if (input?.companyId) where["companyId"] = input.companyId;
       if (input?.severity) where["severity"] = input.severity;
       if (input?.category) where["category"] = input.category;
       if (input?.status) where["status"] = input.status;
+      
+      // Full-text search implementation
+      if (input?.search) {
+        where["OR"] = [
+          { title: { search: input.search } },
+          { summary: { search: input.search } }
+        ];
+      }
 
       return ctx.prisma.insight.findMany({
         where,
@@ -389,7 +408,8 @@ const agentsRouter = t.router({
     );
 
     // Call the Python agent server asynchronously
-    fetch(process.env["AGENT_SERVER_URL"] ?? "http://localhost:8001/run/full_pipeline", {
+    const agentUrl = process.env["AGENT_SERVER_URL"] || "http://localhost:8001";
+    fetch(`${agentUrl}/run/full_pipeline`, {
       method: "POST",
     }).catch((err) => console.error("Failed to trigger python agent:", err));
 
@@ -485,6 +505,20 @@ const emailRouter = t.router({
         },
       });
 
+      // Render rich email templates dynamically via React Email
+      let TemplateComponent: any;
+      switch (input.templateType) {
+        case "weekly_ceo": TemplateComponent = WeeklyCEOEmail; break;
+        case "monthly_cfo": TemplateComponent = MonthlyCFOEmail; break;
+        case "critical_alert": TemplateComponent = CriticalAlertEmail; break;
+        case "agent_status": TemplateComponent = AgentStatusEmail; break;
+        default: TemplateComponent = MonthlyCFOEmail;
+      }
+      
+      const emailHtml = await render(TemplateComponent({ 
+        previewText: "Pinnacle AI Analysis Notification" 
+      }));
+
       // Actually send via Resend API
       try {
         const resendKey = process.env["RESEND_API_KEY"];
@@ -499,39 +533,7 @@ const emailRouter = t.router({
               from: "Pinnacle AI <onboarding@resend.dev>",
               to: [input.recipientEmail],
               subject,
-              html: `
-                <div style="font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif; max-width: 600px; margin: 0 auto; padding: 20px; background: #0f172a; color: #e2e8f0;">
-                  <div style="text-align: center; padding: 20px 0; border-bottom: 1px solid #1e293b;">
-                    <h1 style="color: #d4a853; font-size: 24px; margin: 0;">Pinnacle AI</h1>
-                    <p style="color: #94a3b8; font-size: 12px; margin: 4px 0 0;">Portfolio Intelligence Platform</p>
-                  </div>
-                  <div style="padding: 24px 0;">
-                    <h2 style="color: #f1f5f9; font-size: 18px;">${subject}</h2>
-                    <p style="color: #cbd5e1; line-height: 1.6;">
-                      This is an automated email from the Pinnacle AI analytics platform.
-                      Your ${input.templateType.replace(/_/g, ' ')} report is ready.
-                    </p>
-                    <div style="background: #1e293b; border-radius: 8px; padding: 16px; margin: 16px 0;">
-                      <p style="color: #94a3b8; font-size: 13px; margin: 0;">📊 Key Highlights</p>
-                      <ul style="color: #cbd5e1; padding-left: 20px; margin: 8px 0;">
-                        <li>Portfolio-wide EBITDA margin: 18.2%</li>
-                        <li>7 of 10 companies beating budget</li>
-                        <li>Top performer: ZetaSoftware (78% gross margin)</li>
-                        <li>Attention needed: DeltaRetail (SG&A creep detected)</li>
-                      </ul>
-                    </div>
-                    <a href="http://localhost:3000" style="display: inline-block; background: #d4a853; color: #0f172a; text-decoration: none; padding: 10px 24px; border-radius: 6px; font-weight: 600; font-size: 14px;">
-                      View Full Dashboard →
-                    </a>
-                  </div>
-                  <div style="border-top: 1px solid #1e293b; padding: 16px 0; text-align: center;">
-                    <p style="color: #64748b; font-size: 11px; margin: 0;">
-                      Pinnacle Equity Group — Autonomous AI Analytics<br/>
-                      Sent by the Insight Generation Agent
-                    </p>
-                  </div>
-                </div>
-              `,
+              html: emailHtml,
             }),
           });
 
@@ -582,8 +584,27 @@ const reportsRouter = t.router({
           message: "Company not found",
         });
       }
+      
+      // Puppeteer logic to launch headless and save to public web folder
+      const browser = await puppeteer.launch({ headless: true });
+      const page = await browser.newPage();
+      
+      const frontendUrl = process.env.NEXT_PUBLIC_URL ?? "http://localhost:3000";
+      await page.goto(`${frontendUrl}/companies/${input.companyId}?export=true`, { waitUntil: "networkidle0" });
+      
+      const pdfBuffer = await page.pdf({ format: "A4", printBackground: true });
+      await browser.close();
+      
+      const reportsDir = path.join(process.cwd(), "..", "web", "public", "reports");
+      if (!fs.existsSync(reportsDir)) {
+        fs.mkdirSync(reportsDir, { recursive: true });
+      }
+      
+      const filename = `${input.companyId}_${input.period}.pdf`;
+      fs.writeFileSync(path.join(reportsDir, filename), Buffer.from(pdfBuffer));
+
       return {
-        url: `/reports/${input.companyId}_${input.period}.pdf`,
+        url: `/reports/${filename}`,
         status: "generated",
       };
     }),

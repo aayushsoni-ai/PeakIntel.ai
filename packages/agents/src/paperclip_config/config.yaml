@@ -69,28 +69,28 @@ agents:
 
 pipeline:
   phases:
-    - name: "Phase 1: Preparation"
+    - name: "Phase 1 - Preparation"
       execution: "sequential"
       agents: ["PLNormalization"]
       scope: "per_company"
       
-    - name: "Phase 2: Core Analysis"
+    - name: "Phase 2 - Core Analysis"
       execution: "parallel"
       agents: ["MarginAnalysis", "CostStructure", "RevenueQuality", "TrendDetection"]
       scope: "per_company"
-      depends_on: ["Phase 1: Preparation"]
+      depends_on: ["Phase 1 - Preparation"]
       
-    - name: "Phase 3: Comparative Analysis"
+    - name: "Phase 3 - Comparative Analysis"
       execution: "sequential"
       agents: ["BenchmarkPeerAnalysis", "AnomalyDetection", "BestPracticeIdentification"]
       scope: "portfolio"
-      depends_on: ["Phase 2: Core Analysis"]
+      depends_on: ["Phase 2 - Core Analysis"]
       
-    - name: "Phase 4: Synthesis"
+    - name: "Phase 4 - Synthesis"
       execution: "sequential"
       agents: ["InsightGeneration"]
       scope: "portfolio"
-      depends_on: ["Phase 3: Comparative Analysis"]
+      depends_on: ["Phase 3 - Comparative Analysis"]
 
 escalation:
   rules:
