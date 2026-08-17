@@ -8,14 +8,14 @@ import logging
 from typing import Any
 from langgraph.prebuilt import create_react_agent
 from langchain_groq import ChatGroq
-from src.tools.db_query_tool import (
+from tools.db_query_tool import (
     query_pl_statements,
     query_account_mappings,
     write_insight,
     write_computed_metric,
 )
-from src.tools.redis_tool import store_agent_findings, publish_agent_event
-from src.shared_memory import write_findings, publish_event
+from tools.redis_tool import store_agent_findings, publish_agent_event
+from shared_memory import write_findings, publish_event
 
 logger = logging.getLogger("pinnacle.agents.normalization")
 

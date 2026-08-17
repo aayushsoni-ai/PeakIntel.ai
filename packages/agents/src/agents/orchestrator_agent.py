@@ -8,17 +8,17 @@ import logging
 from typing import Any
 
 
-from src.agents.normalization_agent import run_normalization
-from src.agents.margin_agent import run_margin_analysis
-from src.agents.cost_agent import run_cost_analysis
-from src.agents.revenue_agent import run_revenue_analysis
-from src.agents.trend_agent import run_trend_detection
-from src.agents.benchmark_agent import run_benchmark_analysis
-from src.agents.anomaly_agent import run_anomaly_detection
-from src.agents.bestpractice_agent import run_bestpractice_analysis
-from src.agents.insight_agent import run_insight_generation
-from src.shared_memory import publish_event
-from src.paperclipai import PaperclipAI, PipelineState
+from agents.normalization_agent import run_normalization
+from agents.margin_agent import run_margin_analysis
+from agents.cost_agent import run_cost_analysis
+from agents.revenue_agent import run_revenue_analysis
+from agents.trend_agent import run_trend_detection
+from agents.benchmark_agent import run_benchmark_analysis
+from agents.anomaly_agent import run_anomaly_detection
+from agents.bestpractice_agent import run_bestpractice_analysis
+from agents.insight_agent import run_insight_generation
+from shared_memory import publish_event
+from paperclipai import PaperclipAI, PipelineState
 
 logger = logging.getLogger("pinnacle.agents.orchestrator")
 
