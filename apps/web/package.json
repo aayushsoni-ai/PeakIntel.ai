@@ -39,6 +39,7 @@
     "@eslint/eslintrc": "^3.3.5",
     "@pinnacle/api": "workspace:*",
     "@tailwindcss/postcss": "^4",
+    "@trpc/server": "^11.1.0",
     "@types/node": "^22",
     "@types/react": "^19",
     "@types/react-dom": "^19",

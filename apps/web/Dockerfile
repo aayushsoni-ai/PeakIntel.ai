@@ -11,9 +11,14 @@ WORKDIR /app
 COPY package.json pnpm-workspace.yaml turbo.json pnpm-lock.yaml ./
 COPY packages/ ./packages/
 COPY apps/web/ ./apps/web/
-COPY apps/api/src/trpc/ ./apps/api/src/trpc/ 
+COPY apps/api/ ./apps/api/
 
 RUN --mount=type=cache,id=pnpm,target=/pnpm/store pnpm install --frozen-lockfile
+
+# Generate Prisma client for @pinnacle/api
+WORKDIR /app/packages/database
+RUN pnpm prisma generate
+WORKDIR /app
 
 # Support build-time env vars if needed
 # ARG NEXT_PUBLIC_API_URL

@@ -189,6 +189,7 @@ cp .env.example .env
 ### 2. Node.js & Workspace Installation
 ```bash
 # Install root and workspace dependencies (Web & API)
+npm install -g pnpm
 pnpm install
 ```
 
