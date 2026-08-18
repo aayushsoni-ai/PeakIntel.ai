@@ -229,9 +229,6 @@ To verify the full "Human-Agent" interaction, you must run all three services co
 | **Next.js Web** | `pnpm dev:web` | `http://localhost:3000` (Dashboard) |
 | **Python AgentsCLI**| `python packages/agents/run_agents.py` | `http://localhost:8001` (Internal API) |
 
-> [!TIP]
-> You can also use the **"Run All"** task in VS Code if you have the recommended extensions installed.
-
 ---
 
 ## 🛠️ API & Tooling Documentation
