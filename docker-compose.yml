@@ -13,7 +13,7 @@ services:
     volumes:
       - postgres_data:/var/lib/postgresql/data
     healthcheck:
-      test: ["CMD-SHELL", "pg_isready -U pinnacle -d pinnacle_db"]
+      test: [ "CMD-SHELL", "pg_isready -U pinnacle -d pinnacle_db" ]
       interval: 5s
       timeout: 5s
       retries: 5
@@ -27,7 +27,7 @@ services:
       - redis_data:/data
     command: redis-server --appendonly yes
     healthcheck:
-      test: ["CMD", "redis-cli", "ping"]
+      test: [ "CMD", "redis-cli", "ping" ]
       interval: 5s
       timeout: 5s
       retries: 5
@@ -36,6 +36,7 @@ services:
     build:
       context: .
       dockerfile: apps/api/Dockerfile
+      target: builder
     container_name: pinnacle_api
     depends_on:
       db:
@@ -53,7 +54,9 @@ services:
       - ./packages/shared:/app/packages/shared
       - ./packages/database:/app/packages/database
       - ./apps/api/src:/app/apps/api/src
-
+    working_dir: /app
+    entrypoint: ""
+    command: pnpm dev:api
   web:
     build:
       context: .
