@@ -73,7 +73,7 @@ export class AppController {
       }
     }
 
-    const fetchReq = new Request(url, {
+    const fetchReq = new globalThis.Request(url, {
       method: req.method,
       headers,
       body:

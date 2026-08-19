@@ -71,29 +71,29 @@ async def health():
 
 @app.post("/run/full_pipeline", response_model=AgentResponse)
 async def run_full_pipeline_endpoint():
-    """Run the complete 4-phase analysis pipeline with task tracking."""
+    """Run the complete 4-phase analysis pipeline with task tracking.
+    Returns immediately and runs the pipeline as a background task."""
     import uuid
     task_id = str(uuid.uuid4())
     
     async def _execute():
         try:
             from src.agents.orchestrator_agent import run_full_pipeline
-            return await run_full_pipeline()
+            result = await run_full_pipeline()
+            logger.info(f"Pipeline task {task_id} completed successfully.")
+            return result
+        except asyncio.CancelledError:
+            logger.info(f"Pipeline task {task_id} was cancelled.")
+        except Exception as e:
+            logger.error(f"Full pipeline task {task_id} failed: {e}")
         finally:
             active_tasks.pop(task_id, None)
 
     task = asyncio.create_task(_execute())
     active_tasks[task_id] = task
     
-    try:
-        result = await task
-        return AgentResponse(status="completed", agent_name="MasterOrchestrator", result=result)
-    except asyncio.CancelledError:
-        logger.info(f"Pipeline task {task_id} was cancelled.")
-        return AgentResponse(status="cancelled", agent_name="MasterOrchestrator", result={})
-    except Exception as e:
-        logger.error(f"Full pipeline failed: {e}")
-        raise HTTPException(status_code=500, detail=str(e))
+    # Return immediately — pipeline runs in the background
+    return AgentResponse(status="running", agent_name="MasterOrchestrator", result={"task_id": task_id})
 
 
 @app.post("/run/normalization", response_model=AgentResponse)

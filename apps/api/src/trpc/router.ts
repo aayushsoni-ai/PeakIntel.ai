@@ -629,6 +629,19 @@ const workbenchRouter = t.router({
         take: 20,
       });
 
+      // Pre-map data for context to ensure proper type inference
+      const companyContext = companies.map((c) => ({
+        name: c.name,
+        industry: c.industry,
+        revenue: c.annualRevenue,
+        margin: c.marginProfile,
+      }));
+      const insightContext = insights.map((i) => ({
+        title: i.title,
+        severity: i.severity,
+        summary: i.summary,
+      }));
+
       // Call Python agent server for LLM-powered response
       try {
         const agentUrl = process.env["AGENT_SERVER_URL"] ?? "http://localhost:8001";
@@ -638,17 +651,8 @@ const workbenchRouter = t.router({
           body: JSON.stringify({
             query: input.query,
             context: {
-              companies: companies.map((c) => ({
-                name: c.name,
-                industry: c.industry,
-                revenue: c.annualRevenue,
-                margin: c.marginProfile,
-              })),
-              recentInsights: insights.map((i) => ({
-                title: i.title,
-                severity: i.severity,
-                summary: i.summary,
-              })),
+              companies: companyContext,
+              recentInsights: insightContext,
             },
           }),
         });
@@ -667,7 +671,7 @@ const workbenchRouter = t.router({
         answer: `Analysis for: "${input.query}"\n\nBased on portfolio data across ${companies.length} companies:\n\n` +
           `📈 Top performers by margin: ${topByMargin.slice(0, 3).map((c) => `${c.name} (${(c.marginProfile * 100).toFixed(1)}%)`).join(", ")}\n\n` +
           `📉 Attention needed: ${bottomByMargin.slice(0, 2).map((c) => `${c.name} (${(c.marginProfile * 100).toFixed(1)}%)`).join(", ")}\n\n` +
-          `💡 ${insights.length} recent insights generated. ${insights.filter((i) => i.severity === "critical").length} critical alerts active.\n\n` +
+          `💡 ${insights.length} recent insights generated. ${insights.filter((i: typeof insightContext[number]) => i.severity === "critical").length} critical alerts active.\n\n` +
           `Recommendation: Focus on operational efficiency improvements for underperforming companies.`,
       };
     }),

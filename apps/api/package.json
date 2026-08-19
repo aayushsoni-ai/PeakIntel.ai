@@ -33,6 +33,7 @@
     "cron": "^3.5.0",
     "dotenv": "^16.4.0",
     "duckdb": "^1.2.0",
+    "express": "^5.2.1",
     "ioredis": "^5.4.0",
     "pandas-js": "^0.2.4",
     "puppeteer": "^24.40.0",

@@ -6,9 +6,9 @@ import json, logging
 from typing import Any
 from langgraph.prebuilt import create_react_agent
 from langchain_groq import ChatGroq
-from tools.db_query_tool import write_insight
-from tools.redis_tool import read_all_agent_findings, store_agent_findings, publish_agent_event
-from shared_memory import write_findings, publish_event, read_all_findings
+from src.tools.db_query_tool import write_insight
+from src.tools.redis_tool import read_all_agent_findings, store_agent_findings, publish_agent_event
+from src.shared_memory import write_findings, publish_event, read_all_findings
 
 logger = logging.getLogger("pinnacle.agents.insight")
 
