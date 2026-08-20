@@ -5,8 +5,8 @@
 | Layer | Technologies |
 | :--- | :--- |
 | **Frontend** | ![Next.js](https://img.shields.io/badge/Next.js-000000?logo=nextdotjs&logoColor=white) ![React](https://img.shields.io/badge/React-61DAFB?logo=react&logoColor=black) ![TypeScript](https://img.shields.io/badge/TypeScript-3178C6?logo=typescript&logoColor=white) ![Tailwind CSS](https://img.shields.io/badge/Tailwind_CSS-38B2AC?logo=tailwind-css&logoColor=white) ![Framer Motion](https://img.shields.io/badge/Framer_Motion-0055FF?logo=framer&logoColor=white) ![tRPC](https://img.shields.io/badge/tRPC-2596be?logo=trpc&logoColor=white) |
-| **Backend** | ![NestJS](https://img.shields.io/badge/NestJS-E0234E?logo=nestjs&logoColor=white) ![Node.js](https://img.shields.io/badge/Node.js-339933?logo=nodedotjs&logoColor=white) ![Prisma](https://img.shields.io/badge/Prisma-2D3748?logo=prisma&logoColor=white) ![PostgreSQL](https://img.shields.io/badge/PostgreSQL-4169E1?logo=postgresql&logoColor=white) ![Redis](https://img.shields.io/badge/Redis-DC382D?logo=redis&logoColor=white) ![Socket.io](https://img.shields.io/badge/Socket.io-010101?logo=socketdotio&logoColor=white) |
-| **AI Agents** | ![Python](https://img.shields.io/badge/Python-3776AB?logo=python&logoColor=white) ![LangChain](https://img.shields.io/badge/🦜%20LangChain-1C3C3C?logoColor=white) ![LangGraph](https://img.shields.io/badge/LangGraph-000000?logo=langchain&logoColor=white) ![Groq](https://img.shields.io/badge/Groq-f55036?logo=groq&logoColor=white) ![Llama-3](https://img.shields.io/badge/Llama--3-04101E?logo=meta&logoColor=white) ![DuckDB](https://img.shields.io/badge/DuckDB-FFF000?logo=duckdb&logoColor=black) |
+| **Backend** | ![NestJS](https://img.shields.io/badge/NestJS-E0234E?logo=nestjs&logoColor=white) ![Node.js](https://img.shields.io/badge/Node.js-339933?logo=nodedotjs&logoColor=white) ![Prisma](https://img.shields.io/badge/Prisma-2D3748?logo=prisma&logoColor=white) ![PostgreSQL](https://img.shields.io/badge/PostgreSQL-4169E1?logo=postgresql&logoColor=white) ![Redis](https://img.shields.io/badge/Redis-DC382D?logo=redis&logoColor=white) ![Puppeteer](https://img.shields.io/badge/Puppeteer-40B5A4?logo=puppeteer&logoColor=white) |
+| **AI Agents** | ![Python](https://img.shields.io/badge/Python-3776AB?logo=python&logoColor=white) ![LangChain](https://img.shields.io/badge/🦜%20LangChain-1C3C3C?logoColor=white) ![LangGraph](https://img.shields.io/badge/LangGraph-000000?logo=langchain&logoColor=white) ![Groq](https://img.shields.io/badge/Groq-f55036?logo=groq&logoColor=white) ![Llama-3.3](https://img.shields.io/badge/Llama--3.3-04101E?logo=meta&logoColor=white) ![DuckDB](https://img.shields.io/badge/DuckDB-FFF000?logo=duckdb&logoColor=black) |
 | **Infra/Dev** | ![pnpm](https://img.shields.io/badge/pnpm-F69220?logo=pnpm&logoColor=white) ![Turbo](https://img.shields.io/badge/Turbo-EF4444?logo=turbo&logoColor=white) ![Docker](https://img.shields.io/badge/Docker-2496ED?logo=docker&logoColor=white) ![Resend](https://img.shields.io/badge/Resend-000000?logo=resend&logoColor=white) |
 
 ---
@@ -17,7 +17,7 @@ Pinnacle AI is a production-grade, autonomous multi-agent platform designed for 
 
 ## 🏛️ System Architecture
 
-Pinnacle AI is built as a high-performance monorepo, leveraging a hybrid TypeScript/Python stack to balance UI responsiveness with deep analytical intelligence.
+Pinnacle AI is built as a high-performance monorepo, leveraging a hybrid TypeScript/Python stack with **LangGraph** orchestration via the **PaperclipAI** engine to balance UI responsiveness with deep analytical intelligence.
 
 ### High-Level Design
 ```mermaid
@@ -38,7 +38,7 @@ graph TB
 
     subgraph "Agentic Layer (Python 3.12)"
         ORCH[Master Orchestrator]
-        LangGraph[LangGraph State Machine]
+        PCLIP[PaperclipAI / LangGraph]
         Agents[10 Specialized Agents]
         DuckDB[DuckDB Analytical Engine]
     end
@@ -54,8 +54,8 @@ graph TB
     WS --> Redis
     SCHED -->|Trigger| Bull
     Bull -->|Job| ORCH
-    ORCH --> LangGraph
-    LangGraph --> Agents
+    ORCH --> PCLIP
+    PCLIP --> Agents
     Agents -->|Read/Write| PG
     Agents -->|Insights| Redis
     Agents -->|OLAP Queries| DuckDB
@@ -99,17 +99,19 @@ sequenceDiagram
     P4-->>O: Analysis Complete
 ```
 
-### The 10 Agents
-1.  **Master Orchestrator**: Manages state, error recovery, and cross-phase handoffs.
-2.  **P&L Normalization Agent**: Uses LLM reasoning to map disparate Chart of Accounts (CoA) to a standard PE hierarchy.
-3.  **Margin Analysis Agent**: Decomposes Gross and EBITDA margins across time and segments.
-4.  **Cost Structure Agent**: Identifies fixed vs. variable cost inefficiencies.
-5.  **Revenue Quality Agent**: Analyzes customer concentration and recurring revenue health.
-6.  **Benchmark & Peer Agent**: Ranks performance against internal portfolio and external industry percentiles.
-7.  **Trend Detection Agent**: Signals early warnings on margin contraction or expense spikes.
-8.  **Anomaly Detection Agent**: Flags statistical outliers in line-item spending.
-9.  **Best Practice Identifier**: Connects "Top Performers" to "Low Performers" via actionable recommendations.
-10. **Insight & Communication Agent**: Synthesizes all findings into board-ready natural language and sends Resend emails.
+### The 10 Specialized Agents
+| Agent | Role | Key Analytical Strategy |
+| :--- | :--- | :--- |
+| **1. Master Orchestrator** | Coordination | LangGraph state management & task routing. |
+| **2. P&L Normalization** | Preparation | LLM category mapping of disparate COAs. |
+| **3. Margin Analysis** | Core Analysis | Gross/EBITDA decomposition via Pandas. |
+| **4. Cost Structure** | Core Analysis | Fixed vs. Variable operating leverage analysis. |
+| **5. Revenue Quality** | Core Analysis | Customer concentration & recurring revenue health. |
+| **6. Trend Detection** | Core Analysis | Linear regression for growth trajectory signaling. |
+| **7. Benchmark & Peer** | Comparative | Cross-portfolio & industry percentile ranking (DuckDB). |
+| **8. Anomaly Detection** | Comparative | Statistical variance & outlier detection (Z-Score). |
+| **9. Best Practice ID** | Comparative | Tactic transference from top to low performers. |
+| **10. Insight Synthesis** | Synthesis | Board-ready natural language (Llama 3.3-70b). |
 
 ---
 
@@ -228,22 +230,25 @@ To verify the full "Human-Agent" interaction, you must run all three services co
 | :--- | :--- | :--- |
 | **NestJS API** | `pnpm dev:api` | `http://localhost:3001` (tRPC/WS) |
 | **Next.js Web** | `pnpm dev:web` | `http://localhost:3000` (Dashboard) |
-| **Python AgentsCLI**| `python packages/agents/run_agents.py` | `http://localhost:8001` (Internal API) |
+| **Python Agents** | `pnpm dev:agents`| `http://localhost:8001` (Agent Server) |
 
 ---
 
 ## 🛠️ API & Tooling Documentation
 
 ### tRPC Procedures (Main)
-- `agents.getPipelineStatus`: Returns real-time health of the 10-agent pipeline.
-- `agents.getRecentRuns`: History of autonomous execution.
-- `agents.triggerFullPipeline`: Manual trigger (for demo/testing).
-- `workbench.nlQuery`: Real-time LLM-driven query against the entire portfolio.
-- `email.sendTest`: Triggers the Resend production email flow.
+- `portfolio.getSummary`: Aggregate PE metrics (Total Revenue, EBITDA, Trends).
+- `portfolio.getHeatmapData`: Grid matrix of KPIs across all portfolio companies.
+- `insights.list`: Searchable and filterable feed of agent-generated observations.
+- `agents.runFullAnalysis`: Triggers the 4-phase LangGraph pipeline asynchronously.
+- `agents.getStatus`: Real-time status polling for active orchestration tasks.
+- `reports.generatePDF`: On-demand Puppeteer-driven PDF generation for board-ready reports.
+- `workbench.nlQuery`: Real-time LLM-driven query (Groq Llama-3.3-70b) against the portfolio.
+- `email.sendTest`: Triggers the Resend production email flow with React templates.
 
 ### Monitoring & Observability
-- **Socket.io**: Live events streamed on `agent:status` and `activity:new` channels.
-- **Prisma Studio**: View and edit the 11 tables (`pnpm prisma studio`).
+- **Socket.io**: Live events streamed on `agent:started`, `agent:progress`, and `agent:terminated` channels.
+- **Prisma Studio**: View and edit the 11 tables with zero-config (`pnpm prisma studio`).
 
 ---
 
@@ -264,7 +269,6 @@ The system is built on a "Pull" rather than "Push" model. The **Scheduler Servic
 ---
 
 ## 🔮 Future Improvements & Limitations
-- **PDF Export**: Currently, reports are generated as structured JSON/HTML; full PDF generation using Puppeteer is slated for V2.
 - **Predictive Forecaster**: Moving from linear statistical trends to ML-based forecasting (Prophet).
 - **RAG for Financial Docs**: Adding a vector store (Pinecone) to allow agents to read MD&A PDF documents alongside raw P&L numbers.
 - **Langflow Execution**: The platform includes a visual `pipeline.json`, but currently uses code-based orchestration for reliability. Full runtime integration with the Langflow server is the next step.
