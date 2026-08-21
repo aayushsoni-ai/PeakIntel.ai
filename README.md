@@ -274,5 +274,3 @@ The system is built on a "Pull" rather than "Push" model. The **Scheduler Servic
 - **Langflow Execution**: The platform includes a visual `pipeline.json`, but currently uses code-based orchestration for reliability. Full runtime integration with the Langflow server is the next step.
 
 ---
-
-**Contact**: Built for TalentDeel Developer Assessment — Assignment 3.
