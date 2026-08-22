@@ -8,11 +8,7 @@ async function bootstrap() {
 
   // Enable CORS for frontend
   app.enableCors({
-    origin: [
-      "http://localhost:3000",
-      "http://localhost:3001",
-      process.env["NEXT_PUBLIC_API_URL"] ?? "",
-    ].filter(Boolean),
+    origin: true,
     credentials: true,
   });
 
@@ -24,7 +20,7 @@ async function bootstrap() {
   );
 
   const port = process.env["PORT"] ?? 3001;
-  await app.listen(port);
+  await app.listen(port, "0.0.0.0");
   logger.log(`🚀 Pinnacle API running on http://localhost:${port}`);
   logger.log(`📡 tRPC endpoint: http://localhost:${port}/trpc`);
   logger.log(`🔌 WebSocket: ws://localhost:${port}`);
