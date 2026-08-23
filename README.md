@@ -1,4 +1,7 @@
 # Pinnacle AI — Portfolio Intelligence Platform
+## 🖼 Screenshots
+![Homepage Screenshot](https://github.com/ankurraj2003/PinnacleAI/blob/main/demo1.png?raw=true)
+![Agents Screenshot](https://github.com/ankurraj2003/PinnacleAI/blob/main/demo2.png?raw=true)
 
 ### 🚀 Tech Stack Highlights
 
