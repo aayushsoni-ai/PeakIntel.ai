@@ -29,37 +29,42 @@ export function useAgentSocket() {
   const [recentEvents, setRecentEvents] = useState<AgentEvent[]>([]);
   const [latestInsights, setLatestInsights] = useState<unknown[]>([]);
 
+  const [isHydrated, setIsHydrated] = useState(false);
+
   // Hydrate memory from localStorage on mount
   useEffect(() => {
     try {
-      const storedEvents = localStorage.getItem("pinnacle_recentEvents");
+      const storedEvents = localStorage.getItem("peakIntel_recentEvents");
       if (storedEvents) {
         setRecentEvents(JSON.parse(storedEvents));
       }
-      const storedInsights = localStorage.getItem("pinnacle_latestInsights");
+      const storedInsights = localStorage.getItem("peakIntel_latestInsights");
       if (storedInsights) {
         setLatestInsights(JSON.parse(storedInsights));
       }
-      const storedStatuses = localStorage.getItem("pinnacle_agentStatuses");
+      const storedStatuses = localStorage.getItem("peakIntel_agentStatuses");
       if (storedStatuses) {
-        // Map constructor accepts an array of key-value pairs
         setAgentStatuses(new Map(JSON.parse(storedStatuses)));
       }
     } catch (e) {
       console.error("Failed to load agent memory from localStorage:", e);
+    } finally {
+      setIsHydrated(true);
     }
   }, []);
 
-  // Sync memory to localStorage when state changes
+  // Sync memory to localStorage when state changes (only after hydration)
   useEffect(() => {
+    if (!isHydrated) return;
+    
     try {
-      localStorage.setItem("pinnacle_recentEvents", JSON.stringify(recentEvents));
-      localStorage.setItem("pinnacle_latestInsights", JSON.stringify(latestInsights));
-      localStorage.setItem("pinnacle_agentStatuses", JSON.stringify(Array.from(agentStatuses.entries())));
+      localStorage.setItem("peakIntel_recentEvents", JSON.stringify(recentEvents));
+      localStorage.setItem("peakIntel_latestInsights", JSON.stringify(latestInsights));
+      localStorage.setItem("peakIntel_agentStatuses", JSON.stringify(Array.from(agentStatuses.entries())));
     } catch (e) {
       console.error("Failed to save agent memory to localStorage:", e);
     }
-  }, [recentEvents, latestInsights, agentStatuses]);
+  }, [recentEvents, latestInsights, agentStatuses, isHydrated]);
 
   useEffect(() => {
     const wsUrl =

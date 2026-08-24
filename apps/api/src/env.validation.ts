@@ -6,6 +6,8 @@ export const envSchema = z.object({
   DATABASE_URL: z.string().url(),
   REDIS_URL: z.string().url().default('redis://localhost:6379'),
   AGENT_SERVER_URL: z.string().url().default('http://localhost:8001'),
+  AGENTS_URL: z.string().url().default('http://localhost:8001'),
+  GROQ_API_KEY: z.string().optional(),
   RESEND_API_KEY: z.string().optional(),
 });
 

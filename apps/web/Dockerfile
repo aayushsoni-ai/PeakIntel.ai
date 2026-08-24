@@ -15,7 +15,7 @@ COPY apps/api/ ./apps/api/
 
 RUN --mount=type=cache,id=pnpm,target=/pnpm/store pnpm install --frozen-lockfile
 
-# Generate Prisma client for @pinnacle/api
+# Generate Prisma client for @peakIntel/api
 WORKDIR /app/packages/database
 RUN pnpm prisma generate
 WORKDIR /app
@@ -26,7 +26,7 @@ ENV NEXT_PUBLIC_API_URL=$NEXT_PUBLIC_API_URL
 ARG NEXT_PUBLIC_WS_URL
 ENV NEXT_PUBLIC_WS_URL=$NEXT_PUBLIC_WS_URL
 
-RUN pnpm run build --filter=@pinnacle/web...
+RUN pnpm run build --filter=@peakIntel/web...
 
 # --- STAGE 2: Runner ---
 FROM node:22-alpine AS runner

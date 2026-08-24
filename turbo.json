@@ -8,7 +8,9 @@
     "NEXT_PUBLIC_API_URL",
     "NEXT_PUBLIC_WS_URL",
     "PORT",
-    "NODE_ENV"
+    "NODE_ENV",
+    "AGENT_SERVER_URL",
+    "AGENTS_URL"
   ],
   "tasks": {
     "build": {

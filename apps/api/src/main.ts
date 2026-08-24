@@ -21,7 +21,7 @@ async function bootstrap() {
 
   const port = process.env["PORT"] ?? 3001;
   await app.listen(port, "0.0.0.0");
-  logger.log(`🚀 Pinnacle API running on http://localhost:${port}`);
+  logger.log(`🚀 PeakIntel API running on http://localhost:${port}`);
   logger.log(`📡 tRPC endpoint: http://localhost:${port}/trpc`);
   logger.log(`🔌 WebSocket: ws://localhost:${port}`);
   logger.log(`❤️  Health: http://localhost:${port}/health`);

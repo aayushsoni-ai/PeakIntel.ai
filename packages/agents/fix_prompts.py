@@ -2,7 +2,7 @@ import os
 import glob
 import re
 
-agent_dir = r"c:\PinnacleAI\packages\agents\src\agents"
+agent_dir = r"c:\PeakIntelAI\packages\agents\src\agents"
 for fpath in glob.glob(os.path.join(agent_dir, "*_agent.py")):
     with open(fpath, 'r', encoding='utf-8') as f:
         content = f.read()

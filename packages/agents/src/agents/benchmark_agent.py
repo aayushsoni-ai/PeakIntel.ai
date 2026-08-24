@@ -10,9 +10,9 @@ from src.tools.duckdb_tool import run_analytical_query
 from src.tools.redis_tool import store_agent_findings
 from src.shared_memory import write_findings, publish_event
 
-logger = logging.getLogger("pinnacle.agents.benchmark")
+logger = logging.getLogger("peakIntel.agents.benchmark")
 
-SYSTEM_PROMPT = """You are the Benchmark & Peer Analysis Agent for Pinnacle Equity Group.
+SYSTEM_PROMPT = """You are the Benchmark & Peer Analysis Agent for PeakIntel Equity Group.
 1. Rank all 10 companies on: revenue growth, gross margin, EBITDA margin, cost efficiency
 2. Calculate percentile rank vs industry benchmarks
 3. Compare against PeerComp public comparables
@@ -20,7 +20,7 @@ SYSTEM_PROMPT = """You are the Benchmark & Peer Analysis Agent for Pinnacle Equi
 5. Analyze performance gaps with narrative explanations"""
 
 def create_benchmark_agent():
-    llm = ChatGroq(model="llama-3.1-8b-instant", temperature=0, max_tokens=4096)
+    llm = ChatGroq(model="openai/gpt-oss-20b", temperature=0, max_tokens=2048, max_retries=10)
     tools = [query_company_metadata, query_industry_benchmarks, run_analytical_query, write_insight, write_computed_metric, store_agent_findings]
     return create_react_agent(llm, tools, prompt=SYSTEM_PROMPT)
 

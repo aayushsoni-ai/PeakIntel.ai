@@ -38,7 +38,7 @@ export const AgentStatusEmail: React.FC<AgentStatusEmailProps> = ({
       <Container style={{ maxWidth: "600px", margin: "0 auto", padding: "20px" }}>
         <Section style={{ backgroundColor: "#0f172a", padding: "24px 32px", borderRadius: "8px 8px 0 0" }}>
           <Text style={{ color: "#d4a853", fontSize: "12px", letterSpacing: "2px", margin: 0 }}>
-            PINNACLE AI — INTERNAL
+            PEAKINTEL AI — INTERNAL
           </Text>
           <Heading style={{ color: "#ffffff", fontSize: "20px", margin: "8px 0 0 0" }}>
             Agent Run Complete: {runType}
@@ -93,7 +93,7 @@ export const AgentStatusEmail: React.FC<AgentStatusEmailProps> = ({
         </Section>
 
         <Text style={{ fontSize: "11px", color: "#9ca3af", textAlign: "center" as const, marginTop: "16px" }}>
-          Pinnacle Intelligence Platform • Internal Agent Status
+          PeakIntel Intelligence Platform • Internal Agent Status
         </Text>
       </Container>
     </Body>

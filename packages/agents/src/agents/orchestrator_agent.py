@@ -8,21 +8,34 @@ import logging
 from typing import Any
 
 
+# pyrefly: ignore [missing-import]
 from src.agents.normalization_agent import run_normalization
+# pyrefly: ignore [missing-import]
 from src.agents.margin_agent import run_margin_analysis
+# pyrefly: ignore [missing-import]
 from src.agents.cost_agent import run_cost_analysis
+# pyrefly: ignore [missing-import]
 from src.agents.revenue_agent import run_revenue_analysis
+# pyrefly: ignore [missing-import]
 from src.agents.trend_agent import run_trend_detection
+# pyrefly: ignore [missing-import]
 from src.agents.benchmark_agent import run_benchmark_analysis
+# pyrefly: ignore [missing-import]
 from src.agents.anomaly_agent import run_anomaly_detection
+# pyrefly: ignore [missing-import]
 from src.agents.bestpractice_agent import run_bestpractice_analysis
+# pyrefly: ignore [missing-import]
 from src.agents.insight_agent import run_insight_generation
+# pyrefly: ignore [missing-import]
 from src.shared_memory import publish_event
+# pyrefly: ignore [missing-import]
 from src.paperclipai import PaperclipAI, PipelineState
 
-logger = logging.getLogger("pinnacle.agents.orchestrator")
+logger = logging.getLogger("peakIntel.agents.orchestrator")
 
-COMPANIES = [
+# Use 3 companies for demo to stay within Groq free tier limits (8000 TPM).
+# Set env PEAKINTEL_FULL_PIPELINE=1 to run all 10.
+ALL_COMPANIES = [
     "alphatech_saas",
     "betamfg_inc",
     "gammacare_health",
@@ -34,6 +47,10 @@ COMPANIES = [
     "iotadistribution",
     "kappamedia",
 ]
+COMPANIES = ALL_COMPANIES if os.getenv("PEAKINTEL_FULL_PIPELINE") else ALL_COMPANIES[:3]
+
+# Delay between LLM calls (seconds) — Groq free tier = 8000 TPM, each call ~3-5k tokens
+LLM_CALL_DELAY = int(os.getenv("LLM_CALL_DELAY", "30"))
 
 # Initialize PaperclipAI orchestrator
 config_path = os.path.join(os.path.dirname(os.path.dirname(__file__)), "paperclip_config", "config.yaml")
@@ -50,7 +67,7 @@ async def phase_1_preparation(state: PipelineState) -> PipelineState:
     for company_id in state["companies"]:
         result = await run_normalization(company_id)
         phase1_results.append(result)
-        await asyncio.sleep(3) # Increased delay between company normalizations (TPM limit 12k)
+        await asyncio.sleep(LLM_CALL_DELAY)
         
     state["results"]["normalization"] = phase1_results
     state["current_phase"] = "Phase 1 complete"
@@ -58,25 +75,24 @@ async def phase_1_preparation(state: PipelineState) -> PipelineState:
     return state
 
 async def phase_2_core_analysis(state: PipelineState) -> PipelineState:
-    await asyncio.sleep(2) # Delay between phases
-    logger.info("Phase 2: Core Analysis (parallel for each company)")
+    await asyncio.sleep(LLM_CALL_DELAY)
+    logger.info("Phase 2: Core Analysis (sequential per company)")
     publish_event("agent:progress", {"agentName": "MasterOrchestrator", "phase": "Phase 2: Core Analysis"})
     
     phase2_results: dict[str, list[Any]] = {"margin": [], "cost": [], "revenue": [], "trend": []}
     for company_id in state["companies"]:
-        # Staggered execution of core agents to avoid hitting TPM limits (12k tokens)
         margin_r = await run_margin_analysis(company_id)
-        await asyncio.sleep(2)
+        await asyncio.sleep(LLM_CALL_DELAY)
         cost_r = await run_cost_analysis(company_id)
-        await asyncio.sleep(2)
+        await asyncio.sleep(LLM_CALL_DELAY)
         revenue_r = await run_revenue_analysis(company_id)
-        await asyncio.sleep(2)
+        await asyncio.sleep(LLM_CALL_DELAY)
         trend_r = await run_trend_detection(company_id)
         phase2_results["margin"].append(margin_r)
         phase2_results["cost"].append(cost_r)
         phase2_results["revenue"].append(revenue_r)
         phase2_results["trend"].append(trend_r)
-        await asyncio.sleep(5) # Delay between company batches to avoid cumulative TPM spikes
+        await asyncio.sleep(LLM_CALL_DELAY)
         
     state["results"]["core_analysis"] = phase2_results
     state["current_phase"] = "Phase 2 complete"
@@ -84,16 +100,17 @@ async def phase_2_core_analysis(state: PipelineState) -> PipelineState:
     return state
 
 async def phase_3_comparative_analysis(state: PipelineState) -> PipelineState:
-    await asyncio.sleep(2) # Delay between phases
+    await asyncio.sleep(LLM_CALL_DELAY)
     logger.info("Phase 3: Comparative Analysis")
     publish_event("agent:progress", {"agentName": "MasterOrchestrator", "phase": "Phase 3: Comparative Analysis"})
     
     benchmark_result = await run_benchmark_analysis()
+    await asyncio.sleep(LLM_CALL_DELAY)
     anomaly_results = []
     for company_id in state["companies"]:
         anomaly_r = await run_anomaly_detection(company_id)
         anomaly_results.append(anomaly_r)
-        await asyncio.sleep(1) # Delay between sequential anomaly runs
+        await asyncio.sleep(LLM_CALL_DELAY)
         
     bestpractice_result = await run_bestpractice_analysis()
     
@@ -107,7 +124,7 @@ async def phase_3_comparative_analysis(state: PipelineState) -> PipelineState:
     return state
 
 async def phase_4_synthesis(state: PipelineState) -> PipelineState:
-    await asyncio.sleep(2) # Delay before final synthesis
+    await asyncio.sleep(LLM_CALL_DELAY)
     logger.info("Phase 4: Insight Generation")
     publish_event("agent:progress", {"agentName": "MasterOrchestrator", "phase": "Phase 4: Insight Synthesis"})
     

@@ -53,7 +53,7 @@ export const CriticalAlertEmail: React.FC<CriticalAlertEmailProps> = ({
         {/* Header */}
         <Section style={{ backgroundColor: "#0f172a", padding: "20px 32px" }}>
           <Text style={{ color: "#d4a853", fontSize: "12px", letterSpacing: "2px", margin: 0 }}>
-            PINNACLE EQUITY GROUP
+            PEAKINTEL EQUITY GROUP
           </Text>
           <Heading style={{ color: "#ffffff", fontSize: "18px", margin: "8px 0 0 0" }}>
             {insight.title}
@@ -137,7 +137,7 @@ export const CriticalAlertEmail: React.FC<CriticalAlertEmailProps> = ({
         </Section>
 
         <Text style={{ fontSize: "11px", color: "#9ca3af", textAlign: "center" as const, marginTop: "16px" }}>
-          Pinnacle Intelligence Platform • Critical Alert
+          PeakIntel Intelligence Platform • Critical Alert
         </Text>
       </Container>
     </Body>

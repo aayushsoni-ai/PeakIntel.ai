@@ -2,7 +2,7 @@
 # Defines agent graph, communication channels, and escalation rules
 
 orchestration:
-  name: "Pinnacle Portfolio Analysis Pipeline"
+  name: "PeakIntel Portfolio Analysis Pipeline"
   version: "1.0"
   memory_backend: "redis"
   redis_url: "${REDIS_URL}"

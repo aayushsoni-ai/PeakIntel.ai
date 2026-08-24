@@ -37,7 +37,7 @@ export class AgentProcessor extends WorkerHost {
         })
       );
 
-      const agentUrl = process.env["AGENTS_URL"] ?? "http://localhost:8001";
+      const agentUrl = process.env["AGENT_SERVER_URL"] ?? "http://localhost:8001";
       fetch(`${agentUrl}/run/full_pipeline`, {
         method: "POST",
       }).catch((err) =>

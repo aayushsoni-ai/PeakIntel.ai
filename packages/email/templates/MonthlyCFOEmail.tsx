@@ -61,7 +61,7 @@ export const MonthlyCFOEmail: React.FC<MonthlyCFOEmailProps> = ({
           }}
         >
           <Text style={{ color: "#d4a853", fontSize: "12px", letterSpacing: "2px", margin: 0 }}>
-            PINNACLE EQUITY GROUP
+            PEAKINTEL EQUITY GROUP
           </Text>
           <Heading style={{ color: "#ffffff", fontSize: "20px", margin: "8px 0 0 0" }}>
             Portfolio Analytics — {month}
@@ -168,7 +168,7 @@ export const MonthlyCFOEmail: React.FC<MonthlyCFOEmailProps> = ({
         </Section>
 
         <Text style={{ fontSize: "11px", color: "#9ca3af", textAlign: "center" as const, marginTop: "16px" }}>
-          Pinnacle Intelligence Platform • Monthly Portfolio Report
+          PeakIntel Intelligence Platform • Monthly Portfolio Report
         </Text>
       </Container>
     </Body>

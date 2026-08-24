@@ -1,6 +1,6 @@
 # Agent Ecosystem
 
-Pinnacle AI uses a PaperclipAI and LangChain-based multi-agent orchestration model. Agents are broadly specialized into phases: Preparation, Core Analysis, Comparative Analysis, and Synthesis. All agents run autonomously when triggered.
+PeakIntel AI uses a PaperclipAI and LangChain-based multi-agent orchestration model. Agents are broadly specialized into phases: Preparation, Core Analysis, Comparative Analysis, and Synthesis. All agents run autonomously when triggered.
 
 ## The Pipeline
 

@@ -1,10 +1,10 @@
-# Pinnacle AI — Portfolio Intelligence Platform
-Pinnacle AI is a production-grade, autonomous multi-agent platform designed for Private Equity firms to monitor, analyze, and benchmark P&L performance across a diverse portfolio. The system automates the transition from raw, fragmented financial data to executive-level insights and board-ready reporting.
+# PeakIntel AI — Portfolio Intelligence Platform
+PeakIntel AI is a production-grade, autonomous multi-agent platform designed for Private Equity firms to monitor, analyze, and benchmark P&L performance across a diverse portfolio. The system automates the transition from raw, fragmented financial data to executive-level insights and board-ready reporting.
 
 ---
 ## 🖼 Screenshots
-![Homepage Screenshot](https://github.com/ankurraj2003/PinnacleAI/blob/main/demo1.png?raw=true)
-![Agents Screenshot](https://github.com/ankurraj2003/PinnacleAI/blob/main/demo2.png?raw=true)
+![Homepage Screenshot](https://github.com/aayushsoni-ai/PeakIntelAI/blob/main/demo1.png?raw=true)
+![Agents Screenshot](https://github.com/aayushsoni-ai/PeakIntelAI/blob/main/demo2.png?raw=true)
 
 ### 🚀 Tech Stack Highlights
 
@@ -21,7 +21,7 @@ Pinnacle AI is a production-grade, autonomous multi-agent platform designed for 
 
 ## 🏛️ System Architecture
 
-Pinnacle AI is built as a high-performance monorepo, leveraging a hybrid TypeScript/Python stack with **LangGraph** orchestration via the **PaperclipAI** engine to balance UI responsiveness with deep analytical intelligence.
+PeakIntel AI is built as a high-performance monorepo, leveraging a hybrid TypeScript/Python stack with **LangGraph** orchestration via the **PaperclipAI** engine to balance UI responsiveness with deep analytical intelligence.
 
 ### High-Level Design
 ```mermaid
@@ -168,7 +168,7 @@ erDiagram
 
 ## 🚀 Exact Local Setup Guide
 
-Follow these steps precisely to get the full Pinnacle AI platform running on your local machine.
+Follow these steps precisely to get the full PeakIntel AI platform running on your local machine.
 
 ### 📋 Prerequisites
 
@@ -182,8 +182,8 @@ Follow these steps precisely to get the full Pinnacle AI platform running on you
 ### 1. Repository & Environment
 ```bash
 # Clone the repository
-git clone https://github.com/ankurraj2003/PinnacleAI.git
-cd PinnacleAI
+git clone https://github.com/aayushsoni-ai/PeakIntelAI.git
+cd PeakIntelAI
 
 # Copy the example environment file
 cp .env.example .env

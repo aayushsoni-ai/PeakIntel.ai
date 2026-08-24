@@ -371,7 +371,7 @@ export default function PortfolioDashboard() {
       <div>
         <h1 className="text-2xl font-bold tracking-tight">Portfolio Overview</h1>
         <p className="text-sm text-muted-foreground mt-1">
-          Pinnacle Equity Group — 10 Companies • $1.2B Combined Revenue
+          PeakIntel Equity Group — 10 Companies • $1.2B Combined Revenue
         </p>
       </div>
 

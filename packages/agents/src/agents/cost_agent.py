@@ -9,9 +9,9 @@ from src.tools.db_query_tool import query_pl_statements, query_company_metadata,
 from src.tools.redis_tool import store_agent_findings, publish_agent_event
 from src.shared_memory import write_findings, publish_event
 
-logger = logging.getLogger("pinnacle.agents.cost")
+logger = logging.getLogger("peakIntel.agents.cost")
 
-SYSTEM_PROMPT = """You are the Cost Structure Agent for Pinnacle Equity Group.
+SYSTEM_PROMPT = """You are the Cost Structure Agent for PeakIntel Equity Group.
 Analyze cost structure for portfolio companies:
 1. Calculate COGS%, S&M%, R&D%, G&A% as percentage of revenue
 2. Separate fixed vs variable costs using industry heuristics
@@ -21,7 +21,7 @@ Analyze cost structure for portfolio companies:
 6. Model cost reduction scenarios"""
 
 def create_cost_agent():
-    llm = ChatGroq(model="llama-3.1-8b-instant", temperature=0, max_tokens=4096)
+    llm = ChatGroq(model="openai/gpt-oss-20b", temperature=0, max_tokens=2048, max_retries=10)
     tools = [query_pl_statements, query_company_metadata, query_industry_benchmarks, write_insight, write_computed_metric, store_agent_findings, publish_agent_event]
     return create_react_agent(llm, tools, prompt=SYSTEM_PROMPT)
 

@@ -17,10 +17,10 @@ logging.basicConfig(
     level=logging.INFO,
     format="%(asctime)s [%(levelname)s] %(name)s: %(message)s",
 )
-logger = logging.getLogger("pinnacle.agent_server")
+logger = logging.getLogger("peakIntel.agent_server")
 
 app = FastAPI(
-    title="Pinnacle AI Agent Server",
+    title="PeakIntel AI Agent Server",
     description="Autonomous agent pipeline for portfolio financial analysis",
     version="1.0.0",
 )
@@ -66,7 +66,7 @@ class AgentResponse(BaseModel):
 @app.get("/health")
 async def health():
     """Health check endpoint."""
-    return {"status": "ok", "service": "pinnacle-agent-server"}
+    return {"status": "ok", "service": "peakIntel-agent-server"}
 
 
 @app.post("/run/full_pipeline", response_model=AgentResponse)
@@ -205,7 +205,7 @@ async def nl_query_endpoint(req: NLQueryRequest):
     """Answer natural language questions about the portfolio using LLM."""
     try:
         from langchain_groq import ChatGroq
-        llm = ChatGroq(model="llama-3.3-70b-versatile", temperature=0.1, max_tokens=2048)
+        llm = ChatGroq(model="openai/gpt-oss-20b", temperature=0.1, max_tokens=2048, max_retries=10)
 
         context_str = ""
         if req.context.get("companies"):
@@ -218,7 +218,7 @@ async def nl_query_endpoint(req: NLQueryRequest):
             for i in req.context["recentInsights"][:10]:
                 context_str += f"- [{i['severity']}] {i['title']}: {i['summary'][:100]}\n"
 
-        prompt = f"""You are an expert private equity financial analyst for Pinnacle Equity Group.
+        prompt = f"""You are an expert private equity financial analyst for PeakIntel Equity Group.
 Answer the following question using the portfolio data provided. Be specific with numbers and company names.
 Keep your answer concise (3-5 sentences) and actionable.
 

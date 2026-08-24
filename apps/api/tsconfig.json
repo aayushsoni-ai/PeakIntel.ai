@@ -19,10 +19,10 @@
     "jsx": "react-jsx",
     "paths": {
       "@/*": ["./src/*"],
-      "@pinnacle/shared": ["../../packages/shared/src/index"],
-      "@pinnacle/shared/*": ["../../packages/shared/src/*"],
-      "@pinnacle/email": ["../../packages/email/index"],
-      "@pinnacle/email/*": ["../../packages/email/*"]
+      "@peakIntel/shared": ["../../packages/shared/src/index"],
+      "@peakIntel/shared/*": ["../../packages/shared/src/*"],
+      "@peakIntel/email": ["../../packages/email/index"],
+      "@peakIntel/email/*": ["../../packages/email/*"]
     }
   },
   "include": ["src/**/*.ts", "prisma.config.ts"],

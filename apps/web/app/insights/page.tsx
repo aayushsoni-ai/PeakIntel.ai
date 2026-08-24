@@ -37,7 +37,7 @@ export default function InsightsPage() {
     severity?: "critical" | "high" | "medium" | "low";
     category?: "margin" | "cost" | "revenue" | "benchmark" | "trend" | "anomaly" | "bestpractice";
     status?: "new" | "reviewed" | "action_taken" | "dismissed";
-  }>({});
+  }>({ status: "new" });
 
   const { data: rawInsights, isLoading, refetch } = trpc.insights.list.useQuery({
     ...filters,
@@ -73,8 +73,8 @@ export default function InsightsPage() {
         <Filter className="w-4 h-4 text-muted-foreground" />
 
         <button
-          onClick={() => setFilters({})}
-          className={`px-3 py-1.5 rounded-lg text-xs font-medium transition-colors ${!filters.severity ? "bg-primary text-primary-foreground" : "bg-muted text-muted-foreground hover:text-foreground"
+          onClick={() => setFilters({ status: filters.status })}
+          className={`px-3 py-1.5 rounded-lg text-xs font-medium transition-colors ${!filters.severity && !filters.category ? "bg-primary text-primary-foreground" : "bg-muted text-muted-foreground hover:text-foreground"
             }`}
         >
           All
@@ -103,6 +103,15 @@ export default function InsightsPage() {
             {cat.charAt(0).toUpperCase() + cat.slice(1)}
           </button>
         ))}
+
+        <span className="text-border">|</span>
+
+        <button
+          onClick={() => setFilters({ ...filters, status: filters.status === "new" ? undefined : "new" })}
+          className={`px-3 py-1.5 rounded-lg text-xs font-medium transition-colors ${filters.status === "new" ? "bg-primary text-primary-foreground" : "bg-muted text-muted-foreground hover:text-foreground"}`}
+        >
+          {filters.status === "new" ? "Unresolved Only" : "Show All"}
+        </button>
       </div>
 
       {/* Insights List */}
@@ -140,38 +149,60 @@ export default function InsightsPage() {
                   <p className="text-sm text-muted-foreground mt-1">{insight.summary}</p>
 
                   {/* Recommendations */}
-                  {Array.isArray(insight.recommendations) && insight.recommendations.length > 0 && (
-                    <div className="mt-3 space-y-1">
-                      <p className="text-xs font-medium text-muted-foreground uppercase tracking-wider">Recommendations</p>
-                      {/* The Array.isArray guard above already confirmed this is an array.
-                          The cast to string[] is safe because the agent always writes
-                          string arrays into the `recommendations` Json field. */}
-                      {(insight.recommendations as string[]).map((rec, i) => (
-                        <p key={i} className="text-xs text-muted-foreground pl-3 border-l-2 border-primary/30">
-                          {rec}
-                        </p>
-                      ))}
-                    </div>
-                  )}
+                  {(() => {
+                    let recs: string[] = [];
+                    if (Array.isArray(insight.recommendations)) {
+                      recs = insight.recommendations;
+                    } else if (
+                      insight.recommendations && 
+                      typeof insight.recommendations === 'object' && 
+                      'recommendations' in insight.recommendations && 
+                      Array.isArray((insight.recommendations as { recommendations: unknown[] }).recommendations)
+                    ) {
+                      recs = (insight.recommendations as { recommendations: string[] }).recommendations;
+                    }
+                    return recs.length > 0 ? (
+                      <div className="mt-3 space-y-1">
+                        <p className="text-xs font-medium text-muted-foreground uppercase tracking-wider">Recommendations</p>
+                        {recs.map((rec, i) => (
+                          <p key={i} className="text-xs text-muted-foreground pl-3 border-l-2 border-primary/30">
+                            {rec}
+                          </p>
+                        ))}
+                      </div>
+                    ) : null;
+                  })()}
                 </div>
 
                 {/* Action Buttons */}
                 <div className="flex flex-col gap-1.5 shrink-0">
                   <button
                     onClick={() => updateStatus.mutate({ id: insight.id, status: "reviewed" })}
-                    className="flex items-center gap-1 px-2.5 py-1 text-[10px] font-medium rounded-md bg-blue-500/10 text-blue-400 hover:bg-blue-500/20 transition-colors"
+                    className={`flex items-center gap-1 px-2.5 py-1 text-[10px] font-medium rounded-md transition-colors ${
+                      insight.status === "reviewed"
+                        ? "bg-blue-500 text-white"
+                        : "bg-blue-500/10 text-blue-400 hover:bg-blue-500/20"
+                    }`}
                   >
                     <Eye className="w-3 h-3" /> Review
                   </button>
                   <button
                     onClick={() => updateStatus.mutate({ id: insight.id, status: "action_taken" })}
-                    className="flex items-center gap-1 px-2.5 py-1 text-[10px] font-medium rounded-md bg-emerald-500/10 text-emerald-400 hover:bg-emerald-500/20 transition-colors"
+                    className={`flex items-center gap-1 px-2.5 py-1 text-[10px] font-medium rounded-md transition-colors ${
+                      insight.status === "action_taken"
+                        ? "bg-emerald-500 text-white"
+                        : "bg-emerald-500/10 text-emerald-400 hover:bg-emerald-500/20"
+                    }`}
                   >
                     <CheckCircle className="w-3 h-3" /> Done
                   </button>
                   <button
                     onClick={() => updateStatus.mutate({ id: insight.id, status: "dismissed" })}
-                    className="flex items-center gap-1 px-2.5 py-1 text-[10px] font-medium rounded-md bg-muted text-muted-foreground hover:bg-accent transition-colors"
+                    className={`flex items-center gap-1 px-2.5 py-1 text-[10px] font-medium rounded-md transition-colors ${
+                      insight.status === "dismissed"
+                        ? "bg-muted-foreground text-white"
+                        : "bg-muted text-muted-foreground hover:bg-accent"
+                    }`}
                   >
                     <XCircle className="w-3 h-3" /> Dismiss
                   </button>

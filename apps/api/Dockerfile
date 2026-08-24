@@ -22,11 +22,11 @@ RUN pnpm prisma generate
 WORKDIR /app
 
 # Build API and its dependencies
-RUN pnpm run build --filter=@pinnacle/api...
+RUN pnpm run build --filter=@peakIntel/api...
 
 # Deploy the API to a pruned directory for production
 # This command ensures all local workspace dependencies are correctly bundled without broken symlinks
-RUN pnpm --filter=@pinnacle/api --prod deploy /app/pruned
+RUN pnpm --filter=@peakIntel/api --prod deploy /app/pruned
 
 # --- STAGE 2: Runner ---
 FROM node:22-alpine AS runner

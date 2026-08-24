@@ -10,7 +10,7 @@ import {
   PeerCompsInput, 
   RecentRunsInput, 
   GeneratePDFInput 
-} from "@pinnacle/shared";
+} from "@peakIntel/shared";
 import { PrismaService } from "../prisma/prisma.service";
 import { RedisService } from "../redis/redis.service";
 // @ts-ignore - Library lacks type definitions
@@ -20,7 +20,7 @@ import * as fs from "fs";
 import * as path from "path";
 import { render } from "@react-email/render";
 // @ts-ignore - Assuming standard export structure for the provided library
-import { WeeklyCEOEmail, MonthlyCFOEmail, CriticalAlertEmail, AgentStatusEmail } from "@pinnacle/email";
+import { WeeklyCEOEmail, MonthlyCFOEmail, CriticalAlertEmail, AgentStatusEmail } from "@peakIntel/email";
 
 export interface TrpcContext {
   prisma: PrismaService;
@@ -408,10 +408,12 @@ const agentsRouter = t.router({
     );
 
     // Call the Python agent server asynchronously
+    console.log(`[DEBUG] process.env.AGENT_SERVER_URL = ${process.env["AGENT_SERVER_URL"]}`);
     const agentUrl = process.env["AGENT_SERVER_URL"] || "http://localhost:8001";
+    console.log(`[tRPC] Triggering agent pipeline at: ${agentUrl}/run/full_pipeline`);
     fetch(`${agentUrl}/run/full_pipeline`, {
       method: "POST",
-    }).catch((err) => console.error("Failed to trigger python agent:", err));
+    }).catch((err) => console.error(`Failed to trigger python agent at ${agentUrl}:`, err));
 
     return { jobId: run.id };
   }),
@@ -449,7 +451,8 @@ const agentsRouter = t.router({
     await ctx.prisma.agentRun.deleteMany({});
 
     // 2. Tell Python server to stop
-    fetch(process.env["AGENT_SERVER_URL"] ?? "http://localhost:8001/run/stop", {
+    const stopUrl = process.env["AGENT_SERVER_URL"] ?? "http://localhost:8001";
+    fetch(`${stopUrl}/run/stop`, {
       method: "POST",
     }).catch((err) => console.error("Failed to stop python agents:", err));
 
@@ -486,13 +489,13 @@ const emailRouter = t.router({
     )
     .mutation(async ({ ctx, input }) => {
       const subjectMap: Record<string, string> = {
-        weekly_ceo: "[Pinnacle AI] Weekly CEO Performance Summary",
-        monthly_cfo: "[Pinnacle AI] Monthly Portfolio Analytics — CFO Briefing",
-        critical_alert: "[Pinnacle AI] ⚠️ Critical Insight Alert",
-        agent_status: "[Pinnacle AI] Agent Pipeline Status Digest",
+        weekly_ceo: "[PeakIntel AI] Weekly CEO Performance Summary",
+        monthly_cfo: "[PeakIntel AI] Monthly Portfolio Analytics — CFO Briefing",
+        critical_alert: "[PeakIntel AI] ⚠️ Critical Insight Alert",
+        agent_status: "[PeakIntel AI] Agent Pipeline Status Digest",
       };
 
-      const subject = subjectMap[input.templateType] ?? `[Pinnacle AI] ${input.templateType} Email`;
+      const subject = subjectMap[input.templateType] ?? `[PeakIntel AI] ${input.templateType} Email`;
 
       const log = await ctx.prisma.emailLog.create({
         data: {
@@ -516,7 +519,7 @@ const emailRouter = t.router({
       }
       
       const emailHtml = await render(TemplateComponent({ 
-        previewText: "Pinnacle AI Analysis Notification" 
+        previewText: "PeakIntel AI Analysis Notification" 
       }));
 
       // Actually send via Resend API
@@ -530,7 +533,7 @@ const emailRouter = t.router({
               "Content-Type": "application/json",
             },
             body: JSON.stringify({
-              from: "Pinnacle AI <onboarding@resend.dev>",
+              from: "PeakIntel AI <onboarding@resend.dev>",
               to: [input.recipientEmail],
               subject,
               html: emailHtml,

@@ -9,7 +9,7 @@ from typing import Any
 from langchain.tools import tool
 from src.shared_memory import write_findings, read_findings, read_all_findings, publish_event
 
-logger = logging.getLogger("pinnacle.tools.redis")
+logger = logging.getLogger("peakIntel.tools.redis")
 
 
 @tool

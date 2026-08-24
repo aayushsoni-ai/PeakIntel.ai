@@ -23,6 +23,7 @@ import { AppController } from "./app.controller";
             port: parseInt(url.port, 10) || 6379,
             password: url.password || undefined,
             username: url.username || undefined,
+            tls: url.protocol === 'rediss:' ? {} : undefined,
           },
         };
       },

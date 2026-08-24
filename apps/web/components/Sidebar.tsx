@@ -47,12 +47,12 @@ export function Sidebar({ onClose, className }: SidebarProps) {
       <div className="h-16 flex items-center px-4 border-b border-sidebar-border">
         <div className="flex items-center gap-3 overflow-hidden">
           <div className="w-10 h-10 flex items-center justify-center shrink-0">
-            <Image src="/logo.png" alt="Pinnacle AI" width={40} height={40} className="w-full h-full object-contain" />
+            <Image src="/logo.png" alt="PeakIntel AI" width={40} height={40} className="w-full h-full object-contain" />
           </div>
           {!collapsed && (
             <div className="animate-fade-in-up">
               <h1 className="text-sm font-bold text-sidebar-foreground tracking-tight">
-                Pinnacle AI
+                PeakIntel AI
               </h1>
               <p className="text-[10px] text-muted-foreground tracking-widest uppercase">
                 Intelligence Platform
@@ -115,7 +115,7 @@ export function Sidebar({ onClose, className }: SidebarProps) {
       <div className="p-4 border-t border-sidebar-border">
         {!collapsed && (
           <div className="text-[10px] text-muted-foreground">
-            <p>Pinnacle Equity Group</p>
+            <p>PeakIntel Equity Group</p>
             <p className="text-primary">10 Portfolio Companies • $1.2B Rev</p>
           </div>
         )}

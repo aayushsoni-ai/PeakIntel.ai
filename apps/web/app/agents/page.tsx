@@ -1,5 +1,5 @@
 "use client";
-import { useEffect } from "react";
+
 import { trpc } from "../../lib/trpc";
 import { useAgentSocket } from "../../hooks/useAgentSocket";
 import {
@@ -56,12 +56,7 @@ export default function AgentsPage() {
 
   const runAnalysis = runMutation as unknown as RunAnalysisMutation;
 
-  // Automatically clear and stop everything on page refresh/mount
-  useEffect(() => {
-    // We don't want to show a confirm dialog on auto-clear
-    clearMutation.mutate();
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, []);
+  // Removed auto-clear on mount. History will now persist when navigating away.
 
   const handleClearHistory = () => {
     if (confirm("Are you sure you want to clear all run history and stop any active agents?")) {

@@ -25,8 +25,8 @@ export default function RootLayout({
           {/* Mobile Header */}
           <div className="lg:hidden flex items-center justify-between p-4 border-b border-border bg-sidebar sticky top-0 z-50">
             <div className="flex items-center gap-2">
-              <img src="/logo.png" alt="Pinnacle AI" className="w-8 h-8 object-contain" />
-              <span className="font-bold text-sm">Pinnacle AI</span>
+              <img src="/logo.png" alt="PeakIntel AI" className="w-8 h-8 object-contain" />
+              <span className="font-bold text-sm">PeakIntel AI</span>
             </div>
             <button
               onClick={() => setSidebarOpen(true)}

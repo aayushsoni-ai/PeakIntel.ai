@@ -1,6 +1,6 @@
 # Analytical Methodology
 
-Pinnacle AI is fundamentally a financial analytics engine governed by rigorous statistical modeling and standardized definitions. This document outlines the primary analytical methodologies implemented by the Python Agents.
+PeakIntel AI is fundamentally a financial analytics engine governed by rigorous statistical modeling and standardized definitions. This document outlines the primary analytical methodologies implemented by the Python Agents.
 
 ## 1. P&L Normalization
 Raw General Ledger (GL) accounts exhibit broad inconsistency across portfolio companies (e.g., "Hosting Fees AWS" vs "Cloud Expenses"). 

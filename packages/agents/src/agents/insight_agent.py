@@ -6,13 +6,16 @@ import json, logging
 from typing import Any
 from langgraph.prebuilt import create_react_agent
 from langchain_groq import ChatGroq
+# pyrefly: ignore [missing-import]
 from src.tools.db_query_tool import write_insight
+# pyrefly: ignore [missing-import]
 from src.tools.redis_tool import read_all_agent_findings, store_agent_findings, publish_agent_event
+# pyrefly: ignore [missing-import]
 from src.shared_memory import write_findings, publish_event, read_all_findings
 
-logger = logging.getLogger("pinnacle.agents.insight")
+logger = logging.getLogger("peakIntel.agents.insight")
 
-SYSTEM_PROMPT = """You are the Insight Generation Agent for Pinnacle Equity Group.
+SYSTEM_PROMPT = """You are the Insight Generation Agent for PeakIntel Equity Group.
 This is the final agent in the pipeline. Your job:
 1. Read ALL agent findings from Redis (normalization:*, margin:*, costs:*, revenue:*, rankings:latest, trends:*, anomalies:*, bestpractices:latest)
 2. Synthesize into a prioritized, deduplicated insight list
@@ -24,7 +27,7 @@ This is the final agent in the pipeline. Your job:
 5. Trigger email events via Redis pub/sub"""
 
 def create_insight_agent():
-    llm = ChatGroq(model="llama-3.3-70b-versatile", temperature=0.1, max_tokens=8192)
+    llm = ChatGroq(model="openai/gpt-oss-120b", temperature=0.1, max_tokens=2048, max_retries=10)
     tools = [read_all_agent_findings, write_insight, store_agent_findings, publish_agent_event]
     return create_react_agent(llm, tools, prompt=SYSTEM_PROMPT)
 

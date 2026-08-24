@@ -9,9 +9,9 @@ from src.tools.db_query_tool import query_pl_statements, query_company_metadata,
 from src.tools.redis_tool import store_agent_findings
 from src.shared_memory import write_findings, publish_event
 
-logger = logging.getLogger("pinnacle.agents.revenue")
+logger = logging.getLogger("peakIntel.agents.revenue")
 
-SYSTEM_PROMPT = """You are the Revenue Quality Agent for Pinnacle Equity Group.
+SYSTEM_PROMPT = """You are the Revenue Quality Agent for PeakIntel Equity Group.
 Analyze revenue quality:
 1. Revenue composition: Recurring %, Services %, Other %
 2. Revenue growth: MoM, YoY, 3-year CAGR
@@ -21,7 +21,7 @@ Analyze revenue quality:
 6. Flag: high one-time revenue %, declining recurring %"""
 
 def create_revenue_agent():
-    llm = ChatGroq(model="llama-3.1-8b-instant", temperature=0, max_tokens=4096)
+    llm = ChatGroq(model="openai/gpt-oss-20b", temperature=0, max_tokens=2048, max_retries=10)
     tools = [query_pl_statements, query_company_metadata, write_insight, write_computed_metric, store_agent_findings]
     return create_react_agent(llm, tools, prompt=SYSTEM_PROMPT)
 

@@ -4,7 +4,7 @@ import logging
 from typing import Dict, Any, List, TypedDict, Callable, Awaitable
 from langgraph.graph import StateGraph, START, END
 
-logger = logging.getLogger("pinnacle.paperclipai")
+logger = logging.getLogger("peakIntel.paperclipai")
 
 class PipelineState(TypedDict):
     """The State Dictionary for the LangGraph Pipeline"""

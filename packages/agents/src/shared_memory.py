@@ -13,7 +13,7 @@ import os
 
 load_dotenv()
 
-logger = logging.getLogger("pinnacle.shared_memory")
+logger = logging.getLogger("peakIntel.shared_memory")
 
 REDIS_URL = os.getenv("REDIS_URL", "redis://localhost:6379")
 

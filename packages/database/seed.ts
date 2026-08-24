@@ -276,14 +276,14 @@ async function seedEmailRecipients(): Promise<void> {
   const firstCompanyId = files[0]?.replace(".json", "") ?? "alphatech_saas";
   recipients.push({
     companyId: firstCompanyId,
-    email: "mpartner@pinnacleequity.com",
+    email: "mpartner@peakIntelequity.com",
     name: "Managing Partner",
     role: "pe_partner",
     isActive: true,
   });
   recipients.push({
     companyId: firstCompanyId,
-    email: "sassociate@pinnacleequity.com",
+    email: "sassociate@peakIntelequity.com",
     name: "Senior Associate",
     role: "pe_associate",
     isActive: true,
@@ -294,7 +294,7 @@ async function seedEmailRecipients(): Promise<void> {
 }
 
 async function main(): Promise<void> {
-  console.log("=== Pinnacle AI Database Seed ===");
+  console.log("=== PeakIntel AI Database Seed ===");
   console.log(`Data directory: ${DATA_DIR}`);
 
   if (!fs.existsSync(DATA_DIR)) {

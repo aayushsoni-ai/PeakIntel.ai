@@ -8,18 +8,21 @@ import logging
 from typing import Any
 from langgraph.prebuilt import create_react_agent
 from langchain_groq import ChatGroq
+# pyrefly: ignore [missing-import]
 from src.tools.db_query_tool import (
     query_pl_statements,
     query_account_mappings,
     write_insight,
     write_computed_metric,
 )
+# pyrefly: ignore [missing-import]
 from src.tools.redis_tool import store_agent_findings, publish_agent_event
+# pyrefly: ignore [missing-import]
 from src.shared_memory import write_findings, publish_event
 
-logger = logging.getLogger("pinnacle.agents.normalization")
+logger = logging.getLogger("peakIntel.agents.normalization")
 
-SYSTEM_PROMPT = """You are the P&L Normalization Agent for Pinnacle Equity Group.
+SYSTEM_PROMPT = """You are the P&L Normalization Agent for PeakIntel Equity Group.
 
 Your job is to normalize P&L statements by mapping raw GL accounts to standardized categories:
 - Revenue (Recurring, Services, Other)
@@ -27,6 +30,9 @@ Your job is to normalize P&L statements by mapping raw GL accounts to standardiz
 - Operating Expense -> subdivided into Sales & Marketing, R&D, G&A
 
 If the dataset is large, process one period at a time to stay within context limits (12k tokens).
+
+CRITICAL MATH INSTRUCTION:
+When calling the 'write_computed_metric' tool, the 'value' argument MUST be a single, pre-calculated float number (e.g., 1234567.89). You MUST NOT pass mathematical expressions, equations, or formulas (e.g., do NOT pass 100+200+300) as the value. You must perform all addition and subtraction calculations yourself and output only the final single computed number.
 
 Steps:
 1. Query the P&L statements for the given company
@@ -36,7 +42,7 @@ Steps:
 5. Write normalized amounts and any flagged classifications as insights"""
 
 def create_normalization_agent():
-    llm = ChatGroq(model="llama-3.3-70b-versatile", temperature=0, max_tokens=4096)
+    llm = ChatGroq(model="openai/gpt-oss-20b", temperature=0, max_tokens=2048, max_retries=10)
     tools = [
         query_pl_statements,
         query_account_mappings,

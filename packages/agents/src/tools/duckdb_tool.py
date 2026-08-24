@@ -12,9 +12,9 @@ from dotenv import load_dotenv
 
 load_dotenv()
 
-logger = logging.getLogger("pinnacle.tools.duckdb")
+logger = logging.getLogger("peakIntel.tools.duckdb")
 
-DATABASE_URL = os.getenv("DATABASE_URL", "postgresql://pinnacle:password@localhost:5432/pinnacle_db")
+DATABASE_URL = os.getenv("DATABASE_URL", "postgresql://peakIntel:password@localhost:5432/peakIntel_db")
 
 
 def _get_duckdb_conn():
@@ -40,7 +40,7 @@ def run_analytical_query(sql: str) -> str:
     conn = _get_duckdb_conn()
     try:
         result = conn.execute(sql).fetchdf()
-        return result.to_json(orient="records")
+        return result.head(5).to_json(orient="records")
     except Exception as e:
         return json.dumps({"error": str(e)})
     finally:

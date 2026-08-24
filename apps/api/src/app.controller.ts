@@ -55,7 +55,7 @@ export class AppController {
     return {
       status: "ok",
       timestamp: new Date().toISOString(),
-      service: "pinnacle-api",
+      service: "peakIntel-api",
     };
   }
 

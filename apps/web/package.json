@@ -1,5 +1,5 @@
 {
-  "name": "@pinnacle/web",
+  "name": "@peakIntel/web",
   "version": "1.0.0",
   "private": true,
   "scripts": {
@@ -10,7 +10,9 @@
   },
   "dependencies": {
     "@hookform/resolvers": "^4.1.0",
-    "@pinnacle/shared": "workspace:*",
+    "@peakIntel/shared": "workspace:*",
+    "@supabase/ssr": "^0.12.5",
+    "@supabase/supabase-js": "^2.112.4",
     "@tanstack/react-query": "^5.96.2",
     "@trpc/client": "^11.1.0",
     "@trpc/react-query": "^11.1.0",
@@ -37,7 +39,7 @@
   },
   "devDependencies": {
     "@eslint/eslintrc": "^3.3.5",
-    "@pinnacle/api": "workspace:*",
+    "@peakIntel/api": "workspace:*",
     "@tailwindcss/postcss": "^4",
     "@trpc/server": "^11.1.0",
     "@types/node": "^22",

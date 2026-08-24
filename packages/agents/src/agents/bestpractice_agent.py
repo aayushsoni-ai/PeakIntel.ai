@@ -9,9 +9,9 @@ from src.tools.db_query_tool import write_insight
 from src.tools.redis_tool import read_all_agent_findings, store_agent_findings
 from src.shared_memory import write_findings, publish_event
 
-logger = logging.getLogger("pinnacle.agents.bestpractice")
+logger = logging.getLogger("peakIntel.agents.bestpractice")
 
-SYSTEM_PROMPT = """You are the Best Practice Identification Agent for Pinnacle Equity Group.
+SYSTEM_PROMPT = """You are the Best Practice Identification Agent for PeakIntel Equity Group.
 1. Query all agents' Redis findings (margin:*, costs:*, revenue:*, rankings:latest)
 2. Identify what top performers do differently:
    - ZetaSoftware: highest gross margins (78%) — analyze what drives this
@@ -21,7 +21,7 @@ SYSTEM_PROMPT = """You are the Best Practice Identification Agent for Pinnacle E
 4. Generate structured bestpractice insights"""
 
 def create_bestpractice_agent():
-    llm = ChatGroq(model="llama-3.3-70b-versatile", temperature=0, max_tokens=4096)
+    llm = ChatGroq(model="openai/gpt-oss-20b", temperature=0, max_tokens=2048, max_retries=10)
     tools = [read_all_agent_findings, write_insight, store_agent_findings]
     return create_react_agent(llm, tools, prompt=SYSTEM_PROMPT)
 

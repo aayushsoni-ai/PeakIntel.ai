@@ -1,7 +1,7 @@
 [project]
-name = "pinnacle-agents"
+name = "peakIntel-agents"
 version = "1.0.0"
-description = "Pinnacle AI Autonomous Agent Pipeline"
+description = "PeakIntel AI Autonomous Agent Pipeline"
 requires-python = ">=3.12"
 dependencies = [
     "langchain>=0.3.0",

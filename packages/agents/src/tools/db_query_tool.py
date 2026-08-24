@@ -13,9 +13,9 @@ from dotenv import load_dotenv
 
 load_dotenv()
 
-logger = logging.getLogger("pinnacle.tools.db_query")
+logger = logging.getLogger("peakIntel.tools.db_query")
 
-DATABASE_URL = os.getenv("DATABASE_URL", "postgresql://pinnacle:password@localhost:5432/pinnacle_db")
+DATABASE_URL = os.getenv("DATABASE_URL", "postgresql://peakIntel:password@localhost:5432/peakIntel_db")
 
 
 def _get_connection():
@@ -49,8 +49,8 @@ def query_pl_statements(company_id: str, period: str = "") -> str:
             )
         columns = [desc[0] for desc in cur.description]
         rows = [dict(zip(columns, row)) for row in cur.fetchall()]
-        # Reduce limit to 100 rows to fit within TPM limits (12k tokens)
-        return json.dumps(rows[:100], default=str)
+        # Limit rows aggressively to 5 to fit within Groq free-tier TPM limits (8k tokens)
+        return json.dumps(rows[:5], default=str)
     except Exception as e:
         logger.error(f"DB query failed: {e}")
         return json.dumps({"error": str(e)})
@@ -71,7 +71,7 @@ def query_account_mappings(company_id: str) -> str:
         )
         columns = [desc[0] for desc in cur.description]
         rows = [dict(zip(columns, row)) for row in cur.fetchall()]
-        return json.dumps(rows[:100], default=str)
+        return json.dumps(rows[:10], default=str)
     except Exception as e:
         return json.dumps({"error": str(e)})
     finally:
@@ -162,7 +162,14 @@ def write_insight(
 def write_computed_metric(
     company_id: str, period: str, metric_name: str, value: float
 ) -> str:
-    """Write a computed metric to the database."""
+    """Write a computed metric to the database.
+
+    Args:
+        company_id: The ID of the company.
+        period: The period for the metric.
+        metric_name: The name of the metric (e.g. Revenue, COGS, Gross Profit).
+        value: The computed metric value. MUST be a single, pre-calculated float (e.g. 1250000.50). Do NOT pass mathematical expressions, equations, or formulas (e.g., do NOT pass 100+200+300). Perform the math yourself first.
+    """
     conn = _get_connection()
     try:
         cur = conn.cursor()

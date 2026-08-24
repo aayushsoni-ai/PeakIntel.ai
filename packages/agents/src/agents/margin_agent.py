@@ -12,9 +12,9 @@ from src.tools.duckdb_tool import calculate_margin_metrics, run_analytical_query
 from src.tools.redis_tool import store_agent_findings, publish_agent_event
 from src.shared_memory import write_findings, publish_event
 
-logger = logging.getLogger("pinnacle.agents.margin")
+logger = logging.getLogger("peakIntel.agents.margin")
 
-SYSTEM_PROMPT = """You are the Margin Analysis Agent for Pinnacle Equity Group.
+SYSTEM_PROMPT = """You are the Margin Analysis Agent for PeakIntel Equity Group.
 
 Analyze margins for portfolio companies:
 1. Calculate gross_margin, ebitda_margin, operating_margin for each period
@@ -30,7 +30,7 @@ Severity rules:
 - low: informational"""
 
 def create_margin_agent():
-    llm = ChatGroq(model="llama-3.3-70b-versatile", temperature=0, max_tokens=4096)
+    llm = ChatGroq(model="openai/gpt-oss-20b", temperature=0, max_tokens=2048, max_retries=10)
     tools = [
         query_company_metadata, write_insight, write_computed_metric,
         calculate_margin_metrics, run_analytical_query,

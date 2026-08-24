@@ -174,7 +174,7 @@ export default function WorkbenchPage() {
               const csv = "Company,Value\n" + chartData.map((d) => `${d.name},${d.value.toFixed(2)}`).join("\n");
               const blob = new Blob([csv], { type: "text/csv" });
               const url = URL.createObjectURL(blob);
-              const a = document.createElement("a"); a.href = url; a.download = `pinnacle_${metric}.csv`; a.click();
+              const a = document.createElement("a"); a.href = url; a.download = `peakIntel_${metric}.csv`; a.click();
               URL.revokeObjectURL(url);
             }}
             className="flex items-center gap-2 px-4 py-2 bg-muted rounded-lg text-sm hover:bg-accent transition-colors"
@@ -186,7 +186,7 @@ export default function WorkbenchPage() {
               const tsv = "Company\tValue\n" + chartData.map((d) => `${d.name}\t${d.value.toFixed(2)}`).join("\n");
               const blob = new Blob([tsv], { type: "application/vnd.ms-excel" });
               const url = URL.createObjectURL(blob);
-              const a = document.createElement("a"); a.href = url; a.download = `pinnacle_${metric}.xls`; a.click();
+              const a = document.createElement("a"); a.href = url; a.download = `peakIntel_${metric}.xls`; a.click();
               URL.revokeObjectURL(url);
             }}
             className="flex items-center gap-2 px-4 py-2 bg-muted rounded-lg text-sm hover:bg-accent transition-colors"

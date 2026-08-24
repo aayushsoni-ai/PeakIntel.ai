@@ -1,5 +1,5 @@
 {
-  "name": "Pinnacle AI Full Pipeline",
+  "name": "PeakIntel AI Full Pipeline",
   "description": "Langflow representation of the 4-phase, 10-agent orchestration pipeline",
   "data": {
     "nodes": [

@@ -1,5 +1,5 @@
 {
-  "name": "@pinnacle/api",
+  "name": "@peakIntel/api",
   "version": "1.0.0",
   "private": true,
   "scripts": {
@@ -21,9 +21,9 @@
     "@nestjs/platform-socket.io": "^11.0.1",
     "@nestjs/schedule": "^5.0.0",
     "@nestjs/websockets": "^11.0.1",
-    "@pinnacle/database": "workspace:*",
-    "@pinnacle/email": "workspace:*",
-    "@pinnacle/shared": "workspace:*",
+    "@peakIntel/database": "workspace:*",
+    "@peakIntel/email": "workspace:*",
+    "@peakIntel/shared": "workspace:*",
     "@prisma/client": "^6.6.0",
     "@react-email/render": "^1.0.0",
     "@trpc/server": "^11.1.0",

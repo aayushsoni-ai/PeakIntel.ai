@@ -1,11 +1,11 @@
-# Pinnacle AI Architecture Overview
+# PeakIntel AI Architecture Overview
 
 ## Monorepo Structure
 
-Pinnacle AI is structured as a pnpm workspace-managed Turborepo with clearly delineated boundaries between frontend, API, business logic, agents, and shared types.
+PeakIntel AI is structured as a pnpm workspace-managed Turborepo with clearly delineated boundaries between frontend, API, business logic, agents, and shared types.
 
 ```
-pinnacle-intelligence/
+peakIntel-intelligence/
 ├── apps/
 │   ├── web/               ← Next.js 14 (App Router) frontend
 │   └── api/               ← NestJS backend
@@ -23,7 +23,7 @@ pinnacle-intelligence/
 
 ## Backend Services (NestJS)
 
-- **tRPC API**: Fully end-to-end type-safe API matching Zod schemas in `@pinnacle/shared`.
+- **tRPC API**: Fully end-to-end type-safe API matching Zod schemas in `@peakIntel/shared`.
 - **Socket.IO Gateway**: Bridges backend Redis Pub/Sub events directly to the Next.js frontend to stream real-time agent execution status without HTTP polling.
 - **Node-Cron Scheduler**: Autonomously kicks off the `MasterOrchestrator` agent based on triggers (daily flash, weekly full analysis, monthly board review).
 

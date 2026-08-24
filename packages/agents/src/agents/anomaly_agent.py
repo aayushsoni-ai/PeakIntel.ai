@@ -11,7 +11,7 @@ from src.tools.db_query_tool import query_pl_statements, write_insight
 from src.tools.redis_tool import store_agent_findings
 from src.shared_memory import write_findings, publish_event
 
-logger = logging.getLogger("pinnacle.agents.anomaly")
+logger = logging.getLogger("peakIntel.agents.anomaly")
 
 
 @tool
@@ -52,7 +52,7 @@ def detect_anomalies_iqr(values_json: str, factor: float = 2.5) -> str:
         return json.dumps({"error": str(e)})
 
 
-SYSTEM_PROMPT = """You are the Anomaly Detection Agent for Pinnacle Equity Group.
+SYSTEM_PROMPT = """You are the Anomaly Detection Agent for PeakIntel Equity Group.
 1. For each P&L line item across 36 months, calculate z-scores
 2. Flag anomalies with |z-score| > 2.5
 3. Use IQR method as secondary check
@@ -62,7 +62,7 @@ SYSTEM_PROMPT = """You are the Anomaly Detection Agent for Pinnacle Equity Group
 7. Generate critical/high insights for anomalies in revenue/GP/EBITDA lines"""
 
 def create_anomaly_agent():
-    llm = ChatGroq(model="llama-3.3-70b-versatile", temperature=0, max_tokens=4096)
+    llm = ChatGroq(model="openai/gpt-oss-20b", temperature=0, max_tokens=2048, max_retries=10)
     tools = [query_pl_statements, write_insight, store_agent_findings, detect_anomalies_zscore, detect_anomalies_iqr]
     return create_react_agent(llm, tools, prompt=SYSTEM_PROMPT)
 

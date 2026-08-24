@@ -12,7 +12,7 @@ from src.tools.duckdb_tool import run_analytical_query
 from src.tools.redis_tool import store_agent_findings
 from src.shared_memory import write_findings, publish_event
 
-logger = logging.getLogger("pinnacle.agents.trend")
+logger = logging.getLogger("peakIntel.agents.trend")
 
 
 @tool
@@ -38,7 +38,7 @@ def fit_linear_trend(values_json: str) -> str:
         return json.dumps({"error": str(e)})
 
 
-SYSTEM_PROMPT = """You are the Trend Detection Agent for Pinnacle Equity Group.
+SYSTEM_PROMPT = """You are the Trend Detection Agent for PeakIntel Equity Group.
 1. For each company and metric, fit linear regression over trailing 12 months
 2. Classify: improving (slope > 0.5%/mo), declining (< -0.5%/mo), stable
 3. Detect inflection points
@@ -47,7 +47,7 @@ SYSTEM_PROMPT = """You are the Trend Detection Agent for Pinnacle Equity Group.
 6. Flag concerning trends (e.g., EpsilonLogistics EBITDA margin declining)"""
 
 def create_trend_agent():
-    llm = ChatGroq(model="llama-3.3-70b-versatile", temperature=0, max_tokens=4096)
+    llm = ChatGroq(model="openai/gpt-oss-20b", temperature=0, max_tokens=2048, max_retries=10)
     tools = [query_company_metadata, run_analytical_query, write_insight, write_computed_metric, store_agent_findings, fit_linear_trend]
     return create_react_agent(llm, tools, prompt=SYSTEM_PROMPT)
 
