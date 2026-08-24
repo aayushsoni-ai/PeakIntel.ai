@@ -1,4 +1,7 @@
 # Pinnacle AI — Portfolio Intelligence Platform
+Pinnacle AI is a production-grade, autonomous multi-agent platform designed for Private Equity firms to monitor, analyze, and benchmark P&L performance across a diverse portfolio. The system automates the transition from raw, fragmented financial data to executive-level insights and board-ready reporting.
+
+---
 ## 🖼 Screenshots
 ![Homepage Screenshot](https://github.com/ankurraj2003/PinnacleAI/blob/main/demo1.png?raw=true)
 ![Agents Screenshot](https://github.com/ankurraj2003/PinnacleAI/blob/main/demo2.png?raw=true)
@@ -14,9 +17,7 @@
 
 ---
 
-Pinnacle AI is a production-grade, autonomous multi-agent platform designed for Private Equity firms to monitor, analyze, and benchmark P&L performance across a diverse portfolio. The system automates the transition from raw, fragmented financial data to executive-level insights and board-ready reporting.
 
----
 
 ## 🏛️ System Architecture
 
