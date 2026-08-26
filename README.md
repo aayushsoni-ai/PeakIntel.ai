@@ -3,8 +3,8 @@ PeakIntel AI is a production-grade, autonomous multi-agent platform designed for
 
 ---
 ## 🖼 Screenshots
-![Homepage Screenshot](https://github.com/aayushsoni-ai/PeakIntelAI/blob/main/demo1.png?raw=true)
-![Agents Screenshot](https://github.com/aayushsoni-ai/PeakIntelAI/blob/main/demo2.png?raw=true)
+![Homepage Screenshot](https://github.com/aayushsoni-ai/PeakIntel.ai/blob/main/demo1.png?raw=true)
+![Agents Screenshot](https://github.com/aayushsoni-ai/PeakIntel.ai/blob/main/demo2.png?raw=true)
 
 ### 🚀 Tech Stack Highlights
 
@@ -182,8 +182,8 @@ Follow these steps precisely to get the full PeakIntel AI platform running on yo
 ### 1. Repository & Environment
 ```bash
 # Clone the repository
-git clone https://github.com/aayushsoni-ai/PeakIntelAI.git
-cd PeakIntelAI
+git clone https://github.com/aayushsoni-ai/PeakIntel.ai.git
+cd PeakIntel.ai
 
 # Copy the example environment file
 cp .env.example .env
