@@ -31,6 +31,9 @@ RUN pnpm --filter=@peakIntel/api --prod deploy /app/pruned
 # Copy the built NestJS bundle into the pruned folder
 RUN cp -r apps/api/dist /app/pruned/dist
 
+# Generate Prisma client inside the pruned directory for the production runtime
+RUN npx prisma generate --schema=/app/pruned/packages/database/prisma/schema.prisma
+
 # --- STAGE 2: Runner ---
 FROM node:22-alpine AS runner
 
