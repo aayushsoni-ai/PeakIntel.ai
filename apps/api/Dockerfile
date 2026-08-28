@@ -32,7 +32,7 @@ RUN pnpm --filter=@peakIntel/api --prod deploy /app/pruned
 RUN cp -r apps/api/dist /app/pruned/dist
 
 # Generate Prisma client inside the pruned directory for the production runtime
-RUN npx prisma generate --schema=/app/pruned/node_modules/@peakIntel/database/prisma/schema.prisma
+RUN PRISMA_GENERATE_SKIP_AUTOINSTALL=true /app/node_modules/.bin/prisma generate --schema=/app/pruned/node_modules/@peakIntel/database/prisma/schema.prisma
 
 # --- STAGE 2: Runner ---
 FROM node:22-alpine AS runner
