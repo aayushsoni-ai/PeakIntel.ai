@@ -59,7 +59,7 @@ export class AppController {
     };
   }
 
-  @All("trpc/*")
+  @All("trpc/*path")
   async trpcHandler(@Req() req: Request, @Res() res: Response) {
     // Convert Express request to fetch-like Request for tRPC
     const protocol = req.protocol;
