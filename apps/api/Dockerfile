@@ -31,9 +31,13 @@ RUN pnpm --filter=@peakIntel/api --prod deploy /app/pruned
 # Copy the built NestJS bundle into the pruned folder
 RUN cp -r apps/api/dist /app/pruned/dist
 
+# Temporarily copy the schema to the pruned root to bypass pnpm symlink resolution issues
+RUN cp /app/pruned/node_modules/@peakIntel/database/prisma/schema.prisma /app/pruned/schema.prisma
+
 # Generate Prisma client inside the pruned directory for the production runtime
 WORKDIR /app/pruned
-RUN PRISMA_GENERATE_SKIP_AUTOINSTALL=true /app/node_modules/.bin/prisma generate --schema=node_modules/@peakIntel/database/prisma/schema.prisma
+RUN PRISMA_GENERATE_SKIP_AUTOINSTALL=true /app/node_modules/.bin/prisma generate --schema=schema.prisma
+RUN rm schema.prisma
 WORKDIR /app
 
 # --- STAGE 2: Runner ---
