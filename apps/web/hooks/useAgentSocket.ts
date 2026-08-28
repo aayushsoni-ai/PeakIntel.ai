@@ -68,6 +68,9 @@ export function useAgentSocket() {
 
   useEffect(() => {
     let wsUrl = process.env["NEXT_PUBLIC_WS_URL"] ?? "ws://localhost:3001";
+    if (wsUrl.endsWith("/")) {
+      wsUrl = wsUrl.slice(0, -1);
+    }
     if (wsUrl && !wsUrl.startsWith("ws://") && !wsUrl.startsWith("wss://")) {
       wsUrl = `wss://${wsUrl}`;
     }

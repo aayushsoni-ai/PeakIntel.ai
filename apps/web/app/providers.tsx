@@ -21,6 +21,9 @@ export default function Providers({ children }: { children: React.ReactNode }) {
 
   const [trpcClient] = useState(() => {
     let apiUrl = process.env["NEXT_PUBLIC_API_URL"] ?? "http://localhost:3001";
+    if (apiUrl.endsWith("/")) {
+      apiUrl = apiUrl.slice(0, -1);
+    }
     if (apiUrl && !apiUrl.startsWith("http://") && !apiUrl.startsWith("https://")) {
       apiUrl = `https://${apiUrl}`;
     }
