@@ -4,6 +4,7 @@
   "private": true,
   "description": "PeakIntel AI — Autonomous Agentic Intelligence Platform for Private Equity",
   "scripts": {
+    "postinstall": "pnpm db:generate",
     "dev": "turbo run dev",
     "build": "turbo run build",
     "lint": "turbo run lint",
