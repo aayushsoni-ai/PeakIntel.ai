@@ -67,8 +67,10 @@ export function useAgentSocket() {
   }, [recentEvents, latestInsights, agentStatuses, isHydrated]);
 
   useEffect(() => {
-    const wsUrl =
-      process.env["NEXT_PUBLIC_WS_URL"] ?? "ws://localhost:3001";
+    let wsUrl = process.env["NEXT_PUBLIC_WS_URL"] ?? "ws://localhost:3001";
+    if (wsUrl && !wsUrl.startsWith("ws://") && !wsUrl.startsWith("wss://")) {
+      wsUrl = `wss://${wsUrl}`;
+    }
     const newSocket = io(wsUrl, {
       transports: ["polling", "websocket"],
       upgrade: true,

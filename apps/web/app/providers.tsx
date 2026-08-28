@@ -19,17 +19,19 @@ export default function Providers({ children }: { children: React.ReactNode }) {
       })
   );
 
-  const [trpcClient] = useState(() =>
-    trpc.createClient({
+  const [trpcClient] = useState(() => {
+    let apiUrl = process.env["NEXT_PUBLIC_API_URL"] ?? "http://localhost:3001";
+    if (apiUrl && !apiUrl.startsWith("http://") && !apiUrl.startsWith("https://")) {
+      apiUrl = `https://${apiUrl}`;
+    }
+    return trpc.createClient({
       links: [
         httpBatchLink({
-          url:
-            (process.env["NEXT_PUBLIC_API_URL"] ?? "http://localhost:3001") +
-            "/trpc",
+          url: `${apiUrl}/trpc`,
         }),
       ],
-    })
-  );
+    });
+  });
 
   return (
     <trpc.Provider client={trpcClient} queryClient={queryClient}>
