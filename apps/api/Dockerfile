@@ -28,6 +28,9 @@ RUN pnpm run build --filter=@peakIntel/api...
 # This command ensures all local workspace dependencies are correctly bundled without broken symlinks
 RUN pnpm --filter=@peakIntel/api --prod deploy /app/pruned
 
+# Copy the built NestJS bundle into the pruned folder
+RUN cp -r apps/api/dist /app/pruned/dist
+
 # --- STAGE 2: Runner ---
 FROM node:22-alpine AS runner
 
@@ -42,5 +45,5 @@ ENV PORT=3001
 
 EXPOSE 3001
 
-# The entry point is located within the nested dist folder produced by tsc
-CMD ["node", "dist/apps/api/src/main.js"]
+# The entry point is located within the dist folder produced by NestJS build
+CMD ["node", "dist/main.js"]
