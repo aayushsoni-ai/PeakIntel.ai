@@ -6,6 +6,7 @@ applications:
         preBuild:
           commands:
             - npm install -g pnpm
+            - echo 'node-linker=hoisted' >> .npmrc
             - pnpm install
         build:
           commands:
