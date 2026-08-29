@@ -9,7 +9,7 @@ applications:
             - pnpm install
         build:
           commands:
-            - pnpm run build --filter=@peakIntel/web
+            - pnpm  --filter=@peakIntel/web run build
       artifacts:
         baseDirectory: .next
         files:
