@@ -10,7 +10,7 @@ applications:
             - pnpm install
         build:
           commands:
-            - NEXT_PUBLIC_API_URL="https://main.denrq2wsyezno.amplifyapp.com/api" pnpm --filter=@peakIntel/web... run build
+            - NEXT_PUBLIC_API_URL="https://main.denrq2wsyezno.amplifyapp.com/api" NEXT_PUBLIC_WS_URL="wss://main.denrq2wsyezno.amplifyapp.com" pnpm --filter=@peakIntel/web... run build
       artifacts:
         baseDirectory: .next
         files:

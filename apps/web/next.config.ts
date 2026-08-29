@@ -9,6 +9,10 @@ const nextConfig: NextConfig = {
         source: "/api/:path*",
         destination: "http://peakin-publi-wyhvz0nrfxzp-317908020.ap-south-1.elb.amazonaws.com/:path*",
       },
+      {
+        source: "/socket.io/:path*",
+        destination: "http://peakin-publi-wyhvz0nrfxzp-317908020.ap-south-1.elb.amazonaws.com/socket.io/:path*",
+      },
     ];
   },
 };
