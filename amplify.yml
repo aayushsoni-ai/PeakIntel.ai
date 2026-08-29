@@ -9,7 +9,6 @@ applications:
             - cd ../.. && pnpm install
         build:
           commands:
-            - cd ../.. && env | grep -e NEXT_PUBLIC_ >> apps/web/.env.production
             - cd ../.. && pnpm run build --filter=@peakIntel/web
       artifacts:
         baseDirectory: .next
