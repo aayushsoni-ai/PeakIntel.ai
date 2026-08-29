@@ -9,7 +9,7 @@ applications:
             - pnpm install
         build:
           commands:
-            - pnpm  --filter=@peakIntel/web run build
+            - pnpm --filter=@peakIntel/web... run build
       artifacts:
         baseDirectory: .next
         files:
@@ -18,3 +18,4 @@ applications:
         paths:
           - .next/cache/**/*
           - ../../node_modules/**/*
+          
