@@ -75,8 +75,8 @@ export function useAgentSocket() {
       wsUrl = `wss://${wsUrl}`;
     }
     const newSocket = io(wsUrl, {
-      transports: ["polling", "websocket"],
-      upgrade: true,
+      transports: ["polling"],
+      upgrade: false,
       reconnection: true,
       reconnectionDelay: 1000,
       reconnectionAttempts: 10,
