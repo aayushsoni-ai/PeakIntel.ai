@@ -6,10 +6,10 @@ applications:
         preBuild:
           commands:
             - npm install -g pnpm
-            - cd ../.. && pnpm install
+            - pnpm install
         build:
           commands:
-            - cd ../.. && pnpm run build --filter=@peakIntel/web
+            - pnpm run build --filter=@peakIntel/web
       artifacts:
         baseDirectory: .next
         files:
