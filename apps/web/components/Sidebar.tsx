@@ -14,8 +14,11 @@ import {
   Bot,
   ChevronLeft,
   ChevronRight,
+  LogOut,
+  UserCheck,
 } from "lucide-react";
 import { useState } from "react";
+import { useAuthStore } from "../store/authStore";
 
 const navItems = [
   { href: "/", label: "Portfolio Overview", icon: LayoutDashboard },
@@ -36,6 +39,9 @@ interface SidebarProps {
 export function Sidebar({ onClose, className }: SidebarProps) {
   const pathname = usePathname();
   const [collapsed, setCollapsed] = useState(false);
+
+  const user = useAuthStore((state) => state.user);
+  const logout = useAuthStore((state) => state.logout);
 
   return (
     <aside
@@ -111,13 +117,45 @@ export function Sidebar({ onClose, className }: SidebarProps) {
         )}
       </button>
 
-      {/* Footer */}
-      <div className="p-4 border-t border-sidebar-border">
-        {!collapsed && (
-          <div className="text-[10px] text-muted-foreground">
-            <p>PeakIntel Equity Group</p>
-            <p className="text-primary">10 Portfolio Companies • $1.2B Rev</p>
+      {/* User Info & Logout Footer */}
+      <div className="p-3 border-t border-sidebar-border bg-sidebar/50">
+        {!collapsed ? (
+          <div className="space-y-2">
+            <div className="flex items-center justify-between">
+              <div className="flex items-center gap-2 overflow-hidden">
+                <div className="w-8 h-8 rounded-full bg-primary/20 border border-primary/40 flex items-center justify-center text-primary font-bold text-xs shrink-0">
+                  {user?.name ? user.name[0].toUpperCase() : "U"}
+                </div>
+                <div className="overflow-hidden">
+                  <p className="text-xs font-semibold text-sidebar-foreground truncate">
+                    {user?.name || "Senior Partner"}
+                  </p>
+                  <p className="text-[10px] text-muted-foreground truncate">
+                    {user?.email || "partner@peakintel.ai"}
+                  </p>
+                </div>
+              </div>
+              <button
+                onClick={() => logout()}
+                title="Log Out"
+                className="p-1.5 rounded-lg text-muted-foreground hover:text-red-400 hover:bg-red-500/10 transition-colors"
+              >
+                <LogOut className="w-4 h-4" />
+              </button>
+            </div>
+            <div className="text-[10px] text-muted-foreground/80 flex items-center justify-between pt-1 border-t border-sidebar-border/40">
+              <span>PeakIntel Equity</span>
+              <span className="text-primary font-medium">10 Cos • $1.2B</span>
+            </div>
           </div>
+        ) : (
+          <button
+            onClick={() => logout()}
+            title="Log Out"
+            className="w-full flex justify-center p-2 text-muted-foreground hover:text-red-400 hover:bg-red-500/10 rounded-lg transition-colors"
+          >
+            <LogOut className="w-4 h-4" />
+          </button>
         )}
       </div>
     </aside>

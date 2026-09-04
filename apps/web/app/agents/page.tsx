@@ -1,5 +1,6 @@
 "use client";
 
+import { useState } from "react";
 import { trpc } from "../../lib/trpc";
 import { useAgentSocket } from "../../hooks/useAgentSocket";
 import {
@@ -7,6 +8,8 @@ import {
   LoadingSpinner,
 } from "../../components/shared";
 import { Play, Clock, Wifi, WifiOff, Trash2 } from "lucide-react";
+import AgentAvatar3D, { AGENT_REGISTRY } from "../../components/canvas/AgentAvatar3D";
+import AgentDossierModal from "../../components/canvas/AgentDossierModal";
 
 type AgentRun = {
   id: string;
@@ -38,6 +41,7 @@ const AGENTS = [
 ];
 
 export default function AgentsPage() {
+  const [selectedAgentId, setSelectedAgentId] = useState<string | null>(null);
   const utils = trpc.useUtils();
   const { connected, agentStatuses, recentEvents, clearHistory } = useAgentSocket();
 
@@ -102,26 +106,44 @@ export default function AgentsPage() {
               </button>
             </div>
 
-            <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 xl:grid-cols-5 gap-3">
+            <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-5 gap-3">
               {AGENTS.map((agent) => {
                 const status = agentStatuses.get(agent);
+                const meta = AGENT_REGISTRY[agent];
                 return (
                   <div
                     key={agent}
-                    className="p-3 rounded-lg bg-background/50 border border-border/50 hover:border-border transition-colors"
+                    onClick={() => setSelectedAgentId(agent)}
+                    className="p-3 rounded-xl bg-background/50 border border-border/60 hover:border-primary/50 hover:bg-background/80 transition-all cursor-pointer group flex flex-col items-center text-center relative overflow-hidden"
                   >
-                    <div className="flex items-center gap-2 mb-2">
-                      <AgentStatusDot status={status?.status ?? "idle"} />
-                      <span className="text-[10px] text-muted-foreground uppercase tracking-wider">
-                        {status?.status ?? "idle"}
+                    <div className="w-full flex items-center justify-between mb-1">
+                      <span className="text-[9px] font-mono px-1.5 py-0.5 rounded bg-muted/60 text-muted-foreground uppercase tracking-wider">
+                        {meta?.category || "Agent"}
                       </span>
+                      <div className="flex items-center gap-1">
+                        <AgentStatusDot status={status?.status ?? "idle"} />
+                        <span className="text-[9px] text-muted-foreground uppercase font-mono">
+                          {status?.status ?? "idle"}
+                        </span>
+                      </div>
                     </div>
-                    <p className="text-xs font-medium truncate">{agent}</p>
-                    {status?.lastEvent?.message && (
-                      <p className="text-[10px] text-muted-foreground mt-1 truncate">
-                        {status.lastEvent.message}
-                      </p>
-                    )}
+
+                    {/* Animated 3D Avatar Symbol */}
+                    <div className="my-1.5 flex items-center justify-center relative">
+                      <AgentAvatar3D
+                        agentId={agent}
+                        size={56}
+                        status={status?.status ?? "idle"}
+                        interactive={false}
+                      />
+                    </div>
+
+                    <p className="text-xs font-semibold text-foreground truncate w-full group-hover:text-primary transition-colors">
+                      {meta?.name || agent}
+                    </p>
+                    <p className="text-[10px] text-muted-foreground truncate w-full mt-0.5">
+                      {status?.lastEvent?.message || meta?.role || "Operational"}
+                    </p>
                   </div>
                 );
               })}
@@ -220,6 +242,15 @@ export default function AgentsPage() {
           </div>
         </div>
       </div>
+
+      {/* Agent Dossier Modal */}
+      <AgentDossierModal
+        agentId={selectedAgentId}
+        onClose={() => setSelectedAgentId(null)}
+        onTriggerRun={(id) => {
+          runAnalysis.mutate();
+        }}
+      />
     </div>
   );
 }

@@ -31,6 +31,7 @@ services:
     build:
       context: .
       dockerfile: apps/web/Dockerfile
+      target: builder
       args:
         - NEXT_PUBLIC_API_URL=${NEXT_PUBLIC_API_URL:-http://localhost:3001}
         - NEXT_PUBLIC_WS_URL=${NEXT_PUBLIC_WS_URL:-ws://localhost:3001}
@@ -40,11 +41,20 @@ services:
     environment:
       - NEXT_PUBLIC_API_URL=${NEXT_PUBLIC_API_URL:-http://localhost:3001}
       - NEXT_PUBLIC_WS_URL=${NEXT_PUBLIC_WS_URL:-ws://localhost:3001}
+      - WATCHPACK_POLLING=true
+      - CHOKIDAR_USEPOLLING=true
     ports:
       - "3000:3000"
+    working_dir: /app
+    command: pnpm --filter @peakIntel/web dev --hostname 0.0.0.0 --port 3000
     volumes:
       - ./apps/web/app:/app/apps/web/app
       - ./apps/web/components:/app/apps/web/components
+      - ./apps/web/hooks:/app/apps/web/hooks
+      - ./apps/web/lib:/app/apps/web/lib
+      - ./apps/web/public:/app/apps/web/public
+      - ./apps/web/store:/app/apps/web/store
+      - ./packages/shared:/app/packages/shared
 
   agents:
     build:

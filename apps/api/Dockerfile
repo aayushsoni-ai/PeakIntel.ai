@@ -32,7 +32,7 @@ RUN pnpm --filter=@peakIntel/api --prod deploy /app/pruned
 RUN cp -r apps/api/dist /app/pruned/dist
 
 # Copy the pre-generated Prisma client folder directly into the pruned virtual store node_modules
-RUN cp -r /app/node_modules/.pnpm/@prisma+client*/node_modules/.prisma /app/pruned/node_modules/.pnpm/@prisma+client*/node_modules/
+RUN cp -r /app/node_modules/.prisma /app/pruned/node_modules/ 2>/dev/null || cp -r /app/node_modules/.pnpm/@prisma+client*/node_modules/.prisma /app/pruned/node_modules/.pnpm/@prisma+client*/node_modules/ 2>/dev/null || true
 
 # --- STAGE 2: Runner ---
 FROM node:22-alpine AS runner

@@ -111,6 +111,7 @@
   * {
     @apply border-border;
   }
+
   body {
     @apply bg-background text-foreground;
   }
@@ -121,21 +122,33 @@
   width: 6px;
   height: 6px;
 }
+
 ::-webkit-scrollbar-track {
   background: transparent;
 }
+
 ::-webkit-scrollbar-thumb {
   background: oklch(0.35 0.015 260);
   border-radius: 3px;
 }
+
 ::-webkit-scrollbar-thumb:hover {
   background: oklch(0.45 0.015 260);
 }
 
 /* Animations */
 @keyframes pulse-glow {
-  0%, 100% { opacity: 1; box-shadow: 0 0 8px oklch(0.65 0.2 150 / 0.4); }
-  50% { opacity: 0.7; box-shadow: 0 0 16px oklch(0.65 0.2 150 / 0.6); }
+
+  0%,
+  100% {
+    opacity: 1;
+    box-shadow: 0 0 8px oklch(0.65 0.2 150 / 0.4);
+  }
+
+  50% {
+    opacity: 0.7;
+    box-shadow: 0 0 16px oklch(0.65 0.2 150 / 0.6);
+  }
 }
 
 .animate-pulse-glow {
@@ -143,8 +156,15 @@
 }
 
 @keyframes fade-in-up {
-  from { opacity: 0; transform: translateY(8px); }
-  to { opacity: 1; transform: translateY(0); }
+  from {
+    opacity: 0;
+    transform: translateY(8px);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
 }
 
 .animate-fade-in-up {
@@ -152,17 +172,38 @@
 }
 
 @keyframes shimmer {
-  0% { background-position: -200% 0; }
-  100% { background-position: 200% 0; }
+  0% {
+    background-position: -200% 0;
+  }
+
+  100% {
+    background-position: 200% 0;
+  }
 }
 
 .animate-shimmer {
-  background: linear-gradient(
-    90deg,
-    oklch(0.22 0.012 260) 25%,
-    oklch(0.28 0.015 260) 50%,
-    oklch(0.22 0.012 260) 75%
-  );
+  background: linear-gradient(90deg,
+      oklch(0.22 0.012 260) 25%,
+      oklch(0.28 0.015 260) 50%,
+      oklch(0.22 0.012 260) 75%);
   background-size: 200% 100%;
   animation: shimmer 1.5s infinite;
+}
+
+/* Mintlify-inspired subtle dark surfaces & card glows */
+.mintlify-card {
+  background: rgba(14, 17, 26, 0.7);
+  backdrop-filter: blur(12px);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  transition: all 0.25s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.mintlify-card:hover {
+  border-color: rgba(245, 158, 11, 0.35);
+  box-shadow: 0 12px 32px -8px rgba(0, 0, 0, 0.6), 0 0 20px -4px rgba(245, 158, 11, 0.1);
+  transform: translateY(-2px);
+}
+
+html {
+  scroll-behavior: smooth;
 }
