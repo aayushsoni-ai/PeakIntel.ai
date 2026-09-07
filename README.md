@@ -166,6 +166,26 @@ erDiagram
 
 ---
 
+## 🔐 Authentication & Security
+
+PeakIntel AI uses a secure, modern authentication flow powered by **NextAuth.js (Auth.js)**, backing data directly into PostgreSQL via the **Prisma Adapter**.
+
+### Authentication Flow
+1. **Providers**:
+   - **Google OAuth 2.0**: Seamless single sign-on (SSO) for enterprise users.
+   - **Credentials**: Traditional email/password login with secure `bcrypt` hashing.
+2. **Session Management**: 
+   - Uses stateless **JSON Web Tokens (JWT)** for maximum performance and edge-compatibility.
+   - Sessions are securely encrypted via `AUTH_SECRET` and persist for 7 days.
+3. **Database Persistence**:
+   - Upon successful Google login, NextAuth automatically checks the database.
+   - If the user is new, it creates a profile in the `users` table and links their Google metadata in the `accounts` table.
+4. **Environment Requirements**:
+   - Requires valid `GOOGLE_CLIENT_ID` and `GOOGLE_CLIENT_SECRET` from the Google Cloud Console.
+   - Must provide a valid `NEXTAUTH_URL` representing the live origin in production to prevent callback routing errors.
+
+---
+
 ## 🚀 Exact Local Setup Guide
 
 Follow these steps precisely to get the full PeakIntel AI platform running on your local machine.
@@ -235,6 +255,29 @@ To verify the full "Human-Agent" interaction, you must run all three services co
 | **NestJS API** | `pnpm dev:api` | `http://localhost:3001` (tRPC/WS) |
 | **Next.js Web** | `pnpm dev:web` | `http://localhost:3000` (Dashboard) |
 | **Python Agents** | `pnpm dev:agents`| `http://localhost:8001` (Agent Server) |
+
+---
+
+## ☁️ Production Deployment (AWS Amplify)
+
+The application is configured for seamless CI/CD deployment on **AWS Amplify**.
+
+### 1. Connect Repository
+In the AWS Amplify Console, connect your GitHub repository and select the `main` branch. Amplify will automatically detect the `amplify.yml` build specification at the root of the project.
+
+### 2. Configure Environment Variables
+Because Next.js 14+ SSR requires environment variables during the build process to embed them securely, you **must** add the following to your Amplify **Hosting → Environment variables** console before your first build:
+
+| Variable | Description |
+| :--- | :--- |
+| `DATABASE_URL` | Your Supabase connection string (required for Prisma Adapter auth) |
+| `AUTH_SECRET` | A secure string for NextAuth session encryption |
+| `NEXTAUTH_URL` | Your live Amplify domain (e.g., `https://main.xxxx.amplifyapp.com`) |
+| `GOOGLE_CLIENT_ID` | From Google Cloud Console |
+| `GOOGLE_CLIENT_SECRET` | From Google Cloud Console |
+
+### 3. Build & Deploy
+Amplify will automatically extract these variables and inject them into a `.env.production` file during the `preBuild` phase (handled by `amplify.yml`). This ensures NextAuth and Prisma can authenticate users correctly in the live environment without throwing 500 Server Errors.
 
 ---
 
