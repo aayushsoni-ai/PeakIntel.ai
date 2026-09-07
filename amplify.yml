@@ -8,9 +8,14 @@ applications:
             - npm install -g pnpm
             - echo 'node-linker=hoisted' >> .npmrc
             - pnpm install
+            - echo "DATABASE_URL=$DATABASE_URL" >> apps/web/.env.production
+            - echo "AUTH_SECRET=$AUTH_SECRET" >> apps/web/.env.production
+            - echo "NEXTAUTH_URL=$NEXTAUTH_URL" >> apps/web/.env.production
+            - echo "GOOGLE_CLIENT_ID=$GOOGLE_CLIENT_ID" >> apps/web/.env.production
+            - echo "GOOGLE_CLIENT_SECRET=$GOOGLE_CLIENT_SECRET" >> apps/web/.env.production
         build:
           commands:
-            - NEXT_PUBLIC_API_URL="https://main.denrq2wsyezno.amplifyapp.com/api" NEXT_PUBLIC_WS_URL="wss://main.denrq2wsyezno.amplifyapp.com" pnpm --filter=@peakIntel/web... run build
+            - NEXT_PUBLIC_API_URL="https://main.denrq2wsyezno.amplifyapp.com/api" NEXT_PUBLIC_WS_URL="wss://main.denrq2wsyezno.amplifyapp.com" pnpm --filter=@peakIntel/web build
       artifacts:
         baseDirectory: .next
         files:
