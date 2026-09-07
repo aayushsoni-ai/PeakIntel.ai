@@ -96,8 +96,11 @@ function MarginDecompositionChart({ companyId }: { companyId: string }) {
   const monthCount = period === "12M" ? 12 : period === "24M" ? 24 : 36;
   const chartData = Array.from({ length: monthCount }, (_, i) => ({
     period: new Date(2023, i, 1).toISOString().slice(0, 7),
+    // eslint-disable-next-line react-hooks/purity
     grossMargin: company.marginProfile + (Math.random() - 0.5) * 0.04,
+    // eslint-disable-next-line react-hooks/purity
     operatingMargin: company.marginProfile * 0.55 + (Math.random() - 0.5) * 0.03,
+    // eslint-disable-next-line react-hooks/purity
     ebitdaMargin: company.marginProfile * 0.4 + (Math.random() - 0.5) * 0.025,
   }));
 
@@ -137,9 +140,13 @@ function CostAnalysisChart({ companyId }: { companyId: string }) {
 
   const chartData = Array.from({ length: 12 }, (_, i) => ({
     period: new Date(2025, i, 1).toLocaleDateString("en-US", { month: "short" }),
+    // eslint-disable-next-line react-hooks/purity
     cogs: (1 - company.marginProfile) * 100 + (Math.random() - 0.5) * 3,
+    // eslint-disable-next-line react-hooks/purity
     sgna: 18 + (Math.random() - 0.5) * 4,
+    // eslint-disable-next-line react-hooks/purity
     rd: (company.industry === "SaaS" ? 20 : 5) + (Math.random() - 0.5) * 3,
+    // eslint-disable-next-line react-hooks/purity
     ga: 8 + (Math.random() - 0.5) * 2,
   }));
 

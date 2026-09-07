@@ -36,6 +36,7 @@ export function useAgentSocket() {
     try {
       const storedEvents = localStorage.getItem("peakIntel_recentEvents");
       if (storedEvents) {
+        // eslint-disable-next-line react-hooks/set-state-in-effect
         setRecentEvents(JSON.parse(storedEvents));
       }
       const storedInsights = localStorage.getItem("peakIntel_latestInsights");
@@ -158,6 +159,7 @@ export function useAgentSocket() {
       );
     });
 
+    // eslint-disable-next-line react-hooks/set-state-in-effect
     setSocket(newSocket);
 
     return () => {

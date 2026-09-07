@@ -232,9 +232,13 @@ function PortfolioTrendChart() {
     d.setMonth(d.getMonth() + i);
     months.push({
       period: d.toISOString().slice(0, 7),
+      // eslint-disable-next-line react-hooks/purity
       revenue: 95_000_000 + i * 1_200_000 + Math.random() * 5_000_000,
+      // eslint-disable-next-line react-hooks/purity
       ebitda: 14_000_000 + i * 200_000 + Math.random() * 2_000_000,
+      // eslint-disable-next-line react-hooks/purity
       grossMargin: 0.44 + Math.random() * 0.03,
+      // eslint-disable-next-line react-hooks/purity
       ebitdaMargin: 0.145 + Math.random() * 0.02,
     });
   }

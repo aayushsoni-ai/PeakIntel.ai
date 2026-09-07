@@ -263,7 +263,7 @@ export default function AgentAvatar3D({
     container.addEventListener("mouseleave", handleMouseLeave);
 
     let animId: number;
-    let clock = new THREE.Clock();
+    const clock = new THREE.Clock();
 
     const render = () => {
       animId = requestAnimationFrame(render);
