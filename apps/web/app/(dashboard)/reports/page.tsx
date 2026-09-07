@@ -1,7 +1,7 @@
 "use client";
 
 import { FileText, Download, Loader2, Zap, ChartColumn, Building2, Search } from "lucide-react";
-import { trpc } from "../../lib/trpc";
+import { trpc } from "@/lib/trpc";
 import { useState } from "react";
 
 export default function ReportsPage() {

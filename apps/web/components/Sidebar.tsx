@@ -18,7 +18,8 @@ import {
   UserCheck,
 } from "lucide-react";
 import { useState } from "react";
-import { useAuthStore } from "../store/authStore";
+import { useSession, signOut } from "next-auth/react";
+
 
 const navItems = [
   { href: "/", label: "Portfolio Overview", icon: LayoutDashboard },
@@ -40,8 +41,8 @@ export function Sidebar({ onClose, className }: SidebarProps) {
   const pathname = usePathname();
   const [collapsed, setCollapsed] = useState(false);
 
-  const user = useAuthStore((state) => state.user);
-  const logout = useAuthStore((state) => state.logout);
+  const { data: session } = useSession();
+  const user = session?.user;
 
   return (
     <aside
@@ -128,15 +129,15 @@ export function Sidebar({ onClose, className }: SidebarProps) {
                 </div>
                 <div className="overflow-hidden">
                   <p className="text-xs font-semibold text-sidebar-foreground truncate">
-                    {user?.name || "Senior Partner"}
+                    {user?.name}
                   </p>
                   <p className="text-[10px] text-muted-foreground truncate">
-                    {user?.email || "partner@peakintel.ai"}
+                    {user?.email}
                   </p>
                 </div>
               </div>
               <button
-                onClick={() => logout()}
+                onClick={() => signOut({ callbackUrl: "/landing" })}
                 title="Log Out"
                 className="p-1.5 rounded-lg text-muted-foreground hover:text-red-400 hover:bg-red-500/10 transition-colors"
               >
@@ -150,7 +151,7 @@ export function Sidebar({ onClose, className }: SidebarProps) {
           </div>
         ) : (
           <button
-            onClick={() => logout()}
+            onClick={() => signOut({ callbackUrl: "/landing" })}
             title="Log Out"
             className="w-full flex justify-center p-2 text-muted-foreground hover:text-red-400 hover:bg-red-500/10 rounded-lg transition-colors"
           >

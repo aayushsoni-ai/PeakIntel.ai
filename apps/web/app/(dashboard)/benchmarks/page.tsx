@@ -16,8 +16,8 @@ import {
   CartesianGrid,
   Tooltip,
 } from "recharts";
-import { trpc } from "../../lib/trpc";
-import { LoadingSpinner, CompanyBadge } from "../../components/shared";
+import { trpc } from "@/lib/trpc";
+import { LoadingSpinner, CompanyBadge } from "@/components/shared";
 
 // Define the shape that portfolio.getRankings returns.
 // This should match the Zod output schema in your tRPC router exactly.

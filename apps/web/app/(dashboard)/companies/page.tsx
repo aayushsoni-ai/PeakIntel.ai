@@ -2,8 +2,8 @@
 
 import Link from "next/link";
 import { ArrowRight } from "lucide-react";
-import { trpc } from "../../lib/trpc";
-import { CompanyBadge, LoadingSpinner, TrendIndicator } from "../../components/shared";
+import { trpc } from "@/lib/trpc";
+import { CompanyBadge, LoadingSpinner, TrendIndicator } from "@/components/shared";
 
 function formatCurrency(value: number): string {
   if (value >= 1_000_000_000) return `$${(value / 1_000_000_000).toFixed(2)}B`;

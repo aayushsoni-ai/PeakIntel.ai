@@ -15,7 +15,7 @@ import {
   ResponsiveContainer,
 } from "recharts";
 import { Search, Download } from "lucide-react";
-import { trpc } from "../../lib/trpc";
+import { trpc } from "@/lib/trpc";
 
 export default function WorkbenchPage() {
   const [nlQuery, setNlQuery] = useState("");

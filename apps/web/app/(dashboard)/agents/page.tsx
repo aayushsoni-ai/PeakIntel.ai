@@ -1,16 +1,14 @@
 "use client";
 
 import { useState } from "react";
-import { trpc } from "../../lib/trpc";
-import { useAgentSocket } from "../../hooks/useAgentSocket";
+import { trpc } from "@/lib/trpc";
+import { useAgentSocket } from "@/hooks/useAgentSocket";
 import {
   AgentStatusDot,
   LoadingSpinner,
-} from "../../components/shared";
+} from "@/components/shared";
 import { Play, Clock, Wifi, WifiOff, Trash2 } from "lucide-react";
-import AgentAvatar3D, { AGENT_REGISTRY } from "../../components/canvas/AgentAvatar3D";
-import AgentDossierModal from "../../components/canvas/AgentDossierModal";
-
+import AgentAvatar3D, { AGENT_REGISTRY } from "@/components/canvas/AgentAvatar3D";
 type AgentRun = {
   id: string;
   agentName: string;
@@ -41,7 +39,6 @@ const AGENTS = [
 ];
 
 export default function AgentsPage() {
-  const [selectedAgentId, setSelectedAgentId] = useState<string | null>(null);
   const utils = trpc.useUtils();
   const { connected, agentStatuses, recentEvents, clearHistory } = useAgentSocket();
 
@@ -68,10 +65,42 @@ export default function AgentsPage() {
     }
   };
 
+  const getNextRunTimes = () => {
+    const now = new Date();
+    
+    // Daily: 7:00 AM
+    let dailyDate = new Date(now);
+    dailyDate.setHours(7, 0, 0, 0);
+    if (now > dailyDate) dailyDate.setDate(dailyDate.getDate() + 1);
+    const isTomorrow = dailyDate.getDate() !== now.getDate();
+    const dailyStr = `${isTomorrow ? "Tomorrow" : "Today"}, 7:00 AM`;
+
+    // Weekly: Next Monday, 6:00 AM
+    let weeklyDate = new Date(now);
+    weeklyDate.setHours(6, 0, 0, 0);
+    let daysUntilMonday = (1 - weeklyDate.getDay() + 7) % 7;
+    if (daysUntilMonday === 0 && now > weeklyDate) daysUntilMonday = 7;
+    weeklyDate.setDate(weeklyDate.getDate() + daysUntilMonday);
+    // If it's today or tomorrow, it might be confusing, but 'Monday, 6:00 AM' is consistent.
+    // Let's add the exact date for clarity.
+    const weeklyStr = `${weeklyDate.toLocaleString("en-US", { month: "short", day: "numeric" })} (Mon), 6:00 AM`;
+
+    // Monthly: 1st of month, 4:00 AM
+    let monthlyDate = new Date(now.getFullYear(), now.getMonth(), 1, 4, 0, 0, 0);
+    if (now > monthlyDate) {
+      monthlyDate = new Date(now.getFullYear(), now.getMonth() + 1, 1, 4, 0, 0, 0);
+    }
+    const monthlyStr = `${monthlyDate.toLocaleString("en-US", { month: "long" })} 1, 4:00 AM`;
+
+    return { dailyStr, weeklyStr, monthlyStr };
+  };
+
+  const { dailyStr, weeklyStr, monthlyStr } = getNextRunTimes();
+
   const schedules = [
-    { label: "Daily Flash", cron: "7:00 AM daily", next: "Tomorrow, 7:00 AM" },
-    { label: "Weekly Analysis", cron: "Monday 6:00 AM", next: "Monday, 6:00 AM" },
-    { label: "Monthly Review", cron: "1st of month, 4:00 AM", next: "May 1, 4:00 AM" },
+    { label: "Daily Flash", cron: "7:00 AM daily", next: dailyStr },
+    { label: "Weekly Analysis", cron: "Monday 6:00 AM", next: weeklyStr },
+    { label: "Monthly Review", cron: "1st of month, 4:00 AM", next: monthlyStr },
   ];
 
   return (
@@ -113,8 +142,7 @@ export default function AgentsPage() {
                 return (
                   <div
                     key={agent}
-                    onClick={() => setSelectedAgentId(agent)}
-                    className="p-3 rounded-xl bg-background/50 border border-border/60 hover:border-primary/50 hover:bg-background/80 transition-all cursor-pointer group flex flex-col items-center text-center relative overflow-hidden"
+                    className="p-3 rounded-xl bg-background/50 border border-border/60 hover:border-primary/50 hover:bg-background/80 transition-all group flex flex-col items-center text-center relative overflow-hidden"
                   >
                     <div className="w-full flex items-center justify-between mb-1">
                       <span className="text-[9px] font-mono px-1.5 py-0.5 rounded bg-muted/60 text-muted-foreground uppercase tracking-wider">
@@ -243,14 +271,6 @@ export default function AgentsPage() {
         </div>
       </div>
 
-      {/* Agent Dossier Modal */}
-      <AgentDossierModal
-        agentId={selectedAgentId}
-        onClose={() => setSelectedAgentId(null)}
-        onTriggerRun={(id) => {
-          runAnalysis.mutate();
-        }}
-      />
     </div>
   );
 }

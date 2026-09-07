@@ -6,9 +6,8 @@ import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { motion, useScroll, useTransform, useInView, AnimatePresence } from "framer-motion";
 import dynamic from "next/dynamic";
-import { useAuthStore } from "../../store/authStore";
+import { useSession, signOut } from "next-auth/react";
 import { AuthModal } from "../../components/auth/AuthModal";
-import AgentDossierModal from "../../components/canvas/AgentDossierModal";
 import { AGENT_REGISTRY } from "../../components/canvas/AgentAvatar3D";
 import {
   ArrowRight,
@@ -241,7 +240,8 @@ function FaqItem({ q, a, idx }: { q: string; a: string; idx: number }) {
 // ─────────────────────────────────────────────────────────────────────────────
 export default function LandingPage() {
   const router = useRouter();
-  const isAuthenticated = useAuthStore((s) => s.isAuthenticated);
+  const { data: session } = useSession();
+  const isAuthenticated = !!session?.user;
   const [authOpen, setAuthOpen] = useState(false);
   const [authTab, setAuthTab] = useState<"signin" | "signup">("signin");
   const [selectedAgent, setSelectedAgent] = useState<string | null>(null);
@@ -256,6 +256,13 @@ export default function LandingPage() {
     const unsub = scrollY.on("change", (v) => setScrolled(v > 40));
     return unsub;
   }, [scrollY]);
+
+  // Protect against bfcache (Back button) when authenticated
+  useEffect(() => {
+    if (isAuthenticated) {
+      router.replace("/");
+    }
+  }, [isAuthenticated, router]);
 
   const openSignup = () => { setAuthTab("signup"); setAuthOpen(true); };
   const openSignin = () => { setAuthTab("signin"); setAuthOpen(true); };
@@ -633,7 +640,6 @@ export default function LandingPage() {
               </h2>
               <p className="text-zinc-400 text-base leading-relaxed mt-4">
                 Each agent handles a distinct financial workflow — from ledger ingestion to board memo synthesis.
-                Click any agent to inspect its methodology and capabilities.
               </p>
             </FadeInSection>
 
@@ -653,8 +659,7 @@ export default function LandingPage() {
                       borderColor: agent.colorHex + "60",
                       transition: { duration: 0.22, ease: "easeOut" },
                     }}
-                    onClick={() => setSelectedAgent(key)}
-                    className="group relative rounded-xl border border-zinc-800 bg-[#0D1117] p-5 flex flex-col gap-3 cursor-pointer overflow-hidden"
+                    className="group relative rounded-xl border border-zinc-800 bg-[#0D1117] p-5 flex flex-col gap-3 overflow-hidden"
                     style={{ boxShadow: "0 0 0 0 transparent" }}
                   >
                     {/* Glow on hover via pseudo-background */}
@@ -693,13 +698,6 @@ export default function LandingPage() {
                     {/* Footer */}
                     <div className="mt-auto pt-2 border-t border-zinc-800/60 flex items-center justify-between">
                       <span className="text-[10px] font-mono" style={{ color: agent.colorHex }}>{agent.accuracy}</span>
-                      <motion.span
-                        className="text-[10px] text-zinc-600 group-hover:text-zinc-300"
-                        animate={{ x: [0, 2, 0] }}
-                        transition={{ duration: 1.5, repeat: Infinity, ease: "easeInOut" }}
-                      >
-                        Inspect →
-                      </motion.span>
                     </div>
                   </motion.div>
                 );
@@ -956,11 +954,6 @@ export default function LandingPage() {
       </footer>
 
       {/* ── MODALS ──────────────────────────────────────────────────────────── */}
-      <AgentDossierModal
-        agentId={selectedAgent}
-        onClose={() => setSelectedAgent(null)}
-        onTriggerRun={() => router.push("/agents")}
-      />
       <AuthModal isOpen={authOpen} onClose={() => setAuthOpen(false)} defaultTab={authTab} />
     </div>
   );

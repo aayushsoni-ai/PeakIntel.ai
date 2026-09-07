@@ -9,7 +9,7 @@ import {
   Target,
   AlertTriangle,
 } from "lucide-react";
-import PortfolioHeatmap from "../components/PortfolioHeatmap";
+import PortfolioHeatmap from "@/components/PortfolioHeatmap";
 import {
   ComposedChart,
   Line,
@@ -30,8 +30,8 @@ import {
   SkeletonCard,
   PeriodSelector,
   LoadingSpinner,
-} from "../components/shared";
-import { trpc } from "../lib/trpc";
+} from "@/components/shared";
+import { trpc } from "@/lib/trpc";
 
 // ── Format Helpers ──────────────────────────────────
 function formatCurrency(value: number): string {

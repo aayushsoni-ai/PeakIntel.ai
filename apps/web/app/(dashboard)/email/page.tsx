@@ -1,8 +1,8 @@
 "use client";
 
 import { useState } from "react";
-import { trpc } from "../../lib/trpc";
-import { LoadingSpinner } from "../../components/shared";
+import { trpc } from "@/lib/trpc";
+import { LoadingSpinner } from "@/components/shared";
 import { Mail, Send, Clock, CheckCircle, XCircle } from "lucide-react";
 
 export default function EmailPage() {

@@ -2,7 +2,14 @@
   "name": "@peakIntel/database",
   "version": "1.0.0",
   "private": true,
+  "main": "./index.ts",
+  "types": "./index.ts",
+  "exports": {
+    ".": "./index.ts",
+    "./generated/client": "./generated/client/index.js"
+  },
   "scripts": {
+    "postinstall": "prisma generate",
     "db:generate": "prisma generate",
     "db:push": "prisma db push",
     "db:seed": "tsx seed.ts",

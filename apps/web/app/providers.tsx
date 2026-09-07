@@ -5,6 +5,14 @@ import { httpBatchLink } from "@trpc/client";
 import { useState } from "react";
 import { trpc } from "../lib/trpc";
 import { ThemeProvider } from "next-themes";
+import { SessionProvider } from "next-auth/react";
+
+import { useIdleTimeout } from "../hooks/useIdleTimeout";
+
+function IdleTimeoutGuard({ children }: { children: React.ReactNode }) {
+  useIdleTimeout(10080); // 1 week (7 days) of inactivity
+  return <>{children}</>;
+}
 
 export default function Providers({ children }: { children: React.ReactNode }) {
   const [queryClient] = useState(
@@ -24,9 +32,6 @@ export default function Providers({ children }: { children: React.ReactNode }) {
     if (apiUrl.endsWith("/")) {
       apiUrl = apiUrl.slice(0, -1);
     }
-    if (apiUrl && !apiUrl.startsWith("http://") && !apiUrl.startsWith("https://")) {
-      apiUrl = `https://${apiUrl}`;
-    }
     return trpc.createClient({
       links: [
         httpBatchLink({
@@ -37,12 +42,16 @@ export default function Providers({ children }: { children: React.ReactNode }) {
   });
 
   return (
-    <trpc.Provider client={trpcClient} queryClient={queryClient}>
-      <QueryClientProvider client={queryClient}>
-        <ThemeProvider attribute="class" defaultTheme="dark" enableSystem>
-          {children}
-        </ThemeProvider>
-      </QueryClientProvider>
-    </trpc.Provider>
+    <SessionProvider>
+      <IdleTimeoutGuard>
+        <trpc.Provider client={trpcClient} queryClient={queryClient}>
+          <QueryClientProvider client={queryClient}>
+            <ThemeProvider attribute="class" defaultTheme="dark" enableSystem disableTransitionOnChange>
+              {children}
+            </ThemeProvider>
+          </QueryClientProvider>
+        </trpc.Provider>
+      </IdleTimeoutGuard>
+    </SessionProvider>
   );
 }

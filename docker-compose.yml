@@ -1,6 +1,12 @@
-version: "3.8"
-
 services:
+  redis:
+    image: redis:7-alpine
+    container_name: peakIntel_redis
+    ports:
+      - "6379:6379"
+    command: redis-server --appendonly yes
+    volumes:
+      - redis_data:/data
   api:
     build:
       context: .
@@ -10,6 +16,8 @@ services:
     depends_on:
       agents:
         condition: service_started
+      redis:
+        condition: service_started
     env_file:
       - .env
     environment:
@@ -17,6 +25,7 @@ services:
       - NEXT_PUBLIC_API_URL=http://localhost:3001
       - AGENTS_URL=http://agents:8001
       - AGENT_SERVER_URL=http://agents:8001
+      - REDIS_URL=redis://redis:6379
     ports:
       - "3001:3001"
     volumes:
@@ -38,6 +47,8 @@ services:
     container_name: peakIntel_web
     depends_on:
       - api
+    env_file:
+      - .env
     environment:
       - NEXT_PUBLIC_API_URL=${NEXT_PUBLIC_API_URL:-http://localhost:3001}
       - NEXT_PUBLIC_WS_URL=${NEXT_PUBLIC_WS_URL:-ws://localhost:3001}
@@ -54,6 +65,7 @@ services:
       - ./apps/web/lib:/app/apps/web/lib
       - ./apps/web/public:/app/apps/web/public
       - ./apps/web/store:/app/apps/web/store
+      - ./apps/web/.env.local:/app/apps/web/.env.local
       - ./packages/shared:/app/packages/shared
 
   agents:
@@ -61,12 +73,18 @@ services:
       context: .
       dockerfile: packages/agents/Dockerfile
     container_name: peakIntel_agents
+    depends_on:
+      - redis
     env_file:
       - .env
     environment:
       - GROQ_API_KEY=${GROQ_API_KEY:-}
+      - REDIS_URL=redis://redis:6379
     ports:
       - "8001:8001"
     volumes:
       - ./packages/agents/src:/app/src
       - ./packages/agents/run_agents.py:/app/run_agents.py
+
+volumes:
+  redis_data:

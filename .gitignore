@@ -51,3 +51,6 @@ temp
 *.tmp
 packages/agents/test_out.json
 test_out.json
+
+# Prisma generated client
+packages/database/generated/

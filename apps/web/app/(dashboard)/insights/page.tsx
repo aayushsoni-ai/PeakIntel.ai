@@ -1,8 +1,8 @@
 "use client";
 
 import { useState } from "react";
-import { trpc } from "../../lib/trpc";
-import { SeverityBadge, CompanyBadge, LoadingSpinner } from "../../components/shared";
+import { trpc } from "@/lib/trpc";
+import { SeverityBadge, CompanyBadge, LoadingSpinner } from "@/components/shared";
 import { Filter, CheckCircle, Eye, XCircle } from "lucide-react";
 
 

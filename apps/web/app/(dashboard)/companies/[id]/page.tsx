@@ -15,14 +15,14 @@ import {
   Cell,
   ReferenceLine,
 } from "recharts";
-import { trpc } from "../../../lib/trpc";
+import { trpc } from "@/lib/trpc";
 import {
   MetricCard,
   SeverityBadge,
   CompanyBadge,
   LoadingSpinner,
   PeriodSelector,
-} from "../../../components/shared";
+} from "@/components/shared";
 import { DollarSign, Users, MapPin, Calendar, TrendingUp } from "lucide-react";
 
 function formatCurrency(value: number): string {
