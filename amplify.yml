@@ -9,14 +9,14 @@ applications:
             - echo 'node-linker=hoisted' >> .npmrc
             - pnpm install
             - pnpm --filter=@peakIntel/shared build
+        build:
+          commands:
             - echo "DATABASE_URL=$DATABASE_URL" >> .env.production
             - echo "AUTH_SECRET=$AUTH_SECRET" >> .env.production
             - echo "NEXTAUTH_URL=$NEXTAUTH_URL" >> .env.production
             - echo "GOOGLE_CLIENT_ID=$GOOGLE_CLIENT_ID" >> .env.production
             - echo "GOOGLE_CLIENT_SECRET=$GOOGLE_CLIENT_SECRET" >> .env.production
             - echo "AUTH_TRUST_HOST=true" >> .env.production
-        build:
-          commands:
             - NEXT_PUBLIC_API_URL="https://main.denrq2wsyezno.amplifyapp.com/api" NEXT_PUBLIC_WS_URL="wss://main.denrq2wsyezno.amplifyapp.com" pnpm --filter=@peakIntel/web build
             - cp .env.production .next/.env.production
             - cp .env.production .next/standalone/apps/web/.env.production 2>/dev/null || true
