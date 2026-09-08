@@ -5,8 +5,7 @@
   "main": "./index.ts",
   "types": "./index.ts",
   "exports": {
-    ".": "./index.ts",
-    "./generated/client": "./generated/client/index.js"
+    ".": "./index.ts"
   },
   "scripts": {
     "postinstall": "prisma generate",
