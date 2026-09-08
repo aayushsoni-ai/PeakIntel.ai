@@ -3,7 +3,7 @@ import type { NextConfig } from "next";
 const nextConfig: NextConfig = {
   /* config options here */
   transpilePackages: ["next-auth", "@peakIntel/database"],
-  serverExternalPackages: ["bcryptjs"],
+  serverExternalPackages: ["@prisma/client", "bcryptjs"],
   output: process.env.VERCEL ? undefined : "standalone",
   async rewrites() {
     return {
