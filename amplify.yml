@@ -8,6 +8,7 @@ applications:
             - npm install -g pnpm
             - echo 'node-linker=hoisted' >> .npmrc
             - pnpm install
+            - pnpm --filter=@peakIntel/shared build
             - echo "DATABASE_URL=$DATABASE_URL" >> .env.production
             - echo "AUTH_SECRET=$AUTH_SECRET" >> .env.production
             - echo "NEXTAUTH_URL=$NEXTAUTH_URL" >> .env.production
